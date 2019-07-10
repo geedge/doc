@@ -394,6 +394,7 @@
 |----|----|----|----|----|
 |id		|主键	|BIGINT(19)		|NO	|			|
 |type		|类型	|CHAR(1)		|NO	|1、dete_type,2、dete_set,3、dete_warn,4、mission			|
+|type_id	|类型id	|BIGINT(19)		|NO	|类型id			|
 |view_level	|查看权限	|CHAR(1)		|NO	|1:用户组，2：系统内全部人员，3：无限制，默认2			|
 |rel_id		|关联id	|BIGINT(19)		|NO	|关联id			|
 |del_flag	|是否删除	|CHAR(1)		|NO	|是否删除，1：删除，0：未删除，默认：0			|
@@ -691,5 +692,21 @@
 |id		|主键	|BIGINT(19)		|NO	|主键			|
 |name		|用户组名称	|VARCHAR(255)		|NO	|用户组名称			|
 |remark		|备注信息	|VARCHAR(255)		|NO	|备注信息			|
+|operator	|操作人	|BIGINT(19)		|NO	|操作人			|
+|op_time	|操作时间	|DATETIME		|NO	|操作时间			|
+
+#  USER_USERGROUP
+
+|表名|用户--用户组关系表|
+|---|---- |
+|功能||
+|说明||
+
+|字段名|中文说明|数据类型|是否可空|备注|
+|----|----|----|----|----|
+|id		|主键	|BIGINT(19)		|NO	|主键			|
+|user_id		|用户ID |BIGINT(19)		|NO	|用户ID			|
+|group_id		|用户组ID	|BIGINT(19)		|NO	|用户组ID			|
+|del_flag	|删除标识	|CHAR(1)		|NO	|删除标识，1：删除，0：未删除			|
 |operator	|操作人	|BIGINT(19)		|NO	|操作人			|
 |op_time	|操作时间	|DATETIME		|NO	|操作时间			|
