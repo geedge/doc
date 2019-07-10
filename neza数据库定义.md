@@ -666,7 +666,7 @@
 |字段名|中文说明|数据类型|是否可空|备注|
 |----|----|----|----|----|
 |id		|主键	|BIGINT(19)		|NO	|主键			|
-|img_id		|图片id	|BIGINT(19)		|YES	|图片id,sys_dict 表关联			|
+|img		|图片	|VARCHAR(32)		|YES	|字典表code值，code,sys_dict 表关联，字典type=topo-img			|
 |topo_id	|topo图ID	|BIGINT(19)		|YES	|topo图ID 与TOPO_INFO关联			|
 |type		|NODE类型	|INT(10)		|YES	|NODE类型 1：节点组，2：节点，3：其它 4:topo			|
 |type_id	|关联id	|INT(10)		|YES	|NODE对应的节点组或节点ID 当：TYPE = 1时，为节点组ID，TYPE = 2时，为节点ID，TYPE =3 时，无意义 type=4时 topo			|
