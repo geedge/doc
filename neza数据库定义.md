@@ -334,7 +334,7 @@
 |ip_long	|ip整形	|BIGINT(19)		|NO	|ip整形			|
 |uuid		|全局唯一	|BIGINT(19)		|NO	|全局唯一			|
 |type		|设备类型	|CHAR(1)		|NO	|设备类型，1、server,2、net			|
-|tag		|设备类型	|BIGINT(19)		|NO	|设备类型，与sys_dict关联			|
+|tag		|设备标签	|varchar(32)	|YES|设备标签，sys_dict code 值			|
 |user_name	|snmpv3 用户名	|VARCHAR(128)		|NO	|snmpv3 用户名			|
 |password	|snmpv3 密码	|VARCHAR(128)		|NO	|snmpv3 密码			|
 |state		|设备状态	|CHAR(1)		|NO	|设备状态，1：在线，2：下线，3：删除			|
