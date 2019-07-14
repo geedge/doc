@@ -41,6 +41,7 @@ O				|报文中该元素可选出现（Optional）
 C				|报文中该元素在一定条件下出现（Conditional）
 
 ### 1.5 响应报文结构
+
 #### 1.5.1 结构说明
 所有接口响应均采用JSON格式，如无特殊说明，每次请求的返回值中，都包含下列字段：
 
@@ -49,6 +50,8 @@ C				|报文中该元素在一定条件下出现（Conditional）
 code						|int		|R			|响应码，代码定义请见“附录A 响应吗说明”
 msg							|string		|R			|响应描述
 data						|object		|R			|每个接口特有的参数，详见每个接口定义
+&emsp;total					|int		|C			|总结果数，涉及批量分页查询时需要
+&emsp;list					|Object[]	|C			|当前页查询结果，涉及批量查询时需要
 
 
 #### 1.5.2 响应报文示例
@@ -58,8 +61,11 @@ data						|object		|R			|每个接口特有的参数，详见每个接口定义
     "code": 200,
     "msg": "success",
     "data": {
-        "Channel": "A10086",
-        "Type": 7004
+        "total": 1,
+        "list": [{
+            "Channel": "A10086",
+            "Type": 7004
+        }]
     }
 }
 ```
@@ -108,28 +114,30 @@ GET /node/list?limit=20&page=1&ip=192.168.1.1&state=1&tag=1&type=1&cabinetId=12&
 code						|int		|R			|响应码，详见 附录A
 msg							|string		|R			|&nbsp;
 data						|object[]	|R			|&nbsp;
-&emsp;name					|String		|R			|
-&emsp;hostName				|String		|R			|主机名
-&emsp;ip					|String		|R			|ip
-&emsp;uuid					|Integer	|R			|全局唯一
-&emsp;type					|String		|R			|设备类型，1、server,2、net
-&emsp;tag					|Integer 	|R			|设备标签id，与sys_dict code关联，type:node-type
-&emsp;tagName				|String 	|R			|设备标签名称
-&emsp;userName				|String		|R			|snmpv3 用户名
-&emsp;password				|String		|R			|snmpv3 密码
-&emsp;state					|String		|R			|设备状态，1：在线，2：下线，3：删除
-&emsp;roomName				|String 	|R			|机房名称
-&emsp;cabinetInfo			|Object 	|R			|机柜
-&emsp;&emsp;id				|Integer 	|R			|机柜ID
-&emsp;&emsp;name			|String 	|R			|机柜名称
-&emsp;uSize					|Integer	|R			|u位大小
-&emsp;cabinetStart			|Integer	|R			|机柜起始位置
-&emsp;snmpPort				|Integer	|R			|snmp默认端口号
-&emsp;snmpCommunity			|String		|R			|snmp团体字
-&emsp;remark				|String		|R			|备注
-&emsp;systemInfo			|Object[]	|R			|所在业务系统
-&emsp;&emsp;id      		|Integer 	|R			|业务系统id
-&emsp;&emsp;name    		|String 	|R			|业务系统名称
+&emsp;total					|int		|R			|&nbsp;
+&emsp;list					|Object[]	|R			|&nbsp;
+&emsp;&emsp;name			|String		|R			|&nbsp;
+&emsp;&emsp;hostName		|String		|R			|主机名
+&emsp;&emsp;ip				|String		|R			|ip
+&emsp;&emsp;uuid			|Integer	|R			|全局唯一
+&emsp;&emsp;type			|String		|R			|设备类型，返回国际化翻译后的“服务器”、“网元”
+&emsp;&emsp;tag				|Integer 	|R			|设备标签id，与sys_dict的type:node-type关联
+&emsp;&emsp;tagName			|String 	|R			|设备标签名称（翻译后）
+&emsp;&emsp;userName		|String		|R			|snmpv3 用户名
+&emsp;&emsp;password		|String		|R			|snmpv3 密码
+&emsp;&emsp;state			|String		|R			|设备状态，1：在线，2：下线
+&emsp;&emsp;roomName		|String 	|R			|机房名称
+&emsp;&emsp;cabinetInfo		|Object 	|R			|机柜
+&emsp;&emsp;&emsp;id		|Integer 	|R			|机柜ID
+&emsp;&emsp;&emsp;name		|String 	|R			|机柜名称
+&emsp;&emsp;uSize			|Integer	|R			|u位大小
+&emsp;&emsp;cabinetStart	|Integer	|R			|机柜起始位置
+&emsp;&emsp;snmpPort		|Integer	|R			|snmp默认端口号
+&emsp;&emsp;snmpCommunity	|String		|R			|snmp团体字
+&emsp;&emsp;remark			|String		|R			|备注
+&emsp;&emsp;systemInfo		|Object[]	|R			|所在业务系统
+&emsp;&emsp;&emsp;id      	|Integer 	|R			|业务系统id
+&emsp;&emsp;&emsp;name    	|String 	|R			|业务系统名称
 
 示例：
 
@@ -137,32 +145,35 @@ data						|object[]	|R			|&nbsp;
 {
     "code": 200,
     "msg": "success",
-    "data": [{
-        "name": "node1",
-        "hostName": "ysp-01",
-        "ip": "192.168.10.1",
-        "uuid": 1,
-        "type": "1",
-        "tag": 9,
-        "tagName": "server9",
-        "userName": "",
-        "password": "",
-        "state": "1",
-        "roomName": "机房1",
-        "cabinetInfo": {
-			"id": 3,
-			"name": "cab1"
-		},
-        "uSize": 1,
-        "cabinetStart": 1,
-        "snmpPort": 1,
-        "snmpCommunity": "",
-        "remark": "",
-        "systemInfo": [{
-            "id": 1,
-            "name": "业务系统1"
-        }]
-    }]
+    "data": {
+        "total": 1,
+        "list": [{
+            "name": "node1",
+            "hostName": "ysp-01",
+            "ip": "192.168.10.1",
+            "uuid": 1,
+            "type": "服务器",
+            "tag": 9,
+            "tagName": "server9",
+            "userName": "",
+            "password": "",
+            "state": "1",
+            "roomName": "机房1",
+            "cabinetInfo": {
+                "id": 3,
+                "name": "cab1"
+            },
+            "uSize": 1,
+            "cabinetStart": 1,
+            "snmpPort": 1,
+            "snmpCommunity": "",
+            "remark": "",
+            "systemInfo": [{
+                "id": 1,
+                "name": "业务系统1"
+            }]
+		}]
+    }
 }
 ```
 
@@ -196,12 +207,12 @@ data						|object		|R			|&nbsp;
 &emsp;hostName				|String		|R			|主机名
 &emsp;ip					|String		|R			|ip
 &emsp;uuid					|String		|R			|全局唯一
-&emsp;type					|String		|R			|设备类型，1、server,2、net
-&emsp;tag					|Integer 	|R			|设备标签，与sys_dict code关联，type:node-type
-&emsp;tagName				|String 	|R			|设备标签名称
+&emsp;type					|String		|R			|设备类型，返回国际化翻译后的“服务器”、“网元”
+&emsp;tag					|Integer 	|R			|设备标签id，与sys_dict的type:node-type关联
+&emsp;tagName				|String 	|R			|设备标签名称（翻译后）
 &emsp;userName				|String		|R			|snmpv3 用户名
 &emsp;password				|String		|R			|snmpv3 密码
-&emsp;state					|String		|R			|设备状态，1：在线，2：下线，3：删除
+&emsp;state					|String		|R			|设备状态，1：在线，2：下线
 &emsp;roomName				|String 	|R			|机房名称
 &emsp;cabinetInfo			|Object 	|R			|机柜
 &emsp;&emsp;id				|Integer 	|R			|机柜ID
@@ -226,7 +237,7 @@ data						|object		|R			|&nbsp;
         "hostName": "ysp-01",
         "ip": "192.168.10.1",
         "uuid": 1,
-        "type": "server",
+        "type": "服务器",
         "tag": 9,
         "tagName": "server9",
         "userName": "",
@@ -260,9 +271,9 @@ data						|object		|R			|&nbsp;
   
 参数名称			|类型			|出现要求	|描述  
 :----				|:---			|:------	|:---	
-ip       			|String 		|R			|查询ip
-type      			|String 		|R			|设备类型
-tag      			|Integer 		|O			|设备标签
+ip       			|String 		|R			|ip
+type      			|String 		|R			|设备类型  1：server，2：net（传数字1或2）
+tag      			|Integer 		|O			|设备标签id
 cabinetId      		|Integer 		|O			|机柜
 cabinetStart      	|Integer 		|O			|机柜起始位置
 name				|String			|R			|名称
@@ -280,7 +291,7 @@ remark				|String			|O			|备注
 {
     "name": "",
     "ip": "",
-    "type": "3",
+    "type": "2",
     "tag": 1,
     "userName": "snnnn",
     "password": "mpppp",
@@ -300,13 +311,20 @@ remark				|String			|O			|备注
 :----						|:---		|:------	|:---	
 code						|int		|R			|响应码，详见 附录A
 msg							|string		|R			|&nbsp;
+data						|Object		|R			|&nbsp;
+&emsp;state					|boolean	|R			|操作结果 false失败，true成功
+&emsp;msg					|String		|R			|失败原因
 
 示例：
 
 ```
 {
 	"code": 200,
-    "msg": "success"
+    "msg": "success",
+    "data": {
+        "state": false,
+        "msg": "机柜该位置无法使用"
+    }
 }
 ```
 
@@ -322,7 +340,7 @@ msg							|string		|R			|&nbsp;
 :----				|:---			|:------	|:---	
 uuid       			|String 		|R			|唯一标识
 ip       			|String 		|R			|查询ip
-type      			|String 		|R			|设备类型
+type      			|String 		|R			|设备类型  1：server，2：net（传数字1或2）
 tag      			|Integer 		|O			|设备标签
 cabinetId      		|Integer 		|O			|机柜
 cabinetStart      	|Integer 		|O			|机柜起始位置
@@ -341,7 +359,7 @@ remark				|String			|O			|备注
     "uuid": "3a5e4r6awe4ra86we4**are",
     "name": "",
     "ip": "",
-    "type": "3",
+    "type": "1",
     "tag": 1,
     "userName": "snnnn",
     "password": "mpppp",
@@ -350,7 +368,7 @@ remark				|String			|O			|备注
     "cabinetStart": 1,
     "snmpPort": 161,
     "snmpCommunity": "public",
-    "remark": "en"
+    "remark": "enac"
 }
 ```
 
@@ -360,6 +378,9 @@ remark				|String			|O			|备注
 :----						|:---		|:------	|:---	
 code						|int		|R			|响应码，详见 附录A
 msg							|string		|R			|&nbsp;
+data						|Object		|R			|&nbsp;
+&emsp;state					|boolean	|R			|操作结果 false失败，true成功
+&emsp;msg					|String		|R			|失败原因
 
 示例：
 
@@ -397,7 +418,7 @@ state				|String			|R			|变更的状态，1：在线，2：下线，3：删除
 参数名称					|类型		|出现要求	|描述  
 :----						|:---		|:------	|:---	
 code						|int		|R			|响应码，详见 附录A
-msg							|string		|R			|&nbsp;
+msg							|String		|R			|&nbsp;
 
 示例：
 
@@ -408,7 +429,7 @@ msg							|string		|R			|&nbsp;
 }
 ```
 
-##### 2.1.1.6 选择可用机柜
+##### 2.1.1.6 查询可用机柜
 
 - **接口说明：** 节点修改
 - **接口地址：** /node/selectCab
@@ -433,10 +454,14 @@ GET /node/selectCab?uuid=56ae4ra3ws2e1tae5t7aw65e*aer&uSize=2
 :----						|:---		|:------	|:---	
 code						|int		|R			|响应码，详见 附录A
 msg							|string		|R			|&nbsp;
-data						|Object[]	|R			|&nbsp;
-&emsp;cabinetId				|Integer	|R			|机柜id
-&emsp;cabinetName			|String		|R			|机柜名称
-&emsp;cabinetStarts			|Integer[]	|R			|机柜起始位置
+data						|Object		|R			|&nbsp;
+&emsp;list					|Object		|R			|&nbsp;
+&emsp;&emsp;roomId			|Integer	|R			|机房id
+&emsp;&emsp;roomName		|String		|R			|机房名称
+&emsp;&emsp;cabinets		|Object[]	|R			|机柜
+&emsp;&emsp;&emsp;id		|Integer	|R			|机柜id
+&emsp;&emsp;&emsp;name		|String		|R			|机柜名称
+&emsp;&emsp;&emsp;starts	|Integer[]	|R			|机柜起始位置
 
 示例：
 
@@ -444,11 +469,17 @@ data						|Object[]	|R			|&nbsp;
 {
     "code": 200,
     "msg": "success",
-    "data": [{
-        "cabinetId": 1,
-        "cabinetName": "机柜1",
-        "cabinetStarts": [1,2,8,9,10]
-    }]
+    "data": {
+        "list": [{
+            "roomId": 2,
+            "roomName": "room1",
+            "cabinets": [{
+                "id": 1,
+                "name": "机柜1",
+                "starts": [1,2,8,9,10]
+            }]
+        }]
+    }
 }
 ```
 
@@ -476,10 +507,9 @@ GET /node/ipCheck?uuid=56ae4ra3ws2e1tae5t7aw65e*aer&ip=192.11.14.20
 参数名称					|类型		|出现要求	|描述  
 :----						|:---		|:------	|:---	
 code						|int		|R			|响应码，详见 附录A
-msg							|string		|R			|&nbsp;
+msg							|String		|R			|&nbsp;
 data						|Object		|R			|&nbsp;
 &emsp;state					|boolean	|R			|校验结果 false不可用，true可用
-&emsp;msg					|String		|R			|校验信息，校验不通过时有值
 
 示例：
 
@@ -488,8 +518,7 @@ data						|Object		|R			|&nbsp;
     "code": 200,
     "msg": "success",
     "data": {
-        "state": false,
-        "msg": "ip已被使用"
+        "state": false
     }
 }
 ```
@@ -518,10 +547,9 @@ GET /node/nodeNameCheck?uuid=56ae4ra3ws2e1tae5t7aw65e*aer&name=atc2
 参数名称					|类型		|出现要求	|描述  
 :----						|:---		|:------	|:---	
 code						|int		|R			|响应码，详见 附录A
-msg							|string		|R			|&nbsp;
+msg							|String		|R			|&nbsp;
 data						|Object		|R			|&nbsp;
 &emsp;state					|boolean	|R			|校验结果 false不可用，true可用
-&emsp;msg					|String		|R			|校验信息，校验不通过时有值
 
 示例：
 
@@ -530,8 +558,7 @@ data						|Object		|R			|&nbsp;
     "code": 200,
     "msg": "success",
     "data": {
-        "state": true,
-        "msg": ""
+        "state": true
     }
 }
 ```
@@ -562,15 +589,16 @@ GET /nodegroup/list
 :----						|:---		|:------	|:---	
 code						|int		|R			|响应码，详见 附录A
 msg							|string		|R			|&nbsp;
-data						|Object[]	|R			|&nbsp;
-&emsp;id					|Integer	|R			|&nbsp;
-&emsp;name					|String		|R			|节点组名称
-&emsp;systemId				|Integer	|R			|业务系统ID
-&emsp;pid					|Integer	|R			|父ID，默认0
-&emsp;pids					|String		|R			|所有祖先ID，默认0
-&emsp;remark				|String		|R			|备注
-&emsp;allowDel				|String		|R			|是否允许被删除  0：不允许；1：允许
-&emsp;delFlag				|String		|R			|是否删除，1：删除，0：未删除，默认：0
+data						|Object		|R			|&nbsp;
+&emsp;list					|Object[]	|R			|&nbsp;
+&emsp;&emsp;systemId		|Integer	|R			|业务系统id
+&emsp;&emsp;systemName		|String		|R			|业务系统名称
+&emsp;&emsp;groups			|Object[]	|R			|接电阻
+&emsp;&emsp;&emsp;id		|Integer	|R			|节点组id
+&emsp;&emsp;&emsp;name		|String		|R			|节点组名称
+&emsp;&emsp;&emsp;allowAss	|String		|R			|能否分配节点 0不能，1可以
+&emsp;&emsp;&emsp;allowSub	|String		|R			|能否增加子节点组 0不能，1可以
+&emsp;&emsp;&emsp;pid		|Integer	|R			|父ID，默认0
 
 示例：
 
@@ -578,16 +606,17 @@ data						|Object[]	|R			|&nbsp;
 {
     "code": 200,
     "msg": "success",
-    "data": [{
-        "id": 8,
-        "name": "group1",
-        "systemId": 2,
-        "pid": 2,
-        "pids": "0,2",
-        "remark": "呵呵",
-		"allowDel": "1",
-        "delFlag": "0"
-    }]
+    "data": {
+        "list": [{
+            "systemId": 1,
+            "systemName": "system1",
+            "groups": [
+                {"id": 8, "name": "group1", "pid": 0, "allowAss": "0", "allowSub": "1"},
+                {"id": 9, "name": "group1-1", "pid": 8, "allowAss": "0", "allowSub": "1"},
+                {"id": 28, "name": "group1-1-9", "pid": 9, "allowAss": "1", "allowSub": "0"}
+            ]
+        }]
+    }
 }
 ```
 
@@ -618,11 +647,9 @@ msg							|string		|R			|&nbsp;
 data						|Object		|R			|&nbsp;
 &emsp;id					|Integer	|R			|&nbsp;
 &emsp;name					|String		|R			|节点组名称
-&emsp;systemId				|Integer	|R			|业务系统ID
 &emsp;pid					|Integer	|R			|父ID，默认0
 &emsp;pname					|String		|R			|父名称
 &emsp;remark				|String		|R			|备注
-&emsp;delFlag				|String		|R			|是否删除，1：删除，0：未删除，默认：0
 
 示例：
 
@@ -633,11 +660,9 @@ data						|Object		|R			|&nbsp;
     "data": [{
         "id": 8,
         "name": "group1",
-        "systemId": 2,
         "pid": 2,
         "pname": "group0",
-        "remark": "呵呵",
-        "delFlag": "0"
+        "remark": "呵呵"
     }]
 }
 ```
@@ -678,13 +703,20 @@ remark				|String			|O			|备注
 :----						|:---		|:------	|:---	
 code						|int		|R			|响应码，详见 附录A
 msg							|string		|R			|&nbsp;
+data						|Object		|R			|&nbsp;
+&emsp;state					|boolean	|R			|操作结果 false失败，true成功
+&emsp;msg					|String		|R			|失败原因
 
 示例：
 
 ```
 {
     "code": 200,
-    "msg": "success"
+    "msg": "success",
+    "data": {
+        "state": false,
+        "msg": "当前层级下名称已存在"
+    }
 }
 ```
 
@@ -718,13 +750,20 @@ remark				|String			|O			|备注
 :----						|:---		|:------	|:---	
 code						|int		|R			|响应码，详见 附录A
 msg							|string		|R			|&nbsp;
+data						|Object		|R			|&nbsp;
+&emsp;state					|boolean	|R			|操作结果 false失败，true成功
+&emsp;msg					|String		|R			|失败原因
 
 示例：
 
 ```
 {
     "code": 200,
-    "msg": "success"
+    "msg": "success",
+    "data": {
+        "state": false,
+        "msg": "当前层级下名称已存在"
+    }
 }
 ```
 
@@ -774,13 +813,17 @@ msg							|string		|R			|&nbsp;
   
 参数名称			|类型			|出现要求	|描述  
 :----				|:---			|:------	|:---	
+page 				|Integer		|O			|页码，为空时默认为1
+limit				|Integer		|O			|每页记录数，为空时默认为10
+order	 			|String 		|O			|排序
 groupId				|Integer		|R			|节点组id
 systemId			|Integer		|R			|业务系统id
+ip					|String			|O			|ip查询条件,支持模糊查询
 
 示例：
 
 ```
-GET /nodegroup/assList?groupId=3&systemId=1
+GET /nodegroup/assList?groupId=3&systemId=1&ip=192
 ```
 
 ###### 返回结果
@@ -789,13 +832,15 @@ GET /nodegroup/assList?groupId=3&systemId=1
 :----						|:---		|:------	|:---	
 code						|int		|R			|响应码，详见 附录A
 msg							|string		|R			|&nbsp;
-data						|object[]	|R			|&nbsp;
-&emsp;name					|String		|R			|
-&emsp;hostName				|String		|R			|主机名
-&emsp;ip					|String		|R			|ip
-&emsp;uuid					|Integer	|R			|全局唯一
-&emsp;type					|String		|R			|设备类型，1、server,2、net
-&emsp;tag					|String 	|R			|设备标签，与sys_dict code关联，type:node-type
+data						|object		|R			|&nbsp;
+&emsp;total					|int		|R			|&nbsp;
+&emsp;list					|Object[]	|R			|&nbsp;
+&emsp;&emsp;name			|String		|R			|名称
+&emsp;&emsp;hostName		|String		|R			|主机名
+&emsp;&emsp;ip				|String		|R			|ip
+&emsp;&emsp;uuid			|Integer	|R			|全局唯一
+&emsp;&emsp;type			|String		|R			|设备类型，返回国际化翻译后的“服务器”、“网元”
+&emsp;&emsp;tagName			|String 	|R			|设备标签名称，与sys_dict code关联，type:node-type
 
 示例：
 
@@ -803,14 +848,17 @@ data						|object[]	|R			|&nbsp;
 {
     "code": 200,
     "msg": "success",
-    "data": [{
-        "name": "node1",
-        "hostName": "ysp-01",
-        "ip": "192.168.10.1",
-        "uuid": 1,
-        "type": "server",
-        "tag": "server9",
-    }]
+    "data": {
+        "total": 1,
+        "list": [{
+            "name": "node1",
+            "hostName": "ysp-01",
+            "ip": "192.168.10.1",
+            "uuid": 1,
+            "type": "服务器",
+            "tagName": "server9"
+        }]
+    }
 }
 ```
 
@@ -818,7 +866,7 @@ data						|object[]	|R			|&nbsp;
 
 - **接口说明：** 建立节点组--节点关系
 - **接口地址：** /nodegroup/saveNodeRel
-- **请求方式：** GET
+- **请求方式：** POST
 
 ###### 请求参数
   
@@ -830,7 +878,10 @@ uuids				|String[]		|R			|节点id
 示例：
 
 ```
-GET /nodegroup/saveNodeRel?id=3&uuids=40192374019473,42342134235d,32434ccar
+{
+    "id": 2,
+    "uuids": ["a", "b"]
+}
 ```
 
 ###### 返回结果
@@ -865,7 +916,8 @@ uuids				|String[]		|R			|节点id
 示例：
 
 ```
-GET /nodegroup/deleteNodeRel?od=3&uuids=40192374019473,42342134235d,32434ccar
+    "id": 2,
+    "uuids": ["a", "b"]
 ```
 
 ###### 返回结果
@@ -894,9 +946,9 @@ msg							|string		|R			|&nbsp;
   
 参数名称			|类型			|出现要求	|描述  
 :----				|:---			|:------	|:---	
-id       			|String 		|O			|唯一标识，为空表示正在新增节点组
+id       			|Integer 		|O			|节点组ID，为空表示正在新增节点组
 name				|String			|R			|名称
-pid					|Integer		|R			|父id
+pid					|Integer		|R			|父节点组id
 
 示例：
 
@@ -912,7 +964,6 @@ code						|int		|R			|响应码，详见 附录A
 msg							|string		|R			|&nbsp;
 data						|Object		|R			|&nbsp;
 &emsp;state					|Integer	|R			|校验结果 false不可用，true可用
-&emsp;msg					|String		|R			|校验信息，校验不通过时有值
 
 示例：
 
@@ -921,8 +972,7 @@ data						|Object		|R			|&nbsp;
     "code": 200,
     "msg": "success",
     "data": {
-        "state": true,
-        "msg": ""
+        "state": true
     }
 }
 ```
@@ -958,13 +1008,15 @@ GET /room/list?limit=10&page=2&name=room2&area=43
 :----						|:---		|:------	|:---	
 code						|int		|R			|响应码，详见 附录A
 msg							|string		|R			|&nbsp;
-data						|Object[]	|R			|&nbsp;
-&emsp;id					|Integer	|R			|主键
-&emsp;name					|String		|R			|机房名称
-&emsp;rows					|Integer	|R			|行数
-&emsp;cols					|Integer	|R			|列数
-&emsp;addr					|Integer	|R			|地区
-&emsp;remarks				|String		|R			|备注
+data						|Object		|R			|&nbsp;
+&emsp;total					|int		|R			|&nbsp;
+&emsp;list					|Object[]	|R			|&nbsp;
+&emsp;&emsp;id				|Integer	|R			|主键
+&emsp;&emsp;name			|String		|R			|机房名称
+&emsp;&emsp;rows			|Integer	|R			|行数
+&emsp;&emsp;cols			|Integer	|R			|列数
+&emsp;&emsp;addr			|Integer	|R			|地区
+&emsp;&emsp;remarks			|String		|R			|备注
 
 示例：
 
@@ -972,14 +1024,17 @@ data						|Object[]	|R			|&nbsp;
 {
     "code": 200,
     "msg": "success",
-    "data": [{
-        "id": 1,
-        "name": "room2",
-        "rows": 4,
-        "cols": 6,
-        "addr": 1,
-        "remarks": ""
-    }]
+    "data": {
+        "total": 1,
+        "list": [{
+            "id": 1,
+            "name": "room2",
+            "rows": 4,
+            "cols": 6,
+            "addr": 1,
+            "remarks": ""
+        }]
+    }
 }
 ```
 
@@ -1066,13 +1121,20 @@ remark				|String			|O			|备注
 :----						|:---		|:------	|:---	
 code						|int		|R			|响应码，详见 附录A
 msg							|string		|R			|&nbsp;
+data						|Object		|R			|&nbsp;
+&emsp;state					|boolean	|R			|操作结果 false失败，true成功
+&emsp;msg					|String		|R			|失败原因
 
 示例：
 
 ```
 {
     "code": 200,
-    "msg": "success"
+    "msg": "success",
+    "data": {
+        "state": false,
+        "msg": "名称已被占用"
+    }
 }
 ```
 
@@ -1093,6 +1155,7 @@ cols				|Integer		|R			|列数
 addr				|Integer		|R			|地区
 remark				|String			|O			|备注
 
+
 示例：
 
 ```
@@ -1112,13 +1175,20 @@ remark				|String			|O			|备注
 :----						|:---		|:------	|:---	
 code						|int		|R			|响应码，详见 附录A
 msg							|string		|R			|&nbsp;
+data						|Object		|O			|&nbsp;
+&emsp;state					|boolean	|O			|修改是否成功  false失败、true成功
+&emsp;msg					|String		|O			|失败原因
 
 示例：
 
 ```
 {
     "code": 200,
-    "msg": "success"
+    "msg": "success",
+    "data": {
+        "state": false,
+        "msg": "机柜行/列已占用"
+    }
 }
 ```
 
@@ -1148,8 +1218,8 @@ id					|Integer		|R			|id
 :----						|:---		|:------	|:---	
 code						|int		|R			|响应码，详见 附录A
 msg							|string		|R			|&nbsp;
-data						|Object[]	|R			|&nbsp;
-&emsp;state					|Integer	|R			|结果 0：删除失败，1：删除成功
+data						|Object		|R			|&nbsp;
+&emsp;state					|boolean	|R			|结果 false失败、true成功
 &emsp;msg					|String		|O			|失败原因，成功时为空
 
 示例：
@@ -1159,7 +1229,7 @@ data						|Object[]	|R			|&nbsp;
     "code": 200,
     "msg": "success",
     "data": {
-        "state": 0,
+        "state": false,
         "msg": "存在关联的机柜"
     }
 }
@@ -1207,7 +1277,50 @@ data						|Object		|R			|&nbsp;
 }
 ```
 
-##### 2.1.3.6 机房内机柜列表查询
+##### 2.1.3.7 机房修改时行列校验
+
+- **接口说明：** 机房修改时行列校验，行、列数不能小于已被机柜占用的数
+- **接口地址：** /room/roomSizeCheck
+- **请求方式：** GET
+
+###### 请求参数
+  
+参数名称			|类型			|出现要求	|描述  
+:----				|:---			|:------	|:---	
+id       			|String 		|R			|唯一标识
+cols				|Integer		|R			|列数
+rows				|Integer		|R			|行数
+
+示例：
+
+```
+GET /room/roomSizeCheck?id=15&cols=5&rows=3
+```
+
+###### 返回结果
+
+参数名称					|类型		|出现要求	|描述  
+:----						|:---		|:------	|:---	
+code						|int		|R			|响应码，详见 附录A
+msg							|string		|R			|&nbsp;
+data						|Object		|R			|&nbsp;
+&emsp;state					|Integer	|R			|校验结果 false不可用，true可用
+&emsp;msg					|String		|R			|校验信息，校验不通过时有值
+
+示例：
+
+```
+{
+    "code": 200,
+    "msg": "success",
+    "data": {
+        "state": true,
+        "msg": ""
+    }
+}
+```
+
+##### 2.1.3.8 机房内机柜列表查询
 
 - **接口说明：** 查询机房内的机柜列表，同"2.1.4.1 机柜列表查询"，"roomId"为必须参数
 
@@ -1241,14 +1354,16 @@ GET /cab/list?limit=10&page=2&name=cab3&roomId=2
 :----						|:---		|:------	|:---	
 code						|int		|R			|响应码，详见 附录A
 msg							|string		|R			|&nbsp;
-data						|Object[]	|R			|&nbsp;
-&emsp;id					|Integer	|R			|主键
-&emsp;name					|String		|R			|机柜名称
-&emsp;roomId				|Integer	|R			|机房id
-&emsp;row					|Integer	|R			|行号
-&emsp;col					|Integer	|R			|列号
-&emsp;ubit					|Integer	|R			|u位数量
-&emsp;remarks				|String		|R			|备注
+data						|Object		|R			|&nbsp;
+&emsp;total					|int		|R			|&nbsp;
+&emsp;list					|Object[]	|R			|&nbsp;
+&emsp;&emsp;id				|Integer	|R			|主键
+&emsp;&emsp;name			|String		|R			|机柜名称
+&emsp;&emsp;roomName		|String		|R			|机房名称
+&emsp;&emsp;row				|Integer	|R			|行号
+&emsp;&emsp;col				|Integer	|R			|列号
+&emsp;&emsp;ubit			|Integer	|R			|u位数量
+&emsp;&emsp;remarks			|String		|R			|备注
 
 示例：
 
@@ -1257,12 +1372,16 @@ data						|Object[]	|R			|&nbsp;
     "code": 200,
     "msg": "success",
     "data": [{
-        "id": 1,
-        "name": "room2",
-        "rows": 4,
-        "cols": 6,
-        "addr": 1,
-        "remarks": ""
+        "total": 1,
+        "list": [{
+            "id": 1,
+            "name": "cab2",
+            "roomName": "room2",
+            "rows": 4,
+            "cols": 6,
+            "ubit": 1,
+            "remarks": ""
+        }]
     }]
 }
 ```
@@ -1291,13 +1410,19 @@ GET /cab/detail?id=2
 :----						|:---		|:------	|:---	
 code						|int		|R			|响应码，详见 附录A
 msg							|string		|R			|&nbsp;
-data						|Object[]	|R			|&nbsp;
+data						|Object		|R			|&nbsp;
 &emsp;id					|Integer	|R			|主键
 &emsp;name					|String		|R			|机柜名称
-&emsp;roomId				|Integer	|R			|机房id
+&emsp;roomName				|String		|R			|机房名称
 &emsp;row					|Integer	|R			|行号
 &emsp;col					|Integer	|R			|列号
 &emsp;ubit					|Integer	|R			|u位数量
+&emsp;nodes					|Object[]	|R			|包含的节点
+&emsp;&emsp;uuid			|String		|R			|uuid
+&emsp;&emsp;ip				|String		|R			|ip
+&emsp;&emsp;name			|String		|R			|节点名称
+&emsp;&emsp;uSize			|Integer	|R			|u位大小
+&emsp;&emsp;uStart			|Integer	|R			|起始U位
 &emsp;remarks				|String		|R			|备注
 
 示例：
@@ -1306,14 +1431,22 @@ data						|Object[]	|R			|&nbsp;
 {
     "code": 200,
     "msg": "success",
-    "data": [{
+    "data": {
         "id": 1,
-        "name": "room2",
+        "name": "cab2",
+        "roomName": "room2",
         "rows": 4,
         "cols": 6,
-        "addr": 1,
+		"nodes": [{
+			"uuid": "abc",
+			"ip": "1.2.3.4",
+			"name": "node2",
+			"uSize": 3,
+			"uStart": 1
+		}],
+        "ubit": 1,
         "remarks": ""
-    }]
+    }
 }
 ```
 
@@ -1353,13 +1486,20 @@ remark				|String			|O			|备注
 :----						|:---		|:------	|:---	
 code						|int		|R			|响应码，详见 附录A
 msg							|string		|R			|&nbsp;
+data						|Object		|R			|&nbsp;
+&emsp;state					|boolean	|R			|操作结果 false失败，true成功
+&emsp;msg					|String		|R			|失败原因
 
 示例：
 
 ```
 {
     "code": 200,
-    "msg": "success"
+    "msg": "success",
+    "data": {
+        "state": false,
+        "msg": "机房该位置无法使用"
+    }
 }
 ```
 
@@ -1375,7 +1515,6 @@ msg							|string		|R			|&nbsp;
 :----				|:---			|:------	|:---	
 id					|Integer		|R			|id
 name				|String			|R			|名称
-roomId				|Integer		|R			|机房id
 row					|Integer		|R			|行号
 col					|Integer		|R			|列号
 ubit				|Integer		|R			|U位数量
@@ -1387,7 +1526,6 @@ remark				|String			|O			|备注
 {
     "id": 9,
     "name": "cab9",
-    "roomId": 1,
     "row": 2,
     "col": 4,
     "ubit": 12,
@@ -1401,13 +1539,20 @@ remark				|String			|O			|备注
 :----						|:---		|:------	|:---	
 code						|int		|R			|响应码，详见 附录A
 msg							|string		|R			|&nbsp;
+data						|Object		|R			|&nbsp;
+&emsp;state					|boolean	|R			|操作结果 false失败，true成功
+&emsp;msg					|String		|R			|失败原因
 
 示例：
 
 ```
 {
     "code": 200,
-    "msg": "success"
+    "msg": "success",
+    "data": {
+        "state": false,
+        "msg": "机房该位置无法使用"
+    }
 }
 ```
 
@@ -1438,7 +1583,7 @@ id					|Integer		|R			|id
 code						|int		|R			|响应码，详见 附录A
 msg							|string		|R			|&nbsp;
 data						|Object[]	|R			|&nbsp;
-&emsp;state					|Integer	|R			|结果 0：删除失败，1：删除成功
+&emsp;state					|Integer	|R			|结果 false失败，true成功
 &emsp;msg					|String		|O			|失败原因，成功时为空
 
 示例：
@@ -1448,7 +1593,7 @@ data						|Object[]	|R			|&nbsp;
     "code": 200,
     "msg": "success",
     "data": {
-        "state": 0,
+        "state": false,
         "msg": "存在关联的节点"
     }
 }
@@ -1587,68 +1732,6 @@ data						|Object[]	|R			|&nbsp;
             "row": 2,
             "cols": [1,2,3,4,7,8,9]
         }]
-    }]
-}
-```
-
-##### 2.1.4.9 查询机柜下的节点
-
-- **接口说明：** 查询机柜下可选的机房及行号列号
-- **接口地址：** /cab/nodes
-- **请求方式：** GET
-
-###### 请求参数
-  
-参数名称			|类型			|出现要求	|描述  
-:----				|:---			|:------	|:---	
-id					|Integer		|R			|机柜id
-
-示例：
-
-```
-GET /cab/nodes?id=5
-```
-
-###### 返回结果
-
-参数名称					|类型		|出现要求	|描述  
-:----						|:---		|:------	|:---	
-code						|int		|R			|响应码，详见 附录A
-msg							|String		|R			|&nbsp;
-data						|Object[]	|R			|&nbsp;
-&emsp;name					|String		|R			|名称
-&emsp;hostName				|String		|R			|主机名
-&emsp;ip					|String		|R			|ip
-&emsp;uuid					|Integer	|R			|全局唯一
-&emsp;type					|Integer	|R			|设备类型，1、server,2、net
-&emsp;tagName				|String 	|R			|设备标签名称
-&emsp;tag					|Integer	|R			|设备标签，与sys_dict关联
-&emsp;state					|String		|R			|设备状态，1：在线，2：下线，3：删除
-&emsp;cabinetId				|Integer	|R			|机柜id
-&emsp;uSize					|Integer	|R			|u位大小
-&emsp;cabinetStart			|Integer	|R			|机柜起始位置
-&emsp;remark				|String		|R			|备注
-
-示例：
-
-```
-{
-    "code": 200,
-    "msg": "success",
-    "data": [{
-        "id": 1,
-        "name": "a",
-        "hostName": "b",
-        "ip": "112.21.122.212",
-        "uuid": 1,
-        "tagName": "atc",
-        "type": 1,
-        "tag": 1,
-        "state": 1,
-        "cabinetId": 1,
-        "uSize": 1,
-        "cabinetStart": 1,
-        "remark": ""
     }]
 }
 ```
