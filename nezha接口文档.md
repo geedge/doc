@@ -50,8 +50,8 @@ C				|报文中该元素在一定条件下出现（Conditional）
 code						|int		|R			|响应码，代码定义请见“附录A 响应吗说明”
 msg							|string		|R			|响应描述
 data						|object		|R			|每个接口特有的参数，详见每个接口定义
-&emsp;total					|int		|C			|总结果数，涉及批量分页查询时需要
-&emsp;list					|Object[]	|C			|当前页查询结果，涉及批量查询时需要
+&emsp;totalCount			|int		|C			|总结果数，批量分页查询时需要
+&emsp;list					|Object[]	|C			|当前页查询结果，批量查询时需要
 
 
 #### 1.5.2 响应报文示例
@@ -61,7 +61,7 @@ data						|object		|R			|每个接口特有的参数，详见每个接口定义
     "code": 200,
     "msg": "success",
     "data": {
-        "total": 1,
+        "totalCount": 1,
         "list": [{
             "Channel": "A10086",
             "Type": 7004
@@ -87,8 +87,8 @@ data						|object		|R			|每个接口特有的参数，详见每个接口定义
   
 参数名称			|类型			|出现要求	|描述  
 :----				|:---			|:------	|:---	
-page 				|Integer		|O			|页码，为空时默认为1
-limit				|Integer		|O			|每页记录数，为空时默认为10
+currPage			|Integer		|O			|页码，为空时默认为1
+pageSize			|Integer		|O			|每页记录数，为空时默认为10
 order	 			|String 		|O			|排序
 ip       			|String 		|O			|查询ip
 state 		    	|Integer		|O			|设备状态，1：在线，2：下线
@@ -102,7 +102,7 @@ name				|String			|O			|名称
 示例：
 
 ```
-GET /node/list?limit=20&page=1&ip=192.168.1.1&state=1&tag=1&type=1&cabinetId=12&order=asc
+GET /node/list?pageSize=20&currPage=1&ip=192.168.1.1&state=1&tag=1&type=1&cabinetId=12&order=asc
 
 ```
 
@@ -113,8 +113,8 @@ GET /node/list?limit=20&page=1&ip=192.168.1.1&state=1&tag=1&type=1&cabinetId=12&
 :----						|:---		|:------	|:---	
 code						|int		|R			|响应码，详见 附录A
 msg							|string		|R			|&nbsp;
-data						|object[]	|R			|&nbsp;
-&emsp;total					|int		|R			|&nbsp;
+data						|object		|R			|&nbsp;
+&emsp;totalCount			|int		|R			|&nbsp;
 &emsp;list					|Object[]	|R			|&nbsp;
 &emsp;&emsp;name			|String		|R			|&nbsp;
 &emsp;&emsp;hostName		|String		|R			|主机名
@@ -146,7 +146,7 @@ data						|object[]	|R			|&nbsp;
     "code": 200,
     "msg": "success",
     "data": {
-        "total": 1,
+        "totalCount": 1,
         "list": [{
             "name": "node1",
             "hostName": "ysp-01",
@@ -813,8 +813,8 @@ msg							|string		|R			|&nbsp;
   
 参数名称			|类型			|出现要求	|描述  
 :----				|:---			|:------	|:---	
-page 				|Integer		|O			|页码，为空时默认为1
-limit				|Integer		|O			|每页记录数，为空时默认为10
+currPage			|Integer		|O			|页码，为空时默认为1
+pageSize			|Integer		|O			|每页记录数，为空时默认为10
 order	 			|String 		|O			|排序
 groupId				|Integer		|R			|节点组id
 systemId			|Integer		|R			|业务系统id
@@ -833,7 +833,7 @@ GET /nodegroup/assList?groupId=3&systemId=1&ip=192
 code						|int		|R			|响应码，详见 附录A
 msg							|string		|R			|&nbsp;
 data						|object		|R			|&nbsp;
-&emsp;total					|int		|R			|&nbsp;
+&emsp;totalCount			|int		|R			|&nbsp;
 &emsp;list					|Object[]	|R			|&nbsp;
 &emsp;&emsp;name			|String		|R			|名称
 &emsp;&emsp;hostName		|String		|R			|主机名
@@ -849,7 +849,7 @@ data						|object		|R			|&nbsp;
     "code": 200,
     "msg": "success",
     "data": {
-        "total": 1,
+        "totalCount": 1,
         "list": [{
             "name": "node1",
             "hostName": "ysp-01",
@@ -990,8 +990,8 @@ data						|Object		|R			|&nbsp;
   
 参数名称			|类型			|出现要求	|描述  
 :----				|:---			|:------	|:---	
-page 				|Integer		|O			|页码，为空时默认为1
-limit				|Integer		|O			|每页记录数，为空时默认为10
+currPage			|Integer		|O			|页码，为空时默认为1
+pageSize			|Integer		|O			|每页记录数，为空时默认为10
 order	 			|String 		|O			|排序
 name				|String			|O			|机房名称
 area				|Integer		|O			|所属区域
@@ -999,7 +999,7 @@ area				|Integer		|O			|所属区域
 示例：
 
 ```
-GET /room/list?limit=10&page=2&name=room2&area=43
+GET /room/list?pageSize=10&currPage=2&name=room2&area=43
 ```
 
 ###### 返回结果
@@ -1009,7 +1009,7 @@ GET /room/list?limit=10&page=2&name=room2&area=43
 code						|int		|R			|响应码，详见 附录A
 msg							|string		|R			|&nbsp;
 data						|Object		|R			|&nbsp;
-&emsp;total					|int		|R			|&nbsp;
+&emsp;totalCount			|int		|R			|&nbsp;
 &emsp;list					|Object[]	|R			|&nbsp;
 &emsp;&emsp;id				|Integer	|R			|主键
 &emsp;&emsp;name			|String		|R			|机房名称
@@ -1025,7 +1025,7 @@ data						|Object		|R			|&nbsp;
     "code": 200,
     "msg": "success",
     "data": {
-        "total": 1,
+        "totalCount": 1,
         "list": [{
             "id": 1,
             "name": "room2",
@@ -1336,8 +1336,8 @@ data						|Object		|R			|&nbsp;
   
 参数名称			|类型			|出现要求	|描述  
 :----				|:---			|:------	|:---	
-page 				|Integer		|O			|页码，为空时默认为1
-limit				|Integer		|O			|每页记录数，为空时默认为10
+currPage			|Integer		|O			|页码，为空时默认为1
+pageSize			|Integer		|O			|每页记录数，为空时默认为10
 order	 			|String 		|O			|排序
 name				|String			|O			|机柜名称
 roomId				|Integer		|O			|所属机房id
@@ -1345,7 +1345,7 @@ roomId				|Integer		|O			|所属机房id
 示例：
 
 ```
-GET /cab/list?limit=10&page=2&name=cab3&roomId=2
+GET /cab/list?pageSize=10&currPage=2&name=cab3&roomId=2
 ```
 
 ###### 返回结果
@@ -1355,7 +1355,7 @@ GET /cab/list?limit=10&page=2&name=cab3&roomId=2
 code						|int		|R			|响应码，详见 附录A
 msg							|string		|R			|&nbsp;
 data						|Object		|R			|&nbsp;
-&emsp;total					|int		|R			|&nbsp;
+&emsp;totalCount			|int		|R			|&nbsp;
 &emsp;list					|Object[]	|R			|&nbsp;
 &emsp;&emsp;id				|Integer	|R			|主键
 &emsp;&emsp;name			|String		|R			|机柜名称
@@ -1372,7 +1372,7 @@ data						|Object		|R			|&nbsp;
     "code": 200,
     "msg": "success",
     "data": [{
-        "total": 1,
+        "totalCount": 1,
         "list": [{
             "id": 1,
             "name": "cab2",
@@ -1708,7 +1708,7 @@ GET /cab/cabUbitCheck?id=5
 :----						|:---		|:------	|:---	
 code						|int		|R			|响应码，详见 附录A
 msg							|String		|R			|&nbsp;
-data						|Object[]	|R			|&nbsp;
+data						|Object		|R			|&nbsp;
 &emsp;roomId				|Integer	|R			|房间id
 &emsp;roomName				|String		|R			|房间名称
 &emsp;rows					|Object[]	|R			|可用行
@@ -1721,7 +1721,7 @@ data						|Object[]	|R			|&nbsp;
 {
     "code": 200,
     "msg": "success",
-    "data": [{
+    "data": {
         "roomId": 1,
         "roomName": "room88"
         "rows": [{
@@ -1732,7 +1732,7 @@ data						|Object[]	|R			|&nbsp;
             "row": 2,
             "cols": [1,2,3,4,7,8,9]
         }]
-    }]
+    }
 }
 ```
 
@@ -1751,15 +1751,15 @@ data						|Object[]	|R			|&nbsp;
   
 参数名称			|类型			|出现要求	|描述  
 :----				|:---			|:------	|:---	
-page 				|Integer		|O			|页码，为空时默认为1
-limit				|Integer		|O			|每页记录数，为空时默认为10
+currPage			|Integer		|O			|页码，为空时默认为1
+pageSize			|Integer		|O			|每页记录数，为空时默认为10
 order	 			|String 		|O			|排序
 usergroupId			|Integer		|C			|用户组id
 
 示例：
 
 ```
-GET /system/list?limit=10&page=2
+GET /system/list?pageSize=10&currPage=2
 ```
 
 ###### 返回结果
@@ -2170,15 +2170,15 @@ data						|Object		|R			|&nbsp;
   
 参数名称			|类型			|出现要求	|描述  
 :----				|:---			|:------	|:---	
-page 				|Integer		|O			|页码，为空时默认为1
-limit				|Integer		|O			|每页记录数，为空时默认为10
+currPage				|Integer		|O			|页码，为空时默认为1
+pageSize				|Integer		|O			|每页记录数，为空时默认为10
 order	 			|String 		|O			|排序
 systemId			|Integer		|C			|业务系统id
 
 示例：
 
 ```
-GET /usergroup/list?limit=10&page=2&systemId=4
+GET /usergroup/list?pageSize=10&currPage=2&systemId=4
 ```
 
 ###### 返回结果
@@ -2400,15 +2400,15 @@ msg							|string		|R			|&nbsp;
   
 参数名称			|类型			|出现要求	|描述  
 :----				|:---			|:------	|:---	
-page 				|Integer		|O			|页码，为空时默认为1
-limit				|Integer		|O			|每页记录数，为空时默认为10
+currPage				|Integer		|O			|页码，为空时默认为1
+pageSize				|Integer		|O			|每页记录数，为空时默认为10
 order	 			|String 		|O			|排序
 name				|String			|C			|监测类别
 
 示例：
 
 ```
-GET /deteType/list?limit=10&page=2&name=cpu
+GET /deteType/list?pageSize=10&currPage=2&name=cpu
 ```
 
 ###### 返回结果
@@ -2846,8 +2846,8 @@ data						|Object[]	|R			|&nbsp;
   
 参数名称			|类型			|出现要求	|描述  
 :----				|:---			|:------	|:---	
-page 				|Integer		|O			|页码，为空时默认为1
-limit				|Integer		|O			|每页记录数，为空时默认为10
+currPage				|Integer		|O			|页码，为空时默认为1
+pageSize				|Integer		|O			|每页记录数，为空时默认为10
 order	 			|String 		|O			|排序
 name				|String			|O			|监测设置
 typeId				|Integer		|O			|监测类别ID
@@ -2855,7 +2855,7 @@ typeId				|Integer		|O			|监测类别ID
 示例：
 
 ```
-GET /deteSet/list?limit=10&page=2&name=cpu
+GET /deteSet/list?pageSize=10&currPage=2&name=cpu
 ```
 
 ###### 返回结果
@@ -3140,8 +3140,8 @@ msg							|string		|R			|&nbsp;
   
 参数名称			|类型			|出现要求	|描述  
 :----				|:---			|:------	|:---	
-page 				|Integer		|O			|页码，为空时默认为1
-limit				|Integer		|O			|每页记录数，为空时默认为10
+currPage				|Integer		|O			|页码，为空时默认为1
+pageSize				|Integer		|O			|每页记录数，为空时默认为10
 order	 			|String 		|O			|排序
 setId				|Integer		|O			|监测设置ID
 typeId				|Integer		|O			|监测类别ID
@@ -3149,7 +3149,7 @@ typeId				|Integer		|O			|监测类别ID
 示例：
 
 ```
-GET /deteWarn/list?limit=10&page=2&setId=12
+GET /deteWarn/list?pageSize=10&currPage=2&setId=12
 ```
 
 ###### 返回结果
@@ -3443,8 +3443,8 @@ msg							|string		|R			|&nbsp;
   
 参数名称			|类型			|出现要求	|描述  
 :----				|:---			|:------	|:---	
-page 				|Integer		|O			|页码，为空时默认为1
-limit				|Integer		|O			|每页记录数，为空时默认为10
+currPage				|Integer		|O			|页码，为空时默认为1
+pageSize				|Integer		|O			|每页记录数，为空时默认为10
 order	 			|String 		|O			|排序
 isLoop				|String			|O			|是否周期任务 0：不是，1：是
 type				|String			|O			|任务类型 1：文件推送，2：命令执行，3：升级部署
@@ -3454,7 +3454,7 @@ name				|String			|O			|任务名称
 示例：
 
 ```
-GET /usergroup/list?limit=10&page=2&name=file&isLoop=0
+GET /usergroup/list?pageSize=10&currPage=2&name=file&isLoop=0
 ```
 
 ###### 返回结果
