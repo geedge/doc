@@ -1773,14 +1773,16 @@ GET /system/list?pageSize=10&currPage=2
 :----						|:---		|:------	|:---	
 code						|int		|R			|响应码，详见 附录A
 msg							|string		|R			|&nbsp;
-data						|Object[]	|R			|&nbsp;
-&emsp;id					|Integer	|R			|编号
-&emsp;name					|String		|R			|系统名称
-&emsp;builtIn				|Integer	|R			|是否内置，内置不可删除，1：内置，0：非内置
-&emsp;remarks				|String		|R			|备注信息
-&emsp;createDate			|Date		|R			|创建时间
-&emsp;updateDate			|Date		|R			|更新时间
-&emsp;delFlag				|Integer	|R			|删除标记 1：删除，0：未删除，默认：0
+data						|Object		|R			|&nbsp;
+&emsp;totalCount			|int		|R			|&nbsp;
+&emsp;list					|Object[]	|R			|&nbsp;
+&emsp;&emsp;id				|Integer	|R			|编号
+&emsp;&emsp;name			|String		|R			|系统名称
+&emsp;&emsp;builtIn			|Integer	|R			|是否内置，内置不可删除，1：内置，0：非内置
+&emsp;&emsp;remarks			|String		|R			|备注信息
+&emsp;&emsp;createDate		|Date		|R			|创建时间
+&emsp;&emsp;updateDate		|Date		|R			|更新时间
+&emsp;&emsp;delFlag			|Integer	|R			|删除标记 1：删除，0：未删除，默认：0
 
 示例：
 
@@ -1788,15 +1790,18 @@ data						|Object[]	|R			|&nbsp;
 {
     "code": 200,
     "msg": "success",
-    "data": [{
-        "id": 1,
-        "name": "system1",
-        "builtIn": 1,
-        "remarks": "",
-        "delFlag": 0,
-        "createDate": "2019-07-10 10:10:10",
-        "updateDate": "2019-07-10 10:10:10",
-    }]
+    "data": {
+        "totalCount": 1,
+        "list": [{
+            "id": 1,
+            "name": "system1",
+            "builtIn": 1,
+            "remarks": "",
+            "delFlag": 0,
+            "createDate": "2019-07-10 10:10:10",
+            "updateDate": "2019-07-10 10:10:10"
+        }]
+    }
 }
 ```
 
@@ -1824,7 +1829,7 @@ GET /system/detail?id=2
 :----						|:---		|:------	|:---	
 code						|int		|R			|响应码，详见 附录A
 msg							|string		|R			|&nbsp;
-data						|Object[]	|R			|&nbsp;
+data						|Object		|R			|&nbsp;
 &emsp;id					|Integer	|R			|编号
 &emsp;name					|String		|R			|系统名称
 &emsp;builtIn				|Integer	|R			|是否内置，内置不可删除，1：内置，0：非内置
@@ -1844,7 +1849,7 @@ data						|Object[]	|R			|&nbsp;
 {
     "code": 200,
     "msg": "success",
-    "data": [{
+    "data": {
         "id": 1,
         "name": "system2",
         "builtIn": 1,
@@ -1862,7 +1867,7 @@ data						|Object[]	|R			|&nbsp;
             "id": 3,
             "name": "group2"
         }]
-    }]
+    }
 }
 ```
 
@@ -1878,7 +1883,8 @@ data						|Object[]	|R			|&nbsp;
 :----				|:---			|:------	|:---	
 name				|String			|R			|名称
 remark				|String			|O			|备注
-usergroupIds		|Integer[]		|O			|用户组id
+usergroupIds		|Integer[]		|O			|用户组id,分配现有节点组
+
 
 示例：
 
@@ -1896,13 +1902,20 @@ usergroupIds		|Integer[]		|O			|用户组id
 :----						|:---		|:------	|:---	
 code						|int		|R			|响应码，详见 附录A
 msg							|string		|R			|&nbsp;
+data						|Object		|R			|&nbsp;
+&emsp;state					|boolean	|R			|操作结果 false失败，true成功
+&emsp;msg					|String		|R			|失败原因
 
 示例：
 
 ```
 {
     "code": 200,
-    "msg": "success"
+    "msg": "success",
+    "data": {
+        "state": true,
+        "msg": ""
+    }
 }
 ```
 
@@ -1938,13 +1951,20 @@ usergroupIds		|Integer[]		|O			|用户组id
 :----						|:---		|:------	|:---	
 code						|int		|R			|响应码，详见 附录A
 msg							|string		|R			|&nbsp;
+data						|Object		|R			|&nbsp;
+&emsp;state					|boolean	|R			|操作结果 false失败，true成功
+&emsp;msg					|String		|R			|失败原因
 
 示例：
 
 ```
 {
     "code": 200,
-    "msg": "success"
+    "msg": "success",
+    "data": {
+        "state": false,
+        "msg": "名称已被占用"
+    }
 }
 ```
 
@@ -1992,46 +2012,18 @@ GET /system/nodes?id=5
 :----						|:---		|:------	|:---	
 code						|int		|R			|响应码，详见 附录A
 msg							|String		|R			|&nbsp;
-data						|Object[]	|R			|&nbsp;
-&emsp;name					|String		|R			|名称
-&emsp;hostName				|String		|R			|主机名
-&emsp;ip					|String		|R			|ip
-&emsp;uuid					|Integer	|R			|全局唯一
-&emsp;type					|Integer	|R			|设备类型，1、server,2、net
-&emsp;tagName				|String 	|R			|设备标签名称
-&emsp;tag					|Integer	|R			|设备标签，与sys_dict关联
-&emsp;state					|String		|R			|设备状态，1：在线，2：下线，3：删除
-&emsp;remark				|String		|R			|备注
-
-示例：
-
-```
-{
-    "code": 200,
-    "msg": "success",
-    "data": [{
-        "id": 1,
-        "name": "a",
-        "hostName": "b",
-        "ip": "112.21.122.212",
-        "uuid": 1,
-        "tagName": "atc",
-        "type": 1,
-        "tag": 1,
-        "state": 1,
-        "remark": ""
-    }]
-}
-```
-###### 返回结果
-
-参数名称					|类型		|出现要求	|描述  
-:----						|:---		|:------	|:---	
-code						|int		|R			|响应码，详见 附录A
-msg							|string		|R			|&nbsp;
-data						|Object[]	|R			|&nbsp;
-&emsp;state					|Integer	|R			|结果 0：删除失败，1：删除成功
-&emsp;msg					|String		|O			|失败原因，成功时为空
+data						|Object		|R			|&nbsp;
+&emsp;totalCount			|int		|R			|&nbsp;
+&emsp;list					|Object[]	|R			|&nbsp;
+&emsp;&emsp;name			|String		|R			|名称
+&emsp;&emsp;hostName		|String		|R			|主机名
+&emsp;&emsp;ip				|String		|R			|ip
+&emsp;&emsp;uuid			|Integer	|R			|全局唯一
+&emsp;&emsp;type			|Integer	|R			|设备类型，1、server,2、net
+&emsp;&emsp;tagName			|String 	|R			|设备标签名称
+&emsp;&emsp;tag				|Integer	|R			|设备标签，与sys_dict关联
+&emsp;&emsp;state			|String		|R			|设备状态，1：在线，2：下线，3：删除
+&emsp;&emsp;remark			|String		|R			|备注
 
 示例：
 
@@ -2040,8 +2032,19 @@ data						|Object[]	|R			|&nbsp;
     "code": 200,
     "msg": "success",
     "data": {
-        "state": 1,
-        "msg": ""
+        "totalCount": 1,
+        "list": [{
+            "id": 1,
+            "name": "a",
+            "hostName": "b",
+            "ip": "112.21.122.212",
+            "uuid": 1,
+            "tagName": "atc",
+            "type": 1,
+            "tag": 1,
+            "state": 1,
+            "remark": ""
+        }]
     }
 }
 ```
@@ -2143,7 +2146,6 @@ code						|int		|R			|响应码，详见 附录A
 msg							|string		|R			|&nbsp;
 data						|Object		|R			|&nbsp;
 &emsp;state					|Integer	|R			|校验结果 false不可用，true可用
-&emsp;msg					|String		|R			|校验信息，校验不通过时有值
 
 示例：
 
@@ -2152,8 +2154,7 @@ data						|Object		|R			|&nbsp;
     "code": 200,
     "msg": "success",
     "data": {
-        "state": true,
-        "msg": ""
+        "state": true
     }
 }
 ```
@@ -2175,8 +2176,8 @@ data						|Object		|R			|&nbsp;
   
 参数名称			|类型			|出现要求	|描述  
 :----				|:---			|:------	|:---	
-currPage				|Integer		|O			|页码，为空时默认为1
-pageSize				|Integer		|O			|每页记录数，为空时默认为10
+currPage			|Integer		|O			|页码，为空时默认为1
+pageSize			|Integer		|O			|每页记录数，为空时默认为10
 order	 			|String 		|O			|排序
 systemId			|Integer		|C			|业务系统id
 
@@ -2192,13 +2193,18 @@ GET /usergroup/list?pageSize=10&currPage=2&systemId=4
 :----						|:---		|:------	|:---	
 code						|int		|R			|响应码，详见 附录A
 msg							|string		|R			|&nbsp;
-data						|Object[]	|R			|&nbsp;
-&emsp;id					|Integer	|R			|主键
-&emsp;name					|String		|R			|用户组名称
-&emsp;remark				|String		|R			|备注信息
-&emsp;systemInfos			|Object[]	|R			|业务系统
-&emsp;&emsp;id				|Integer	|R			|业务系统id
-&emsp;&emsp;name			|String		|R			|业务系统名称
+data						|Object		|R			|&nbsp;
+&emsp;totalCount			|int		|R			|&nbsp;
+&emsp;list					|Object[]	|R			|&nbsp;
+&emsp;&emsp;id				|Integer	|R			|主键
+&emsp;&emsp;name			|String		|R			|用户组名称
+&emsp;&emsp;remark			|String		|R			|备注信息
+&emsp;&emsp;systemInfos		|Object[]	|R			|业务系统
+&emsp;&emsp;&emsp;id		|Integer	|R			|业务系统id
+&emsp;&emsp;&emsp;name		|String		|R			|业务系统名称
+&emsp;&emsp;users			|Object[]	|R			|用户组内的用户
+&emsp;&emsp;&emsp;id		|Integer	|R			|用户id
+&emsp;&emsp;&emsp;username	|String		|R			|用户登录名
 
 示例：
 
@@ -2206,15 +2212,22 @@ data						|Object[]	|R			|&nbsp;
 {
     "code": 200,
     "msg": "success",
-    "data": [{
-        "id": 1,
-        "name": "usergroup1",
-        "remarks": "",
-        “systemInfos": [{
+    "data": {
+        "totalCount": 1,
+        "list": [{
             "id": 1,
-            "name": "system1"
+            "name": "usergroup1",
+            "remarks": "",
+            “systemInfos": [{
+                "id": 1,
+                "name": "system1"
+            }],
+            "users": [{
+                "id": 1,
+                "username": "admin"
+            }]
         }]
-    }]
+    }
 }
 ```
 
@@ -2242,13 +2255,16 @@ GET /usergroup/detail?id=2
 :----						|:---		|:------	|:---	
 code						|int		|R			|响应码，详见 附录A
 msg							|string		|R			|&nbsp;
-data						|Object[]	|R			|&nbsp;
+data						|Object		|R			|&nbsp;
 &emsp;id					|Integer	|R			|主键
 &emsp;name					|String		|R			|用户组名称
 &emsp;remark				|String		|R			|备注信息
 &emsp;systemInfos			|Object[]	|R			|业务系统
 &emsp;&emsp;id				|Integer	|R			|业务系统id
 &emsp;&emsp;name			|String		|R			|业务系统名称
+&emsp;users					|Object[]	|R			|用户组内的用户
+&emsp;&emsp;id				|Integer	|R			|用户id
+&emsp;&emsp;username		|String		|R			|用户登录名
 
 示例：
 
@@ -2263,6 +2279,10 @@ data						|Object[]	|R			|&nbsp;
         “systemInfos": [{
             "id": 1,
             "name": "system1"
+        }],
+        "users": [{
+            "id": 1,
+            "username": "admin"
         }]
     }
 }
@@ -2281,6 +2301,7 @@ data						|Object[]	|R			|&nbsp;
 name				|String			|R			|名称
 remark				|String			|O			|备注
 systemIds			|Integer[]		|O			|业务系统id
+userIds				|Integer[]		|O			|用户id
 
 示例：
 
@@ -2288,7 +2309,8 @@ systemIds			|Integer[]		|O			|业务系统id
 {
     "name": "usergroup22",
     "remark": "en",
-    "systemIds": [1,2,3,4]
+    "systemIds": [1,2,3,4],
+    "userIds": [1,3]
 }
 ```
 
@@ -2298,13 +2320,20 @@ systemIds			|Integer[]		|O			|业务系统id
 :----						|:---		|:------	|:---	
 code						|int		|R			|响应码，详见 附录A
 msg							|string		|R			|&nbsp;
+data						|Object		|R			|&nbsp;
+&emsp;state					|boolean	|R			|操作结果 false失败，true成功
+&emsp;msg					|String		|R			|失败原因
 
 示例：
 
 ```
 {
     "code": 200,
-    "msg": "success"
+    "msg": "success",
+    "data": {
+        "state": false,
+        "msg": "名称已被占用"
+    }
 }
 ```
 
@@ -2322,6 +2351,7 @@ id					|Integer		|R			|id
 name				|String			|R			|名称
 remark				|String			|O			|备注
 systemIds			|Integer[]		|O			|业务系统id
+userIds				|Integer[]		|O			|用户id
 
 示例：
 
@@ -2330,7 +2360,8 @@ systemIds			|Integer[]		|O			|业务系统id
     "id": 9,
     "name": "cab9",
     "remark": "en",
-    "systemIds": [1,2,3,4]
+    "systemIds": [1,2,3,4],
+    "userIds": [1,3]
 }
 ```
 
@@ -2346,7 +2377,11 @@ msg							|string		|R			|&nbsp;
 ```
 {
     "code": 200,
-    "msg": "success"
+    "msg": "success",
+    "data": {
+        "state": false,
+        "msg": "名称已被占用"
+    }
 }
 ```
 
@@ -2390,6 +2425,46 @@ msg							|string		|R			|&nbsp;
 
 - **接口说明：** 用于新增/修改用户组时展示业务系统，同 "2.2.1.1 业务系统列表查询"，请求参数"usergroupId"为必须参数
 
+##### 2.2.2.7 用户组名称校验
+
+- **接口说明：** 用户组名称校验，不能重复
+- **接口地址：** /usergroup/nameCheck
+- **请求方式：** GET
+
+###### 请求参数
+  
+参数名称			|类型			|出现要求	|描述  
+:----				|:---			|:------	|:---	
+id       			|String 		|O			|唯一标识，为空表示正在新增
+name				|String			|R			|名称
+
+示例：
+
+```
+GET /usergroup/nameCheck?id=5&name=ug2
+```
+
+###### 返回结果
+
+参数名称					|类型		|出现要求	|描述  
+:----						|:---		|:------	|:---	
+code						|int		|R			|响应码，详见 附录A
+msg							|string		|R			|&nbsp;
+data						|Object		|R			|&nbsp;
+&emsp;state					|Integer	|R			|校验结果 false不可用，true可用
+
+示例：
+
+```
+{
+    "code": 200,
+    "msg": "success",
+    "data": {
+        "state": true
+    }
+}
+```
+
 
 ### 2.3 监测配置
 
@@ -2408,7 +2483,7 @@ msg							|string		|R			|&nbsp;
 currPage			|Integer		|O			|页码，为空时默认为1
 pageSize			|Integer		|O			|每页记录数，为空时默认为10
 order	 			|String 		|O			|排序
-name				|String			|C			|监测类别
+name				|String			|O			|监测类别
 
 示例：
 
