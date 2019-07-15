@@ -387,7 +387,11 @@ data						|Object		|R			|&nbsp;
 ```
 {
     "code": 200,
-    "msg": "success"
+    "msg": "success",
+    "data": {
+        "state": true,
+        "msg": ""
+    }
 }
 ```
 
@@ -657,13 +661,13 @@ data						|Object		|R			|&nbsp;
 {
     "code": 200,
     "msg": "success",
-    "data": [{
+    "data": {
         "id": 8,
         "name": "group1",
         "pid": 2,
         "pname": "group0",
         "remark": "呵呵"
-    }]
+    }
 }
 ```
 
@@ -972,7 +976,8 @@ data						|Object		|R			|&nbsp;
     "code": 200,
     "msg": "success",
     "data": {
-        "state": true
+        "state": true,
+        "msg": ""
     }
 }
 ```
@@ -2400,8 +2405,8 @@ msg							|string		|R			|&nbsp;
   
 参数名称			|类型			|出现要求	|描述  
 :----				|:---			|:------	|:---	
-currPage				|Integer		|O			|页码，为空时默认为1
-pageSize				|Integer		|O			|每页记录数，为空时默认为10
+currPage			|Integer		|O			|页码，为空时默认为1
+pageSize			|Integer		|O			|每页记录数，为空时默认为10
 order	 			|String 		|O			|排序
 name				|String			|C			|监测类别
 
@@ -2417,17 +2422,18 @@ GET /deteType/list?pageSize=10&currPage=2&name=cpu
 :----						|:---		|:------	|:---	
 code						|int		|R			|响应码，详见 附录A
 msg							|string		|R			|&nbsp;
-data						|Object[]	|R			|&nbsp;
-&emsp;id					|Integer	|R			|
-&emsp;name					|String		|R			|唯一索引
-&emsp;viewLevel				|String		|R			|1:用户组，2：系统内全部人员，3：无限制，默认2
-&emsp;method				|String		|R			|1、脚本，2、snmp，3、内置，默认：1
-&emsp;interval				|Integer	|R			|监控间隔，单位：s，默认：60
-&emsp;content				|String		|R			|1、脚本储存路径，2、oid，可以为空，3、类全路径
-&emsp;buildIn				|String		|R			|1、隐藏界面不显示，2、内置，不允许修改，3、用户自定义，默认3
-&emsp;version				|Integer	|R			|更新version加1，默认：1
-&emsp;i18nCode				|String		|R			|name 的国际化 code，不为空时页面显示翻译后的内容，为空直接显示name
-&emsp;remark				|String		|R			|备注
+data						|Object		|R			|&nbsp;
+&emsp;totalCount			|int		|R			|&nbsp;
+&emsp;list					|Object[]	|R			|&nbsp;
+&emsp;&emsp;id				|Integer	|R			|&nbsp;
+&emsp;&emsp;name			|String		|R			|名称，唯一索引
+&emsp;&emsp;method			|String		|R			|1、脚本，2、snmp，3、内置，默认：1，页面显示翻译后内容
+&emsp;&emsp;interval		|Integer	|R			|监控间隔，单位：s，默认：60
+&emsp;&emsp;content			|String		|R			|1、脚本储存路径，2、oid，可以为空，3、类全路径
+&emsp;&emsp;buildIn			|String		|R			|1、隐藏界面不显示，2、内置，不允许修改，3、用户自定义，默认3
+&emsp;&emsp;version			|Integer	|R			|更新version加1，默认：1
+&emsp;&emsp;i18nCode		|String		|R			|name 的国际化 code，不为空时页面显示翻译后的内容，为空直接显示name
+&emsp;&emsp;remark			|String		|R			|备注
 
 示例：
 
@@ -2435,19 +2441,22 @@ data						|Object[]	|R			|&nbsp;
 {
     "code": 200,
     "msg": "success",
-    "data": [{
-        "id": 1,
-        "name": "",
-        "viewLevel": "",
-        "method": "",
-        "interval": 1,
-        "content": "",
-        "buildIn": "",
-        "tableName": "",
-        "version": 1,
-        "i18nCode": "",
-        "remark": ""
-    }]
+    "data": {
+        "totalCount": 1,
+        "list": [{
+           "id": 1,
+           "name": "",
+           "viewLevel": "",
+           "method": "",
+           "interval": 1,
+           "content": "",
+           "buildIn": "",
+           "tableName": "",
+           "version": 1,
+           "i18nCode": "",
+           "remark": ""
+        }]
+    }
 }
 ```
 
@@ -2476,20 +2485,16 @@ GET /deteType/detail?id=2
 code						|int		|R			|响应码，详见 附录A
 msg							|string		|R			|&nbsp;
 data						|Object		|R			|&nbsp;
-&emsp;id					|Integer	|R			|
-&emsp;name					|String		|R			|唯一索引
-&emsp;viewLevel				|String		|R			|1:用户组，2：系统内全部人员，3：无限制，默认2
-&emsp;method				|String		|R			|1、脚本，2、snmp，3、内置，默认：1
+&emsp;id					|Integer	|R			|&nbsp;
+&emsp;name					|String		|R			|名称，唯一索引
+&emsp;method				|String		|R			|1、脚本，2、snmp，3、内置，默认：1，显示翻译后的内容
 &emsp;interval				|Integer	|R			|监控间隔，单位：s，默认：60
 &emsp;content				|String		|R			|1、脚本储存路径，2、oid，可以为空，3、类全路径
-&emsp;buildIn				|String		|R			|1、隐藏界面不显示，2、内置，不允许修改，3、用户自定义，默认3
-&emsp;tableName				|String		|R			|di_name,用户不在填写
 &emsp;i18nCode				|String		|R			|name 的国际化 code，不为空时name显示翻译后的内容，为空直接显示
 &emsp;remark				|String		|R			|备注
-&emsp;operator				|Integer	|R			|
-&emsp;opTime				|Date		|R			|操作时间
+&emsp;opTime				|String		|R			|操作时间
 &emsp;deteTypeMetas			|Object[]	|R			|元数据列表
-&emsp;&emsp;id				|Integer	|R			|
+&emsp;&emsp;id				|Integer	|R			|&nbsp;
 &emsp;&emsp;name			|String		|R			|显示名称，唯一索引
 &emsp;&emsp;typeId			|Integer	|R			|类别id
 &emsp;&emsp;fieldType		|String		|R			|字段分类，1:Tag 数据库添加索引 ,2:field 普通字段, 3:temp 临时字段，数据传输不入库, 4:cal 计算字段，根据field，temp计算得出
@@ -2518,18 +2523,11 @@ data						|Object		|R			|&nbsp;
     "data": {
         "id": 1,
         "name": "enc",
-        "typeId": 1,
-        "fieldType": "1",
-        "dataType": "2",
-        "dataLenth": 1,
-        "viewLevel": "2",
-        "sort": 1,
-        "oid": "",
-        "unit": "",
-        "fieldName": "",
-        "i18nCode": "",
+        "method": "脚本",
+        "interval": 60,
+        "content": "",
+        "i18nCode": "cpu监测",
         "remark": "",
-        "operator": 1,
         "opTime": "2019-07-10 10:10:10",
         "deteTypeMetas": [{
             "id": 1,
@@ -2642,13 +2640,20 @@ deteTypeParams		|Object[]		|R			|类别参数数组
 :----						|:---		|:------	|:---	
 code						|int		|R			|响应码，详见 附录A
 msg							|string		|R			|&nbsp;
+data						|Object		|R			|&nbsp;
+&emsp;state					|boolean	|R			|操作结果 false失败，true成功
+&emsp;msg					|String		|R			|失败原因
 
 示例：
 
 ```
 {
     "code": 200,
-    "msg": "success"
+    "msg": "success",
+    "data": {
+        "state": false,
+        "msg": "名称已被占用"
+    }
 }
 ```
 
@@ -2671,7 +2676,7 @@ content				|String			|R			|1、脚本储存路径，2、oid，可以为空，3�
 i18nCode			|String			|R			|name 的国际化 code，不为空时name显示翻译后的内容，为空直接显示
 remark				|String			|R			|备注
 deteTypeMetas		|Object[]		|R			|元数据数据
-&emsp;id			|Integer		|R			|
+&emsp;id			|Integer		|R			|&nbsp;
 &emsp;name			|String			|R			|显示名称，唯一索引
 &emsp;typeId		|Integer		|R			|类别id
 &emsp;fieldType		|String			|R			|字段分类，1:Tag 数据库添加索引 ,2:field 普通字段, 3:temp 临时字段，数据传输不入库, 4:cal 计算字段，根据field，temp计算得出
@@ -2745,7 +2750,11 @@ msg							|string		|R			|&nbsp;
 ```
 {
     "code": 200,
-    "msg": "success"
+    "msg": "success",
+    "data": {
+        "state": true,
+        "msg": ""
+    }
 }
 ```
 
@@ -2785,7 +2794,7 @@ msg							|string		|R			|&nbsp;
 }
 ```
 
-##### 2.3.1.6 监测类别字典查询
+##### 2.3.1.6 元数据字典查询
 
 - **接口说明：** 监测类别字典查询
 - **接口地址：** /deteType/dic
@@ -2809,7 +2818,7 @@ GET /deteType/dic
 :----						|:---		|:------	|:---	
 code						|int		|R			|响应码，详见 附录A
 msg							|string		|R			|&nbsp;
-data						|Object[]	|R			|&nbsp;
+data						|Object		|R			|&nbsp;
 &emsp;type					|Integer	|R			|映射类型
 &emsp;mappings				|Object[]	|R			|映射内容
 &emsp;&emsp;id				|String		|R			|mapping表主键
@@ -2822,14 +2831,56 @@ data						|Object[]	|R			|&nbsp;
 {
     "code": 200,
     "msg": "success",
-    "data": [{
-        "type": 18,
-        "mappings": [{
-            "id": 11,
-            "val": "1",
-            "mapping": "是"
+    "data": {
+        "list": [{
+            "type": 18,
+            "mappings": [{
+                "id": 11,
+                "val": "1",
+                "mapping": "是"
+            }]
         }]
-    }]
+    }
+}
+```
+
+##### 2.3.1.7 监测类别名称校验
+
+- **接口说明：** 监测类别名称校验，不能重复
+- **接口地址：** /deteType/nameCheck
+- **请求方式：** GET
+
+###### 请求参数
+  
+参数名称			|类型			|出现要求	|描述  
+:----				|:---			|:------	|:---	
+id       			|String 		|O			|唯一标识，为空表示正在新增监测类别
+name				|String			|R			|名称
+
+示例：
+
+```
+GET /deteType/nameCheck?id=5&name=cpu
+```
+
+###### 返回结果
+
+参数名称					|类型		|出现要求	|描述  
+:----						|:---		|:------	|:---	
+code						|int		|R			|响应码，详见 附录A
+msg							|string		|R			|&nbsp;
+data						|Object		|R			|&nbsp;
+&emsp;state					|Integer	|R			|校验结果 false不可用，true可用
+
+示例：
+
+```
+{
+    "code": 200,
+    "msg": "success",
+    "data": {
+        "state": true
+    }
 }
 ```
 
@@ -2846,8 +2897,8 @@ data						|Object[]	|R			|&nbsp;
   
 参数名称			|类型			|出现要求	|描述  
 :----				|:---			|:------	|:---	
-currPage				|Integer		|O			|页码，为空时默认为1
-pageSize				|Integer		|O			|每页记录数，为空时默认为10
+currPage			|Integer		|O			|页码，为空时默认为1
+pageSize			|Integer		|O			|每页记录数，为空时默认为10
 order	 			|String 		|O			|排序
 name				|String			|O			|监测设置
 typeId				|Integer		|O			|监测类别ID
@@ -2864,20 +2915,22 @@ GET /deteSet/list?pageSize=10&currPage=2&name=cpu
 :----						|:---		|:------	|:---	
 code						|int		|R			|响应码，详见 附录A
 msg							|string		|R			|&nbsp;
-data						|Object[]	|R			|&nbsp;
-&emsp;id					|Integer	|R			|主键
-&emsp;name					|String		|R			|设置名称，唯一索引
-&emsp;type					|Object		|R			|类别
-&emsp;&emsp;id				|Integer	|R			|类别ID
-&emsp;&emsp;name			|String		|R			|类别名称
-&emsp;buildIn				|String		|R			|1:内置，2：用户自定义，默认2
-&emsp;params				|String		|R			|类别定义的参数，多个逗号分隔，参数内逗号需要转义
-&emsp;viewLevel				|String		|R			|1:用户组，2：系统内全部人员，3：无限制，默认2
-&emsp;state					|String		|R			|状态，1：删除，2：停止，3：监控中
-&emsp;remark				|String		|R			|备注
-&emsp;i18nCode				|String		|R			| name i18n code值
-&emsp;operator				|Integer	|R			|操作人
-&emsp;opTime				|Date		|R			|操作时间
+data						|Object		|R			|&nbsp;
+&emsp;totalCount			|int		|R			|&nbsp;
+&emsp;&emsp;list			|Object[]	|R			|&nbsp;
+&emsp;&emsp;id				|Integer	|R			|主键
+&emsp;&emsp;name			|String		|R			|设置名称，唯一索引
+&emsp;&emsp;type			|Object		|R			|类别
+&emsp;&emsp;&emsp;id		|Integer	|R			|类别ID
+&emsp;&emsp;&emsp;name		|String		|R			|类别名称
+&emsp;&emsp;buildIn			|String		|R			|1:内置，2：用户自定义，默认2
+&emsp;&emsp;params			|String		|R			|类别定义的参数，多个逗号分隔，参数内逗号需要转义
+&emsp;&emsp;viewLevel		|String		|R			|1:用户组，2：系统内全部人员，3：无限制，默认2
+&emsp;&emsp;state			|String		|R			|状态，1：删除，2：停止，3：监控中
+&emsp;&emsp;remark			|String		|R			|备注
+&emsp;&emsp;i18nCode		|String		|R			| name i18n code值
+&emsp;&emsp;operator		|Integer	|R			|操作人
+&emsp;&emsp;opTime			|Date		|R			|操作时间
 
 示例：
 
@@ -2885,20 +2938,23 @@ data						|Object[]	|R			|&nbsp;
 {
     "code": 200,
     "msg": "success",
-    "data": [{
-        "id": 1,
-        "name": "cpu",
-        "type": {
-            "id": 2,
-            "name": "cpu"
-        },
-        "buildIn": "1",
-        "params": "",
-        "viewLevel": "",
-        "state": "",
-        "remark": "",
-        "i18nCode": ""
-    }]
+    "data": {
+        "totalCount": 1,
+        "list": [{
+            "id": 1,
+            "name": "cpu",
+            "type": {
+                "id": 2,
+                "name": "cpu"
+            },
+            "buildIn": "1",
+            "params": "",
+            "viewLevel": "",
+            "state": "",
+            "remark": "",
+            "i18nCode": ""
+        }]
+    }
 }
 ```
 
@@ -2932,7 +2988,7 @@ data						|Object		|R			|&nbsp;
 &emsp;type					|Object		|R			|类别
 &emsp;&emsp;id				|Integer	|R			|类别ID
 &emsp;&emsp;name			|String		|R			|类别名称
-&emsp;&emsp;params			|Object[]	|R			|类别参数数组
+&emsp;&emsp;params			|Object[]	|R			|类别参数
 &emsp;&emsp;&emsp;id		|Integer	|R			|参数id
 &emsp;&emsp;&emsp;name		|String		|R			|参数名称
 &emsp;&emsp;&emsp;default	|String		|R			|参数默认值
@@ -2942,13 +2998,12 @@ data						|Object		|R			|&nbsp;
 &emsp;state					|String		|R			|状态，1：删除，2：停止，3：监控中
 &emsp;remark				|String		|R			|备注
 &emsp;i18nCode				|String		|R			| name i18n code值
-&emsp;operator				|Integer	|R			|操作人
 &emsp;opTime				|Date		|R			|操作时间
 &emsp;nodeGroups			|Object[]	|R			|节点组
 &emsp;&emsp;id				|Integer	|R			|节点组id
 &emsp;&emsp;name			|String		|R			|节点组名称
 &emsp;nodes					|Object[]	|R			|节点
-&emsp;&emsp;id				|Integer	|R			|节点id
+&emsp;&emsp;uuid			|String		|R			|节点id
 &emsp;&emsp;name			|String		|R			|节点名称
 &emsp;&emsp;ip				|String		|R			|节点ip
 
@@ -2981,7 +3036,7 @@ data						|Object		|R			|&nbsp;
             "name": "group1"
         }],
         "nodes": [{
-            "id": 1,
+            "uuid": "aerawerawerwae",
             "name": "node1",
             "ip": "10.20.30.40"
         }]
@@ -3006,7 +3061,7 @@ viewLevel			|String			|R			|1:用户组，2：系统内全部人员，3：无限
 remark				|String			|R			|备注
 i18nCode			|String			|R			| name i18n code值
 nodeGroupIds		|Integer[]		|R			|节点组id
-nodeIds				|Integer[]		|R			|节点id
+nodeIds				|String[]		|R			|节点id
 
 示例：
 
@@ -3019,7 +3074,7 @@ nodeIds				|Integer[]		|R			|节点id
     "remark": "",
     "i18nCode": "",
     "nodeGroupIds": [1,2,3],
-    "nodeIds": [4,5,6]
+    "nodeIds": ["awe5r4a3w1fa6w8e54rw","hrdshs4tj4aw4e5Q4EQ","rqwerwat5wa5et75ew456"]
 }
 ```
 
@@ -3029,13 +3084,20 @@ nodeIds				|Integer[]		|R			|节点id
 :----						|:---		|:------	|:---	
 code						|int		|R			|响应码，详见 附录A
 msg							|string		|R			|&nbsp;
+data						|Object		|R			|&nbsp;
+&emsp;state					|boolean	|R			|操作结果 false失败，true成功
+&emsp;msg					|String		|R			|失败原因
 
 示例：
 
 ```
 {
     "code": 200,
-    "msg": "success"
+    "msg": "success",
+    "data": {
+        "state": true,
+        "msg": ""
+    }
 }
 ```
 
@@ -3081,13 +3143,20 @@ nodeIds				|Integer[]		|R			|节点id
 :----						|:---		|:------	|:---	
 code						|int		|R			|响应码，详见 附录A
 msg							|string		|R			|&nbsp;
+data						|Object		|R			|&nbsp;
+&emsp;state					|boolean	|R			|操作结果 false失败，true成功
+&emsp;msg					|String		|R			|失败原因
 
 示例：
 
 ```
 {
     "code": 200,
-    "msg": "success"
+    "msg": "success",
+    "data": {
+        "state": false,
+        "msg": "名称已被占用"
+    }
 }
 ```
 
@@ -3127,6 +3196,46 @@ msg							|string		|R			|&nbsp;
 }
 ```
 
+##### 2.3.2.6 监测设置名称校验
+
+- **接口说明：** 监测类别名称校验，不能重复
+- **接口地址：** /deteSet/nameCheck
+- **请求方式：** GET
+
+###### 请求参数
+  
+参数名称			|类型			|出现要求	|描述  
+:----				|:---			|:------	|:---	
+id       			|String 		|O			|唯一标识，为空表示正在新增监测类别
+name				|String			|R			|名称
+
+示例：
+
+```
+GET /deteSet/nameCheck?id=5&name=cpu
+```
+
+###### 返回结果
+
+参数名称					|类型		|出现要求	|描述  
+:----						|:---		|:------	|:---	
+code						|int		|R			|响应码，详见 附录A
+msg							|string		|R			|&nbsp;
+data						|Object		|R			|&nbsp;
+&emsp;state					|Integer	|R			|校验结果 false不可用，true可用
+
+示例：
+
+```
+{
+    "code": 200,
+    "msg": "success",
+    "data": {
+        "state": true
+    }
+}
+```
+
 
 #### 2.3.3 告警设置
 
@@ -3140,8 +3249,8 @@ msg							|string		|R			|&nbsp;
   
 参数名称			|类型			|出现要求	|描述  
 :----				|:---			|:------	|:---	
-currPage				|Integer		|O			|页码，为空时默认为1
-pageSize				|Integer		|O			|每页记录数，为空时默认为10
+currPage			|Integer		|O			|页码，为空时默认为1
+pageSize			|Integer		|O			|每页记录数，为空时默认为10
 order	 			|String 		|O			|排序
 setId				|Integer		|O			|监测设置ID
 typeId				|Integer		|O			|监测类别ID
@@ -3155,25 +3264,33 @@ GET /deteWarn/list?pageSize=10&currPage=2&setId=12
 ###### 返回结果
 
 参数名称					|类型		|出现要求	|描述  
-:----						|:---		|:------	|:---	
+:-----------				|:---		|:------	|:---	
 code						|int		|R			|响应码，详见 附录A
 msg							|string		|R			|&nbsp;
-data						|Object[]	|R			|&nbsp;
-&emsp;id					|Integer	|R			|&nbsp;
-&emsp;name					|String		|R			|&nbsp;
-&emsp;meta					|Object		|R			|告警字段
-&emsp;&emsp;id				|Integer	|R			|字段id
-&emsp;&emsp;name			|String		|R			|字段名称
-&emsp;trigger				|String		|R			|1:阈值触发,2：变化触发，当本次监测数值与上次不一致时触发，用于配置文件是否修改等,3：主动，默认：1
-&emsp;mode					|String		|R			|告警模式，1、单台，2、汇总
-&emsp;statType				|String		|R			|1:avg 2:count 3:sum 4:min 5:max，默认：1
-&emsp;symbol				|String		|R			|1:> 2:< 3:= 4:equals 5:include 6:exclude 默认：1
-&emsp;threshold				|String		|R			|阈值
-&emsp;tips					|String		|R			|告警提示信息
-&emsp;level					|String		|R			|告警级别，1:normal，2:info，3:warning，4:error，默认：3
-&emsp;callbackType			|String		|R			|回调方式，0:无，1：shell，2：http，默认：0
-&emsp;viewLevel				|String		|R			|1:用户组，2：系统内全部人员，3：无限制，默认2
-&emsp;remark				|String		|R			|备注
+data						|Object		|R			|&nbsp;
+&emsp;totalCount			|int		|R			|&nbsp;
+&emsp;list					|Object[]	|R			|&nbsp;
+&emsp;&emsp;id				|Integer	|R			|&nbsp;
+&emsp;&emsp;name			|String		|R			|&nbsp;
+&emsp;&emsp;deteType		|Object		|R			|监测类别
+&emsp;&emsp;&emsp;id		|Integer	|R			|类别id
+&emsp;&emsp;&emsp;name		|String		|R			|类别名称
+&emsp;&emsp;deteSet			|Object[]	|O			|监测设置
+&emsp;&emsp;&emsp;id		|Integer	|R			|设置id
+&emsp;&emsp;&emsp;name		|String		|R			|设置名称
+&emsp;&emsp;meta			|Object		|R			|告警字段
+&emsp;&emsp;&emsp;id		|Integer	|R			|字段id
+&emsp;&emsp;&emsp;name		|String		|R			|字段名称
+&emsp;&emsp;trigger			|String		|R			|1:阈值触发,2：变化触发，当本次监测数值与上次不一致时触发，用于配置文件是否修改等,3：主动，默认：1
+&emsp;&emsp;mode			|String		|R			|告警模式，1、单台，2、汇总
+&emsp;&emsp;statType		|String		|R			|1:avg 2:count 3:sum 4:min 5:max，默认：1
+&emsp;&emsp;symbol			|String		|R			|1:> 2:< 3:= 4:equals 5:include 6:exclude 默认：1
+&emsp;&emsp;threshold		|String		|R			|阈值
+&emsp;&emsp;tips			|String		|R			|告警提示信息
+&emsp;&emsp;level			|String		|R			|告警级别，1:normal，2:info，3:warning，4:error，默认：3
+&emsp;&emsp;callbackType	|String		|R			|回调方式，0:无，1：shell，2：http，默认：0
+&emsp;&emsp;viewLevel		|String		|R			|1:用户组，2：系统内全部人员，3：无限制，默认2
+&emsp;&emsp;remark			|String		|R			|备注
 
 示例：
 
@@ -3181,24 +3298,35 @@ data						|Object[]	|R			|&nbsp;
 {
     "code": 200,
     "msg": "success",
-    "data": [{
-        "id": 1,
-        "name": "",
-        "meta": {
-            "id": 2, 
-            "name": "使用率"
-        },
-        "trigger": "1",
-        "mode": "2",
-        "statType": "1",
-        "symbol": ">",
-        "threshold": "15",
-        "tips": "enen",
-        "level": "1",
-        "callbackType": "",
-        "viewLevel": "",
-        "remark": ""
-    }]
+    "data": {
+        "totalCount": 1,
+        "list": [{
+            "id": 1,
+            "name": "",
+            "deteType": {
+                "id": 1,
+                "name": "22ww"
+            },
+            "deteSet": [{
+                "id": 2,
+                "name": "2211"
+            }],
+            "meta": {
+                "id": 2, 
+                "name": "使用率"
+            },
+            "trigger": "1",
+            "mode": "2",
+            "statType": "1",
+            "symbol": ">",
+            "threshold": "15",
+            "tips": "enen",
+            "level": "1",
+            "callbackType": "",
+            "viewLevel": "",
+            "remark": ""
+        }]
+    }
 }
 ```
 
@@ -3229,6 +3357,12 @@ msg							|string		|R			|&nbsp;
 data						|Object		|R			|&nbsp;
 &emsp;id					|Integer	|R			|&nbsp;
 &emsp;name					|String		|R			|&nbsp;
+&emsp;deteType				|Object		|R			|监测类别
+&emsp;&emsp;id				|Integer	|R			|类别id
+&emsp;&emsp;name			|String		|R			|类别名称
+&emsp;deteSet				|Object[]	|O			|监测设置
+&emsp;&emsp;id				|Integer	|R			|设置id
+&emsp;&emsp;name			|String		|R			|设置名称
 &emsp;meta					|Object		|R			|告警字段
 &emsp;&emsp;id				|Integer	|R			|字段id
 &emsp;&emsp;name			|String		|R			|字段名称
@@ -3253,6 +3387,14 @@ data						|Object		|R			|&nbsp;
     "data": {
         "id": 1,
         "name": "",
+        "deteType": {
+            "id": 1,
+            "name": "22ww"
+        },
+        "deteSet": [{
+            "id": 2,
+            "name": "2211"
+        }],
         "meta": {
             "id": 2, 
             "name": "使用率"
@@ -3282,6 +3424,8 @@ data						|Object		|R			|&nbsp;
 参数名称			|类型			|出现要求	|描述  
 :----				|:---			|:------	|:---	
 name				|String			|R			|&nbsp;
+deteTypeId			|Integer		|R			|监测类别id
+deteSetIds			|Integer[]		|O			|监测设置id
 metaId				|Integer		|R			|告警字段id
 trigger				|String			|R			|1:阈值触发,2：变化触发，当本次监测数值与上次不一致时触发，用于配置文件是否修改等,3：主动，默认：1
 mode				|String			|R			|告警模式，1、单台，2、汇总
@@ -3300,6 +3444,8 @@ remark				|String			|R			|备注
 ```
 {
     "name": "",
+    "deteTypeId": 32,
+    "deteSetIds": [1,2,3],
     "metaId": 1,
     "trigger": "",
     "mode": "",
@@ -3321,13 +3467,20 @@ remark				|String			|R			|备注
 :----						|:---		|:------	|:---	
 code						|int		|R			|响应码，详见 附录A
 msg							|string		|R			|&nbsp;
+data						|Object		|R			|&nbsp;
+&emsp;state					|boolean	|R			|操作结果 false失败，true成功
+&emsp;msg					|String		|R			|失败原因
 
 示例：
 
 ```
 {
     "code": 200,
-    "msg": "success"
+    "msg": "success",
+    "data": {
+        "state": true,
+        "msg": ""
+    }
 }
 ```
 
@@ -3383,13 +3536,20 @@ remark				|String			|R			|备注
 :----						|:---		|:------	|:---	
 code						|int		|R			|响应码，详见 附录A
 msg							|string		|R			|&nbsp;
+data						|Object		|R			|&nbsp;
+&emsp;state					|boolean	|R			|操作结果 false失败，true成功
+&emsp;msg					|String		|R			|失败原因
 
 示例：
 
 ```
 {
     "code": 200,
-    "msg": "success"
+    "msg": "success",
+    "data": {
+        "state": false,
+        "msg": "名称已被占用"
+    }
 }
 ```
 
@@ -3429,6 +3589,47 @@ msg							|string		|R			|&nbsp;
 }
 ```
 
+##### 2.3.3.6 告警名称校验
+
+- **接口说明：** 监测类别名称校验，不能重复
+- **接口地址：** /deteWarn/nameCheck
+- **请求方式：** GET
+
+###### 请求参数
+  
+参数名称			|类型			|出现要求	|描述  
+:----				|:---			|:------	|:---	
+id       			|String 		|O			|唯一标识，为空表示正在新增监测类别
+name				|String			|R			|名称
+
+示例：
+
+```
+GET /deteWarn/nameCheck?id=5&name=cpu
+```
+
+###### 返回结果
+
+参数名称					|类型		|出现要求	|描述  
+:----						|:---		|:------	|:---	
+code						|int		|R			|响应码，详见 附录A
+msg							|string		|R			|&nbsp;
+data						|Object		|R			|&nbsp;
+&emsp;state					|Integer	|R			|校验结果 false不可用，true可用
+
+示例：
+
+```
+{
+    "code": 200,
+    "msg": "success",
+    "data": {
+        "state": true
+    }
+}
+```
+
+
 ### 2.4 任务
 
 #### 2.4.1 任务
@@ -3443,8 +3644,8 @@ msg							|string		|R			|&nbsp;
   
 参数名称			|类型			|出现要求	|描述  
 :----				|:---			|:------	|:---	
-currPage				|Integer		|O			|页码，为空时默认为1
-pageSize				|Integer		|O			|每页记录数，为空时默认为10
+currPage			|Integer		|O			|页码，为空时默认为1
+pageSize			|Integer		|O			|每页记录数，为空时默认为10
 order	 			|String 		|O			|排序
 isLoop				|String			|O			|是否周期任务 0：不是，1：是
 type				|String			|O			|任务类型 1：文件推送，2：命令执行，3：升级部署
