@@ -62,6 +62,8 @@ data						|object		|R			|每个接口特有的参数，详见每个接口定义
     "msg": "success",
     "data": {
         "totalCount": 1,
+        "totalPage": 1,
+        "currPage": 1,
         "list": [{
             "Channel": "A10086",
             "Type": 7004
@@ -87,12 +89,12 @@ data						|object		|R			|每个接口特有的参数，详见每个接口定义
   
 参数名称			|类型			|出现要求	|描述  
 :----				|:---			|:------	|:---	
-currPage			|Integer		|O			|页码，为空时默认为1
-pageSize			|Integer		|O			|每页记录数，为空时默认为10
+page				|Integer		|O			|页码，为空时默认为1
+limit				|Integer		|O			|每页记录数，为空时默认为10
 order	 			|String 		|O			|排序
 ip       			|String 		|O			|查询ip
-state 		    	|Integer		|O			|设备状态，1：在线，2：下线
-type      			|String 		|O			|设备类型
+state 		    	|String			|O			|设备状态，1：在线，2：下线
+type      			|String 		|O			|设备类型 数字1|2, 1：server,2：net
 tag      			|Integer 		|O			|设备标签
 cabinetId      		|Integer 		|O			|机柜
 roomId				|Integer		|O			|机房
@@ -115,6 +117,8 @@ code						|int		|R			|响应码，详见 附录A
 msg							|string		|R			|&nbsp;
 data						|object		|R			|&nbsp;
 &emsp;totalCount			|int		|R			|&nbsp;
+&emsp;totalPage				|int		|R			|&nbsp;
+&emsp;currPage				|int		|R			|&nbsp;
 &emsp;list					|Object[]	|R			|&nbsp;
 &emsp;&emsp;name			|String		|R			|&nbsp;
 &emsp;&emsp;hostName		|String		|R			|主机名
@@ -147,6 +151,8 @@ data						|object		|R			|&nbsp;
     "msg": "success",
     "data": {
         "totalCount": 1,
+        "totalPage": 1,
+        "currPage": 1,
         "list": [{
             "name": "node1",
             "hostName": "ysp-01",
@@ -817,8 +823,8 @@ msg							|string		|R			|&nbsp;
   
 参数名称			|类型			|出现要求	|描述  
 :----				|:---			|:------	|:---	
-currPage			|Integer		|O			|页码，为空时默认为1
-pageSize			|Integer		|O			|每页记录数，为空时默认为10
+page				|Integer		|O			|页码，为空时默认为1
+limit				|Integer		|O			|每页记录数，为空时默认为10
 order	 			|String 		|O			|排序
 groupId				|Integer		|R			|节点组id
 systemId			|Integer		|R			|业务系统id
@@ -838,6 +844,8 @@ code						|int		|R			|响应码，详见 附录A
 msg							|string		|R			|&nbsp;
 data						|object		|R			|&nbsp;
 &emsp;totalCount			|int		|R			|&nbsp;
+&emsp;totalPage				|int		|R			|&nbsp;
+&emsp;currPage				|int		|R			|&nbsp;
 &emsp;list					|Object[]	|R			|&nbsp;
 &emsp;&emsp;name			|String		|R			|名称
 &emsp;&emsp;hostName		|String		|R			|主机名
@@ -854,6 +862,8 @@ data						|object		|R			|&nbsp;
     "msg": "success",
     "data": {
         "totalCount": 1,
+        "totalPage": 1,
+        "currPage": 1,
         "list": [{
             "name": "node1",
             "hostName": "ysp-01",
@@ -995,8 +1005,8 @@ data						|Object		|R			|&nbsp;
   
 参数名称			|类型			|出现要求	|描述  
 :----				|:---			|:------	|:---	
-currPage			|Integer		|O			|页码，为空时默认为1
-pageSize			|Integer		|O			|每页记录数，为空时默认为10
+page				|Integer		|O			|页码，为空时默认为1
+limit				|Integer		|O			|每页记录数，为空时默认为10
 order	 			|String 		|O			|排序
 name				|String			|O			|机房名称
 area				|Integer		|O			|所属区域
@@ -1015,6 +1025,8 @@ code						|int		|R			|响应码，详见 附录A
 msg							|string		|R			|&nbsp;
 data						|Object		|R			|&nbsp;
 &emsp;totalCount			|int		|R			|&nbsp;
+&emsp;totalPage				|int		|R			|&nbsp;
+&emsp;currPage				|int		|R			|&nbsp;
 &emsp;list					|Object[]	|R			|&nbsp;
 &emsp;&emsp;id				|Integer	|R			|主键
 &emsp;&emsp;name			|String		|R			|机房名称
@@ -1031,6 +1043,8 @@ data						|Object		|R			|&nbsp;
     "msg": "success",
     "data": {
         "totalCount": 1,
+        "totalPage": 1,
+        "currPage": 1,
         "list": [{
             "id": 1,
             "name": "room2",
@@ -1341,8 +1355,8 @@ data						|Object		|R			|&nbsp;
   
 参数名称			|类型			|出现要求	|描述  
 :----				|:---			|:------	|:---	
-currPage			|Integer		|O			|页码，为空时默认为1
-pageSize			|Integer		|O			|每页记录数，为空时默认为10
+page				|Integer		|O			|页码，为空时默认为1
+limit				|Integer		|O			|每页记录数，为空时默认为10
 order	 			|String 		|O			|排序
 name				|String			|O			|机柜名称
 roomId				|Integer		|O			|所属机房id
@@ -1361,6 +1375,8 @@ code						|int		|R			|响应码，详见 附录A
 msg							|string		|R			|&nbsp;
 data						|Object		|R			|&nbsp;
 &emsp;totalCount			|int		|R			|&nbsp;
+&emsp;totalPage				|int		|R			|&nbsp;
+&emsp;currPage				|int		|R			|&nbsp;
 &emsp;list					|Object[]	|R			|&nbsp;
 &emsp;&emsp;id				|Integer	|R			|主键
 &emsp;&emsp;name			|String		|R			|机柜名称
@@ -1378,6 +1394,8 @@ data						|Object		|R			|&nbsp;
     "msg": "success",
     "data": [{
         "totalCount": 1,
+        "totalPage": 1,
+        "currPage": 1,
         "list": [{
             "id": 1,
             "name": "cab2",
@@ -1756,8 +1774,8 @@ data						|Object		|R			|&nbsp;
   
 参数名称			|类型			|出现要求	|描述  
 :----				|:---			|:------	|:---	
-currPage			|Integer		|O			|页码，为空时默认为1
-pageSize			|Integer		|O			|每页记录数，为空时默认为10
+page				|Integer		|O			|页码，为空时默认为1
+limit				|Integer		|O			|每页记录数，为空时默认为10
 order	 			|String 		|O			|排序
 usergroupId			|Integer		|C			|用户组id
 
@@ -1775,6 +1793,8 @@ code						|int		|R			|响应码，详见 附录A
 msg							|string		|R			|&nbsp;
 data						|Object		|R			|&nbsp;
 &emsp;totalCount			|int		|R			|&nbsp;
+&emsp;totalPage				|int		|R			|&nbsp;
+&emsp;currPage				|int		|R			|&nbsp;
 &emsp;list					|Object[]	|R			|&nbsp;
 &emsp;&emsp;id				|Integer	|R			|编号
 &emsp;&emsp;name			|String		|R			|系统名称
@@ -1792,6 +1812,8 @@ data						|Object		|R			|&nbsp;
     "msg": "success",
     "data": {
         "totalCount": 1,
+        "totalPage": 1,
+        "currPage": 1,
         "list": [{
             "id": 1,
             "name": "system1",
@@ -2014,6 +2036,8 @@ code						|int		|R			|响应码，详见 附录A
 msg							|String		|R			|&nbsp;
 data						|Object		|R			|&nbsp;
 &emsp;totalCount			|int		|R			|&nbsp;
+&emsp;totalPage				|int		|R			|&nbsp;
+&emsp;currPage				|int		|R			|&nbsp;
 &emsp;list					|Object[]	|R			|&nbsp;
 &emsp;&emsp;name			|String		|R			|名称
 &emsp;&emsp;hostName		|String		|R			|主机名
@@ -2033,6 +2057,8 @@ data						|Object		|R			|&nbsp;
     "msg": "success",
     "data": {
         "totalCount": 1,
+        "totalPage": 1,
+        "currPage": 1,
         "list": [{
             "id": 1,
             "name": "a",
@@ -2176,8 +2202,8 @@ data						|Object		|R			|&nbsp;
   
 参数名称			|类型			|出现要求	|描述  
 :----				|:---			|:------	|:---	
-currPage			|Integer		|O			|页码，为空时默认为1
-pageSize			|Integer		|O			|每页记录数，为空时默认为10
+page				|Integer		|O			|页码，为空时默认为1
+limit				|Integer		|O			|每页记录数，为空时默认为10
 order	 			|String 		|O			|排序
 systemId			|Integer		|C			|业务系统id
 
@@ -2195,6 +2221,8 @@ code						|int		|R			|响应码，详见 附录A
 msg							|string		|R			|&nbsp;
 data						|Object		|R			|&nbsp;
 &emsp;totalCount			|int		|R			|&nbsp;
+&emsp;totalPage				|int		|R			|&nbsp;
+&emsp;currPage				|int		|R			|&nbsp;
 &emsp;list					|Object[]	|R			|&nbsp;
 &emsp;&emsp;id				|Integer	|R			|主键
 &emsp;&emsp;name			|String		|R			|用户组名称
@@ -2214,6 +2242,8 @@ data						|Object		|R			|&nbsp;
     "msg": "success",
     "data": {
         "totalCount": 1,
+        "totalPage": 1,
+        "currPage": 1,
         "list": [{
             "id": 1,
             "name": "usergroup1",
@@ -2480,8 +2510,8 @@ data						|Object		|R			|&nbsp;
   
 参数名称			|类型			|出现要求	|描述  
 :----				|:---			|:------	|:---	
-currPage			|Integer		|O			|页码，为空时默认为1
-pageSize			|Integer		|O			|每页记录数，为空时默认为10
+page				|Integer		|O			|页码，为空时默认为1
+limit				|Integer		|O			|每页记录数，为空时默认为10
 order	 			|String 		|O			|排序
 name				|String			|O			|监测类别
 
@@ -2499,6 +2529,8 @@ code						|int		|R			|响应码，详见 附录A
 msg							|string		|R			|&nbsp;
 data						|Object		|R			|&nbsp;
 &emsp;totalCount			|int		|R			|&nbsp;
+&emsp;totalPage				|int		|R			|&nbsp;
+&emsp;currPage				|int		|R			|&nbsp;
 &emsp;list					|Object[]	|R			|&nbsp;
 &emsp;&emsp;id				|Integer	|R			|&nbsp;
 &emsp;&emsp;name			|String		|R			|名称，唯一索引
@@ -2518,6 +2550,8 @@ data						|Object		|R			|&nbsp;
     "msg": "success",
     "data": {
         "totalCount": 1,
+        "totalPage": 1,
+        "currPage": 1,
         "list": [{
            "id": 1,
            "name": "",
@@ -2684,7 +2718,7 @@ deteTypeParams		|Object[]		|R			|类别参数数组
         "fieldName": "",
         "i18nCode": "",
         "remark": "",
-		"deteTypeMetas": [{
+        "deteTypeMetas": [{
             "id": 1,
             "name": "earae",
             "typeId": 1,
@@ -2972,8 +3006,8 @@ data						|Object		|R			|&nbsp;
   
 参数名称			|类型			|出现要求	|描述  
 :----				|:---			|:------	|:---	
-currPage			|Integer		|O			|页码，为空时默认为1
-pageSize			|Integer		|O			|每页记录数，为空时默认为10
+page				|Integer		|O			|页码，为空时默认为1
+limit				|Integer		|O			|每页记录数，为空时默认为10
 order	 			|String 		|O			|排序
 name				|String			|O			|监测设置
 typeId				|Integer		|O			|监测类别ID
@@ -2992,6 +3026,8 @@ code						|int		|R			|响应码，详见 附录A
 msg							|string		|R			|&nbsp;
 data						|Object		|R			|&nbsp;
 &emsp;totalCount			|int		|R			|&nbsp;
+&emsp;totalPage				|int		|R			|&nbsp;
+&emsp;currPage				|int		|R			|&nbsp;
 &emsp;&emsp;list			|Object[]	|R			|&nbsp;
 &emsp;&emsp;id				|Integer	|R			|主键
 &emsp;&emsp;name			|String		|R			|设置名称，唯一索引
@@ -3015,6 +3051,8 @@ data						|Object		|R			|&nbsp;
     "msg": "success",
     "data": {
         "totalCount": 1,
+        "totalPage": 1,
+        "currPage": 1,
         "list": [{
             "id": 1,
             "name": "cpu",
@@ -3324,8 +3362,8 @@ data						|Object		|R			|&nbsp;
   
 参数名称			|类型			|出现要求	|描述  
 :----				|:---			|:------	|:---	
-currPage			|Integer		|O			|页码，为空时默认为1
-pageSize			|Integer		|O			|每页记录数，为空时默认为10
+page				|Integer		|O			|页码，为空时默认为1
+limit				|Integer		|O			|每页记录数，为空时默认为10
 order	 			|String 		|O			|排序
 setId				|Integer		|O			|监测设置ID
 typeId				|Integer		|O			|监测类别ID
@@ -3344,6 +3382,8 @@ code						|int		|R			|响应码，详见 附录A
 msg							|string		|R			|&nbsp;
 data						|Object		|R			|&nbsp;
 &emsp;totalCount			|int		|R			|&nbsp;
+&emsp;totalPage				|int		|R			|&nbsp;
+&emsp;currPage				|int		|R			|&nbsp;
 &emsp;list					|Object[]	|R			|&nbsp;
 &emsp;&emsp;id				|Integer	|R			|&nbsp;
 &emsp;&emsp;name			|String		|R			|&nbsp;
@@ -3375,6 +3415,8 @@ data						|Object		|R			|&nbsp;
     "msg": "success",
     "data": {
         "totalCount": 1,
+        "totalPage": 1,
+        "currPage": 1,
         "list": [{
             "id": 1,
             "name": "",
@@ -3719,8 +3761,8 @@ data						|Object		|R			|&nbsp;
   
 参数名称			|类型			|出现要求	|描述  
 :----				|:---			|:------	|:---	
-currPage			|Integer		|O			|页码，为空时默认为1
-pageSize			|Integer		|O			|每页记录数，为空时默认为10
+page				|Integer		|O			|页码，为空时默认为1
+limit				|Integer		|O			|每页记录数，为空时默认为10
 order	 			|String 		|O			|排序
 isLoop				|String			|O			|是否周期任务 0：不是，1：是
 type				|String			|O			|任务类型 1：文件推送，2：命令执行，3：升级部署
@@ -3739,22 +3781,24 @@ GET /usergroup/list?pageSize=10&currPage=2&name=file&isLoop=0
 :----						|:---		|:------	|:---	
 code						|int		|R			|响应码，详见 附录A
 msg							|string		|R			|&nbsp;
-data						|Object[]	|R			|&nbsp;
-&emsp;id					|Integer	|R			|&nbsp;
-&emsp;name					|String		|R			|任务名称
-&emsp;type					|String		|R			|任务类型，1、文件推送，2、命令执行，3、升级部署
-&emsp;state					|String		|R			|任务状态，周期任务有效，0、非周期任务，1、运行，2、暂停，3、终止
-&emsp;stateDesc				|String		|R			|任务状态描述，成功几个失败几个等
-&emsp;viewLevel				|String		|R			|查看权限 1:用户组，2：系统内全部人员，3：无限制，默认2
-&emsp;viewer				|String		|R			|查看人，组名或业务系统名
-&emsp;isLoop				|String		|R			|是否周期任务，0：不是，1：是
-&emsp;loopInterval			|Integer	|R			|周期间隔，单位分钟
-&emsp;param					|String		|R			|任务参数，json方式保存
-&emsp;remark				|String		|R			|备注
-&emsp;operator				|Object		|R			|操作人
-&emsp;&emsp;id				|Integer	|R			|操作人id
-&emsp;&emsp;name			|String		|R			|操作人登录名
-&emsp;opTime				|Date		|R			|操作时间
+data						|Object		|R			|&nbsp;
+&emsp;totalCount			|int		|R			|&nbsp;
+&emsp;totalPage				|int		|R			|&nbsp;
+&emsp;currPage				|int		|R			|&nbsp;
+&emsp;list					|Object[]	|R			|&nbsp;
+&emsp;&emsp;id				|Integer	|R			|&nbsp;
+&emsp;&emsp;name			|String		|R			|任务名称
+&emsp;&emsp;type			|String		|R			|任务类型，1、文件推送，2、命令执行，3、升级部署
+&emsp;&emsp;state			|String		|R			|任务状态，周期任务有效，0、非周期任务，1、运行，2、暂停，3、终止
+&emsp;&emsp;stateDesc		|String		|R			|任务状态描述，成功几个失败几个等
+&emsp;&emsp;viewLevel		|String		|R			|查看权限 1:用户组，2：系统内全部人员，3：无限制，默认2
+&emsp;&emsp;viewer			|String		|R			|查看人，组名或业务系统名
+&emsp;&emsp;isLoop			|String		|R			|是否周期任务，0：不是，1：是
+&emsp;&emsp;loopInterval	|Integer	|R			|周期间隔，单位分钟
+&emsp;&emsp;param			|String		|R			|任务参数，json方式保存
+&emsp;&emsp;remark			|String		|R			|备注
+&emsp;&emsp;operator		|String		|R			|操作人登录名
+&emsp;&emsp;opTime			|Date		|R			|操作时间
 
 示例：
 
@@ -3762,24 +3806,26 @@ data						|Object[]	|R			|&nbsp;
 {
     "code": 200,
     "msg": "success",
-    "data": [{
-        "id": 1,
-        "name": "task1",
-        "type": "2",
-        "state": "",
-        "stateDesc": "成功1个，未完成0个，失败5个",
-        "viewLevel": "1",
-        "viewer": "group1",
-        "isLoop": "0",
-        "loopInterval": 1,
-        "param": "",
-        "remark": "",
-        "operator": {
+    "data": {
+        "totalCount": 1,
+        "totalPage": 1,
+        "currPage": 1,
+        "list": [{
             "id": 1,
-            "name": "admin"
-        },
-        "opTime": "2007-07-07 07:07:07"
-    }]
+            "name": "task1",
+            "type": "2",
+            "state": "",
+            "stateDesc": "成功1个，未完成0个，失败5个",
+            "viewLevel": "1",
+            "viewer": "group1",
+            "isLoop": "0",
+            "loopInterval": 1,
+            "param": "",
+            "remark": "",
+            "operator": "admin",
+            "opTime": "2007-07-07 07:07:07"
+        }]
+    }
 }
 ```
 
@@ -3807,7 +3853,7 @@ GET /usergroup/detail?id=2
 :----						|:---		|:------	|:---	
 code						|int		|R			|响应码，详见 附录A
 msg							|string		|R			|&nbsp;
-data						|Object[]	|R			|&nbsp;
+data						|Object		|R			|&nbsp;
 &emsp;id					|Integer	|R			|&nbsp;
 &emsp;name					|String		|R			|任务名称
 &emsp;type					|String		|R			|任务类型，1、文件推送，2、命令执行，3、升级部署
@@ -3822,13 +3868,11 @@ data						|Object[]	|R			|&nbsp;
 &emsp;&emsp;id				|Integer	|R			|节点组id
 &emsp;&emsp;name			|String		|R			|节点组名称
 &emsp;nodes					|Object[]	|R			|节点
-&emsp;&emsp;id				|Integer	|R			|节点id
+&emsp;&emsp;uuid			|String		|R			|节点id
 &emsp;&emsp;ip				|String		|R			|节点ip
 &emsp;&emsp;name			|String		|R			|节点名称
 &emsp;remark				|String		|R			|备注
-&emsp;operator				|Object		|R			|操作人
-&emsp;&emsp;id				|Integer	|R			|操作人id
-&emsp;&emsp;name			|String		|R			|操作人登录名
+&emsp;operator				|String		|R			|操作人登录名
 &emsp;opTime				|Date		|R			|操作时间
 
 示例：
@@ -3837,7 +3881,7 @@ data						|Object[]	|R			|&nbsp;
 {
     "code": 200,
     "msg": "success",
-    "data": [{
+    "data": {
         "id": 1,
         "name": "task1",
         "type": "2",
@@ -3853,17 +3897,14 @@ data						|Object[]	|R			|&nbsp;
 			"name": "hehe"
 		}],
 		"nodes": [{
-			"id": 2,
+			"UUid": "2342QL4JH23LK5J2",
 			"name": "haha",
 			"ip": "10.20.20.10"
 		}]
         "remark": "",
-        "operator": {
-            "id": 1,
-            "name": "admin"
-        },
+        "operator": "admin",
         "opTime": "2007-07-07 07:07:07"
-    }]
+    }
 }
 ```
 
@@ -3911,13 +3952,20 @@ remark				|String			|R			|备注
 :----						|:---		|:------	|:---	
 code						|int		|R			|响应码，详见 附录A
 msg							|string		|R			|&nbsp;
+data						|Object		|R			|&nbsp;
+&emsp;state					|boolean	|R			|操作结果 false失败，true成功
+&emsp;msg					|String		|R			|失败原因
 
 示例：
 
 ```
 {
     "code": 200,
-    "msg": "success"
+    "msg": "success",
+    "data": {
+        "state": true,
+        "msg": ""
+    }
 }
 ```
 
@@ -3953,13 +4001,20 @@ viewLevel			|String			|R			|查看权限 1:用户组，2：系统内全部人员
 :----						|:---		|:------	|:---	
 code						|int		|R			|响应码，详见 附录A
 msg							|string		|R			|&nbsp;
+data						|Object		|R			|&nbsp;
+&emsp;state					|boolean	|R			|操作结果 false失败，true成功
+&emsp;msg					|String		|R			|失败原因
 
 示例：
 
 ```
 {
     "code": 200,
-    "msg": "success"
+    "msg": "success",
+    "data": {
+        "state": true,
+        "msg": ""
+    }
 }
 ```
 
@@ -3990,13 +4045,20 @@ state				|String			|R			|0: 停用，1：启用
 :----						|:---		|:------	|:---	
 code						|int		|R			|响应码，详见 附录A
 msg							|string		|R			|&nbsp;
+data						|Object		|R			|&nbsp;
+&emsp;state					|boolean	|R			|操作结果 false失败，true成功
+&emsp;msg					|String		|R			|失败原因
 
 示例：
 
 ```
 {
     "code": 200,
-    "msg": "success"
+    "msg": "success",
+    "data": {
+        "state": true,
+        "msg": ""
+    }
 }
 ```
 
@@ -4024,7 +4086,7 @@ GET /mission/converse?id=2
 :----						|:---		|:------	|:---	
 code						|int		|R			|响应码，详见 附录A
 msg							|string		|R			|&nbsp;
-data						|Object[]	|R			|&nbsp;
+data						|Object		|R			|&nbsp;
 &emsp;id					|Integer	|R			|&nbsp;
 &emsp;name					|String		|R			|任务名称
 &emsp;type					|String		|R			|任务类型，1、文件推送，2、命令执行，3、升级部署
@@ -4039,13 +4101,11 @@ data						|Object[]	|R			|&nbsp;
 &emsp;&emsp;id				|Integer	|R			|节点组id
 &emsp;&emsp;name			|String		|R			|节点组名称
 &emsp;nodes					|Object[]	|R			|节点
-&emsp;&emsp;id				|Integer	|R			|节点id
+&emsp;&emsp;uuid			|String		|R			|节点uuid
 &emsp;&emsp;ip				|String		|R			|节点ip
 &emsp;&emsp;name			|String		|R			|节点名称
 &emsp;remark				|String		|R			|备注
-&emsp;operator				|Object		|R			|操作人
-&emsp;&emsp;id				|Integer	|R			|操作人id
-&emsp;&emsp;name			|String		|R			|操作人登录名
+&emsp;operator				|String		|R			|操作人登录名
 &emsp;opTime				|Date		|R			|操作时间
 
 示例：
@@ -4070,15 +4130,12 @@ data						|Object[]	|R			|&nbsp;
 			"name": "hehe"
 		}],
 		"nodes": [{
-			"id": 2,
+			"uuid": "243232kjh4lk3h4k134h",
 			"name": "haha",
 			"ip": "10.20.20.10"
 		}]
         "remark": "",
-        "operator": {
-            "id": 1,
-            "name": "admin"
-        },
+        "operator": "admin",
         "opTime": "2007-07-07 07:07:07"
     }]
 }
@@ -4108,18 +4165,22 @@ GET /mission/result?id=2
 :----						|:---		|:------	|:---	
 code						|int		|R			|响应码，详见 附录A
 msg							|string		|R			|&nbsp;
-data						|Object[]	|R			|&nbsp;
-&emsp;id					|Integer	|R			|&nbsp;
-&emsp;missionId				|Integer	|R			|&nbsp;
-&emsp;node					|Object		|R			|节点
-&emsp&emsp;uuid				|Integer	|R			|节点标识
-&emsp&emsp;ip				|String		|R			|节点ip
-&emsp&emsp;name				|String		|R			|节点名称
-&emsp;desc					|String		|R			|任务结果描述信息
-&emsp;state					|String		|R			|任务执行状态
-&emsp;cycle					|Integer	|R			|第几周期
-&emsp;file					|String		|R			|回传文件路径
-&emsp;opTime				|Date		|R			|操作时间
+data						|Object		|R			|&nbsp;
+&emsp;totalCount			|int		|R			|&nbsp;
+&emsp;totalPage				|int		|R			|&nbsp;
+&emsp;currPage				|int		|R			|&nbsp;
+&emsp;list					|Object[]	|R			|&nbsp;
+&emsp;&emsp;id				|Integer	|R			|&nbsp;
+&emsp;&emsp;missionId		|Integer	|R			|&nbsp;
+&emsp;&emsp;node			|Object		|R			|节点
+&emsp;&emsp;&emsp;uuid		|String		|R			|节点标识
+&emsp;&emsp;&emsp;ip		|String		|R			|节点ip
+&emsp;&emsp;&emsp;name		|String		|R			|节点名称
+&emsp;&emsp;desc			|String		|R			|任务结果描述信息
+&emsp;&emsp;state			|String		|R			|任务执行状态
+&emsp;&emsp;cycle			|Integer	|R			|第几周期
+&emsp;&emsp;file			|String		|R			|回传文件路径
+&emsp;&emsp;opTime			|Date		|R			|操作时间
 
 示例：
 
@@ -4127,20 +4188,25 @@ data						|Object[]	|R			|&nbsp;
 {
     "code": 200,
     "msg": "success",
-        "data": [{
-        "id": 1,
-        "missionId": 1,
-        "node": {
-            "uuid": "242345fsarfaser",
-            "ip": "10.20.30.40",
-            "name": "node1"
-        },
-        "desc": "",
-        "state": "",
-        "cycle": 1,
-        "file": "",
-        "opTime": "2019-07-10 10:10:10"
-    }]
+    "data": {
+        "totalCount": 1,
+        "totalPage": 1,
+        "currPage": 1,
+        "list": [{
+            "id": 1,
+            "missionId": 1,
+            "node": {
+                "uuid": "242345fsarfaser",
+                "ip": "10.20.30.40",
+                "name": "node1"
+            },
+            "desc": "",
+            "state": "",
+            "cycle": 1,
+            "file": "",
+            "opTime": "2019-07-10 10:10:10"
+        }]
+    }
 }
 ```
 
