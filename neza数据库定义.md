@@ -2718,7 +2718,7 @@ deteTypeParams		|Object[]		|R			|类别参数数组
         "fieldName": "",
         "i18nCode": "",
         "remark": "",
-		"deteTypeMetas": [{
+        "deteTypeMetas": [{
             "id": 1,
             "name": "earae",
             "typeId": 1,
