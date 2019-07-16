@@ -51,6 +51,8 @@ code						|int		|R			|响应码，代码定义请见“附录A 响应吗说明�
 msg							|string		|R			|响应描述
 data						|object		|R			|每个接口特有的参数，详见每个接口定义
 &emsp;totalCount			|int		|C			|总结果数，批量分页查询时需要
+&emsp;totalPage				|int		|C			|总页数
+&emsp;currPage				|int		|C			|当前页
 &emsp;list					|Object[]	|C			|当前页查询结果，批量查询时需要
 
 
