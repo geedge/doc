@@ -51,8 +51,6 @@ code						|int		|R			|响应码，代码定义请见“附录A 响应吗说明�
 msg							|string		|R			|响应描述
 data						|object		|R			|每个接口特有的参数，详见每个接口定义
 &emsp;totalCount			|int		|C			|总结果数，批量分页查询时需要
-&emsp;totalPage				|int		|C			|总页数
-&emsp;currPage				|int		|C			|当前页
 &emsp;list					|Object[]	|C			|当前页查询结果，批量查询时需要
 
 
@@ -180,7 +178,7 @@ data						|object		|R			|&nbsp;
                 "id": 1,
                 "name": "业务系统1"
             }]
-		}]
+        }]
     }
 }
 ```
@@ -195,12 +193,12 @@ data						|object		|R			|&nbsp;
   
 参数名称			|类型			|出现要求	|描述  
 :----				|:---			|:------	|:---	
-uuid 				|String			|R			|唯一标识
+uuid 				|Integer			|R			|唯一标识
 
 示例：
 
 ```
-GET /node/detail?uuid=56ae4ra3ws2e1tae5t7aw65e*aer
+GET /node/detail?uuid=5
 ```
 
 
@@ -214,7 +212,7 @@ data						|object		|R			|&nbsp;
 &emsp;name					|String		|R			|
 &emsp;hostName				|String		|R			|主机名
 &emsp;ip					|String		|R			|ip
-&emsp;uuid					|String		|R			|全局唯一
+&emsp;uuid					|Integer	|R			|全局唯一
 &emsp;type					|String		|R			|设备类型，返回国际化翻译后的“服务器”、“网元”
 &emsp;tag					|Integer 	|R			|设备标签id，与sys_dict的type:node-type关联
 &emsp;tagName				|String 	|R			|设备标签名称（翻译后）
@@ -319,20 +317,19 @@ remark				|String			|O			|备注
 :----						|:---		|:------	|:---	
 code						|int		|R			|响应码，详见 附录A
 msg							|string		|R			|&nbsp;
-data						|Object		|R			|&nbsp;
-&emsp;state					|boolean	|R			|操作结果 false失败，true成功
-&emsp;msg					|String		|R			|失败原因
 
 示例：
 
 ```
+成功
 {
-	"code": 200,
-    "msg": "success",
-    "data": {
-        "state": false,
-        "msg": "机柜该位置无法使用"
-    }
+    "code": 200,
+    "msg": "success"
+}
+失败
+{
+    "code": 600,
+    "msg": "机柜该位置无法使用"
 }
 ```
 
@@ -346,7 +343,7 @@ data						|Object		|R			|&nbsp;
   
 参数名称			|类型			|出现要求	|描述  
 :----				|:---			|:------	|:---	
-uuid       			|String 		|R			|唯一标识
+uuid       			|Integer 		|R			|唯一标识
 ip       			|String 		|R			|查询ip
 type      			|String 		|R			|设备类型  1：server，2：net（传数字1或2）
 tag      			|Integer 		|O			|设备标签
@@ -364,7 +361,7 @@ remark				|String			|O			|备注
 
 ```
 {
-    "uuid": "3a5e4r6awe4ra86we4**are",
+    "uuid": 121,
     "name": "",
     "ip": "",
     "type": "1",
@@ -386,20 +383,19 @@ remark				|String			|O			|备注
 :----						|:---		|:------	|:---	
 code						|int		|R			|响应码，详见 附录A
 msg							|string		|R			|&nbsp;
-data						|Object		|R			|&nbsp;
-&emsp;state					|boolean	|R			|操作结果 false失败，true成功
-&emsp;msg					|String		|R			|失败原因
 
 示例：
 
 ```
+成功
 {
     "code": 200,
-    "msg": "success",
-    "data": {
-        "state": true,
-        "msg": ""
-    }
+    "msg": "success"
+}
+失败
+{
+    "code": 600,
+    "msg": "机柜该位置无法使用"
 }
 ```
 
@@ -413,14 +409,14 @@ data						|Object		|R			|&nbsp;
   
 参数名称			|类型			|出现要求	|描述  
 :----				|:---			|:------	|:---	
-uuids       		|String[] 		|R			|唯一标识
+uuids       		|Integer[] 		|R			|唯一标识
 state				|String			|R			|变更的状态，1：在线，2：下线，3：删除
 
 示例：
 
 ```
 {
-    "uuids": ["3a5e4r6awe4ra86we4**are", "rawe5r4w65e4r6awe8r7a6we"],
+    "uuids": [2,6],
     "state": "1"
 }
 ```
@@ -451,13 +447,13 @@ msg							|String		|R			|&nbsp;
   
 参数名称			|类型			|出现要求	|描述  
 :----				|:---			|:------	|:---	
-uuid       			|String 		|O			|唯一标识，为空表示正在新增节点
+uuid       			|Integer 		|O			|唯一标识，为空表示正在新增节点
 uSize				|Integer		|R			|u位大小
 
 示例：
 
 ```
-GET /node/selectCab?uuid=56ae4ra3ws2e1tae5t7aw65e*aer&uSize=2
+GET /node/selectCab?uuid=5&uSize=2
 ```
 
 ###### 返回结果
@@ -505,13 +501,13 @@ data						|Object		|R			|&nbsp;
   
 参数名称			|类型			|出现要求	|描述  
 :----				|:---			|:------	|:---	
-uuid       			|String 		|O			|唯一标识，为空表示正在新增节点
+uuid       			|Integer 		|O			|唯一标识，为空表示正在新增节点
 ip					|String			|R			|IP
 
 示例：
 
 ```
-GET /node/ipCheck?uuid=56ae4ra3ws2e1tae5t7aw65e*aer&ip=192.11.14.20
+GET /node/ipCheck?uuid=5&ip=192.11.14.20
 ```
 
 ###### 返回结果
@@ -520,18 +516,19 @@ GET /node/ipCheck?uuid=56ae4ra3ws2e1tae5t7aw65e*aer&ip=192.11.14.20
 :----						|:---		|:------	|:---	
 code						|int		|R			|响应码，详见 附录A
 msg							|String		|R			|&nbsp;
-data						|Object		|R			|&nbsp;
-&emsp;state					|boolean	|R			|校验结果 false不可用，true可用
 
 示例：
 
 ```
+成功
 {
-    "code": 200,
-    "msg": "success",
-    "data": {
-        "state": false
-    }
+	"code": 200,
+    "msg": "success"
+}
+失败
+{
+	"code": 600,
+    "msg": "IP已被占用"
 }
 ```
 
@@ -545,13 +542,13 @@ data						|Object		|R			|&nbsp;
   
 参数名称			|类型			|出现要求	|描述  
 :----				|:---			|:------	|:---	
-uuid       			|String 		|O			|唯一标识，为空表示正在新增节点
+uuid       			|Integer 		|O			|唯一标识，为空表示正在新增节点
 name				|String			|R			|节点名称
 
 示例：
 
 ```
-GET /node/nodeNameCheck?uuid=56ae4ra3ws2e1tae5t7aw65e*aer&name=atc2
+GET /node/nodeNameCheck?uuid=5&name=atc2
 ```
 
 ###### 返回结果
@@ -560,18 +557,19 @@ GET /node/nodeNameCheck?uuid=56ae4ra3ws2e1tae5t7aw65e*aer&name=atc2
 :----						|:---		|:------	|:---	
 code						|int		|R			|响应码，详见 附录A
 msg							|String		|R			|&nbsp;
-data						|Object		|R			|&nbsp;
-&emsp;state					|boolean	|R			|校验结果 false不可用，true可用
 
 示例：
 
 ```
+成功
 {
-    "code": 200,
-    "msg": "success",
-    "data": {
-        "state": true
-    }
+	"code": 200,
+    "msg": "success"
+}
+失败
+{
+	"code": 600,
+    "msg": "名称已被占用"
 }
 ```
 
@@ -715,20 +713,18 @@ remark				|String			|O			|备注
 :----						|:---		|:------	|:---	
 code						|int		|R			|响应码，详见 附录A
 msg							|string		|R			|&nbsp;
-data						|Object		|R			|&nbsp;
-&emsp;state					|boolean	|R			|操作结果 false失败，true成功
-&emsp;msg					|String		|R			|失败原因
 
 示例：
 
 ```
 {
     "code": 200,
-    "msg": "success",
-    "data": {
-        "state": false,
-        "msg": "当前层级下名称已存在"
-    }
+    "msg": "success"
+}
+失败
+{
+    "code": 600,
+    "msg": "原因"
 }
 ```
 
@@ -762,20 +758,18 @@ remark				|String			|O			|备注
 :----						|:---		|:------	|:---	
 code						|int		|R			|响应码，详见 附录A
 msg							|string		|R			|&nbsp;
-data						|Object		|R			|&nbsp;
-&emsp;state					|boolean	|R			|操作结果 false失败，true成功
-&emsp;msg					|String		|R			|失败原因
 
 示例：
 
 ```
 {
     "code": 200,
-    "msg": "success",
-    "data": {
-        "state": false,
-        "msg": "当前层级下名称已存在"
-    }
+    "msg": "success"
+}
+失败
+{
+    "code": 600,
+    "msg": "原因"
 }
 ```
 
@@ -889,14 +883,14 @@ data						|object		|R			|&nbsp;
 参数名称			|类型			|出现要求	|描述  
 :----				|:---			|:------	|:---	
 id					|Integer		|R			|节点组id
-uuids				|String[]		|R			|节点id
+uuids				|Integer[]		|R			|节点id
 
 示例：
 
 ```
 {
     "id": 2,
-    "uuids": ["a", "b"]
+    "uuids": [3, 43]
 }
 ```
 
@@ -927,13 +921,15 @@ msg							|string		|R			|&nbsp;
 参数名称			|类型			|出现要求	|描述  
 :----				|:---			|:------	|:---	
 id					|Integer		|R			|节点组id
-uuids				|String[]		|R			|节点id
+uuids				|Integer[]		|R			|节点id
 
 示例：
 
 ```
+{
     "id": 2,
-    "uuids": ["a", "b"]
+    "uuids": [3, 11]
+}
 ```
 
 ###### 返回结果
@@ -978,19 +974,18 @@ GET /nodegroup/groupNameCheck?pid=5&id=15&name=group2
 :----						|:---		|:------	|:---	
 code						|int		|R			|响应码，详见 附录A
 msg							|string		|R			|&nbsp;
-data						|Object		|R			|&nbsp;
-&emsp;state					|Integer	|R			|校验结果 false不可用，true可用
 
 示例：
 
 ```
 {
     "code": 200,
-    "msg": "success",
-    "data": {
-        "state": true,
-        "msg": ""
-    }
+    "msg": "success"
+}
+失败
+{
+    "code": 600,
+    "msg": "原因"
 }
 ```
 
@@ -1132,7 +1127,7 @@ remark				|String			|O			|备注
     "rows": 2,
     "cols": 4,
     "addr": 54,
-	"remark": "en"
+    "remark": "en"
 }
 ```
 
@@ -1142,20 +1137,18 @@ remark				|String			|O			|备注
 :----						|:---		|:------	|:---	
 code						|int		|R			|响应码，详见 附录A
 msg							|string		|R			|&nbsp;
-data						|Object		|R			|&nbsp;
-&emsp;state					|boolean	|R			|操作结果 false失败，true成功
-&emsp;msg					|String		|R			|失败原因
 
 示例：
 
 ```
 {
     "code": 200,
-    "msg": "success",
-    "data": {
-        "state": false,
-        "msg": "名称已被占用"
-    }
+    "msg": "success"
+}
+失败
+{
+    "code": 600,
+    "msg": "原因"
 }
 ```
 
@@ -1196,20 +1189,18 @@ remark				|String			|O			|备注
 :----						|:---		|:------	|:---	
 code						|int		|R			|响应码，详见 附录A
 msg							|string		|R			|&nbsp;
-data						|Object		|O			|&nbsp;
-&emsp;state					|boolean	|O			|修改是否成功  false失败、true成功
-&emsp;msg					|String		|O			|失败原因
 
 示例：
 
 ```
 {
     "code": 200,
-    "msg": "success",
-    "data": {
-        "state": false,
-        "msg": "机柜行/列已占用"
-    }
+    "msg": "success"
+}
+失败
+{
+    "code": 600,
+    "msg": "原因"
 }
 ```
 
@@ -1239,20 +1230,18 @@ id					|Integer		|R			|id
 :----						|:---		|:------	|:---	
 code						|int		|R			|响应码，详见 附录A
 msg							|string		|R			|&nbsp;
-data						|Object		|R			|&nbsp;
-&emsp;state					|boolean	|R			|结果 false失败、true成功
-&emsp;msg					|String		|O			|失败原因，成功时为空
 
 示例：
 
 ```
 {
     "code": 200,
-    "msg": "success",
-    "data": {
-        "state": false,
-        "msg": "存在关联的机柜"
-    }
+    "msg": "success"
+}
+失败
+{
+    "code": 600,
+    "msg": "存在关联的机柜"
 }
 ```
 
@@ -1281,20 +1270,18 @@ GET /room/roomNameCheck?pid=5&id=15
 :----						|:---		|:------	|:---	
 code						|int		|R			|响应码，详见 附录A
 msg							|string		|R			|&nbsp;
-data						|Object		|R			|&nbsp;
-&emsp;state					|Integer	|R			|校验结果 false不可用，true可用
-&emsp;msg					|String		|R			|校验信息，校验不通过时有值
 
 示例：
 
 ```
 {
     "code": 200,
-    "msg": "success",
-    "data": {
-        "state": true,
-        "msg": ""
-    }
+    "msg": "success"
+}
+失败
+{
+    "code": 600,
+    "msg": "原因"
 }
 ```
 
@@ -1324,20 +1311,18 @@ GET /room/roomSizeCheck?id=15&cols=5&rows=3
 :----						|:---		|:------	|:---	
 code						|int		|R			|响应码，详见 附录A
 msg							|string		|R			|&nbsp;
-data						|Object		|R			|&nbsp;
-&emsp;state					|Integer	|R			|校验结果 false不可用，true可用
-&emsp;msg					|String		|R			|校验信息，校验不通过时有值
 
 示例：
 
 ```
 {
     "code": 200,
-    "msg": "success",
-    "data": {
-        "state": true,
-        "msg": ""
-    }
+    "msg": "success"
+}
+失败
+{
+    "code": 600,
+    "msg": "原因"
 }
 ```
 
@@ -1443,7 +1428,7 @@ data						|Object		|R			|&nbsp;
 &emsp;col					|Integer	|R			|列号
 &emsp;ubit					|Integer	|R			|u位数量
 &emsp;nodes					|Object[]	|R			|包含的节点
-&emsp;&emsp;uuid			|String		|R			|uuid
+&emsp;&emsp;uuid			|Integer	|R			|uuid
 &emsp;&emsp;ip				|String		|R			|ip
 &emsp;&emsp;name			|String		|R			|节点名称
 &emsp;&emsp;uSize			|Integer	|R			|u位大小
@@ -1462,13 +1447,13 @@ data						|Object		|R			|&nbsp;
         "roomName": "room2",
         "rows": 4,
         "cols": 6,
-		"nodes": [{
-			"uuid": "abc",
-			"ip": "1.2.3.4",
-			"name": "node2",
-			"uSize": 3,
-			"uStart": 1
-		}],
+        "nodes": [{
+            "uuid": 5,
+            "ip": "1.2.3.4",
+            "name": "node2",
+            "uSize": 3,
+            "uStart": 1
+        }],
         "ubit": 1,
         "remarks": ""
     }
@@ -1511,20 +1496,13 @@ remark				|String			|O			|备注
 :----						|:---		|:------	|:---	
 code						|int		|R			|响应码，详见 附录A
 msg							|string		|R			|&nbsp;
-data						|Object		|R			|&nbsp;
-&emsp;state					|boolean	|R			|操作结果 false失败，true成功
-&emsp;msg					|String		|R			|失败原因
 
 示例：
 
 ```
 {
-    "code": 200,
-    "msg": "success",
-    "data": {
-        "state": false,
-        "msg": "机房该位置无法使用"
-    }
+    "code": 200/600
+    "msg": "xxx"
 }
 ```
 
@@ -1564,20 +1542,13 @@ remark				|String			|O			|备注
 :----						|:---		|:------	|:---	
 code						|int		|R			|响应码，详见 附录A
 msg							|string		|R			|&nbsp;
-data						|Object		|R			|&nbsp;
-&emsp;state					|boolean	|R			|操作结果 false失败，true成功
-&emsp;msg					|String		|R			|失败原因
 
 示例：
 
 ```
 {
-    "code": 200,
-    "msg": "success",
-    "data": {
-        "state": false,
-        "msg": "机房该位置无法使用"
-    }
+    "code": 200/600
+    "msg": "xxx"
 }
 ```
 
@@ -1607,20 +1578,13 @@ id					|Integer		|R			|id
 :----						|:---		|:------	|:---	
 code						|int		|R			|响应码，详见 附录A
 msg							|string		|R			|&nbsp;
-data						|Object[]	|R			|&nbsp;
-&emsp;state					|Integer	|R			|结果 false失败，true成功
-&emsp;msg					|String		|O			|失败原因，成功时为空
 
 示例：
 
 ```
 {
-    "code": 200,
-    "msg": "success",
-    "data": {
-        "state": false,
-        "msg": "存在关联的节点"
-    }
+    "code": 200/600
+    "msg": "success/存在关联的节点"
 }
 ```
 
@@ -1650,20 +1614,13 @@ GET /cab/cabNameCheck?id=5&roomId=15&name=cab54
 :----						|:---		|:------	|:---	
 code						|int		|R			|响应码，详见 附录A
 msg							|string		|R			|&nbsp;
-data						|Object		|R			|&nbsp;
-&emsp;state					|Integer	|R			|校验结果 false不可用，true可用
-&emsp;msg					|String		|R			|校验信息，校验不通过时有值
 
 示例：
 
 ```
 {
-    "code": 200,
-    "msg": "success",
-    "data": {
-        "state": true,
-        "msg": ""
-    }
+    "code": 200/600
+    "msg": "xxx"
 }
 ```
 
@@ -1692,20 +1649,13 @@ GET /cab/cabUbitCheck?id=5&ubit=15
 :----						|:---		|:------	|:---	
 code						|int		|R			|响应码，详见 附录A
 msg							|string		|R			|&nbsp;
-data						|Object		|R			|&nbsp;
-&emsp;state					|Integer	|R			|校验结果 false不可用，true可用
-&emsp;msg					|String		|R			|校验信息，校验不通过时有值
 
 示例：
 
 ```
 {
-    "code": 200,
-    "msg": "success",
-    "data": {
-        "state": false,
-        "msg": "设备已占用至15U"
-    }
+    "code": 200/600
+    "msg": "xxx"
 }
 ```
 
@@ -1734,11 +1684,12 @@ GET /cab/cabUbitCheck?id=5
 code						|int		|R			|响应码，详见 附录A
 msg							|String		|R			|&nbsp;
 data						|Object		|R			|&nbsp;
-&emsp;roomId				|Integer	|R			|房间id
-&emsp;roomName				|String		|R			|房间名称
-&emsp;rows					|Object[]	|R			|可用行
-&emsp;&emsp;row				|Integer	|R			|可用行号
-&emsp;&emsp;cols			|Integer[]	|R			|可用列号
+&emsp;list					|Object[]	|R			|&nbsp;
+&emsp;&emsp;roomId			|Integer	|R			|房间id
+&emsp;&emsp;roomName		|String		|R			|房间名称
+&emsp;&emsp;rows			|Object[]	|R			|可用行
+&emsp;&emsp;&emsp;row		|Integer	|R			|可用行号
+&emsp;&emsp;&emsp;cols		|Integer[]	|R			|可用列号
 
 示例：
 
@@ -1747,15 +1698,17 @@ data						|Object		|R			|&nbsp;
     "code": 200,
     "msg": "success",
     "data": {
-        "roomId": 1,
-        "roomName": "room88"
-        "rows": [{
-            "row": 1,
-            "cols": [1,3,4]
-        },
-        {
-            "row": 2,
-            "cols": [1,2,3,4,7,8,9]
+        "list": [{
+            "roomId": 1,
+            "roomName": "room88",
+            "rows": [{
+                "row": 1,
+                "cols": [1,3,4]
+            },
+            {
+                "row": 2,
+                "cols": [1,2,3,4,7,8,9]
+            }]
         }]
     }
 }
@@ -1926,20 +1879,13 @@ usergroupIds		|Integer[]		|O			|用户组id,分配现有节点组
 :----						|:---		|:------	|:---	
 code						|int		|R			|响应码，详见 附录A
 msg							|string		|R			|&nbsp;
-data						|Object		|R			|&nbsp;
-&emsp;state					|boolean	|R			|操作结果 false失败，true成功
-&emsp;msg					|String		|R			|失败原因
 
 示例：
 
 ```
 {
-    "code": 200,
-    "msg": "success",
-    "data": {
-        "state": true,
-        "msg": ""
-    }
+    "code": 200/600
+    "msg": "xxx"
 }
 ```
 
@@ -1975,20 +1921,13 @@ usergroupIds		|Integer[]		|O			|用户组id
 :----						|:---		|:------	|:---	
 code						|int		|R			|响应码，详见 附录A
 msg							|string		|R			|&nbsp;
-data						|Object		|R			|&nbsp;
-&emsp;state					|boolean	|R			|操作结果 false失败，true成功
-&emsp;msg					|String		|R			|失败原因
 
 示例：
 
 ```
 {
-    "code": 200,
-    "msg": "success",
-    "data": {
-        "state": false,
-        "msg": "名称已被占用"
-    }
+    "code": 200/600
+    "msg": "xxx"
 }
 ```
 
@@ -2011,6 +1950,23 @@ id					|Integer		|R			|id
     "id": 35
 }
 ```
+
+###### 返回结果
+
+参数名称					|类型		|出现要求	|描述  
+:----						|:---		|:------	|:---	
+code						|int		|R			|响应码，详见 附录A
+msg							|string		|R			|&nbsp;
+
+示例：
+
+```
+{
+    "code": 200
+    "msg": "xxx"
+}
+```
+
 
 ##### 2.2.1.6 查询业务系统下的节点
 
@@ -2088,12 +2044,12 @@ data						|Object		|R			|&nbsp;
 参数名称			|类型			|出现要求	|描述  
 :----				|:---			|:------	|:---	
 id					|Integer		|R			|业务系统id
-uuids				|String[]		|R			|节点id
+uuids				|Integer[]		|R			|节点id
 
 示例：
 
 ```
-GET /system/saveNodeRel?id=3&uuids=40192374019473,42342134235d,32434ccar
+GET /system/saveNodeRel?id=3&uuids=4
 ```
 
 ###### 返回结果
@@ -2123,12 +2079,12 @@ msg							|string		|R			|&nbsp;
 参数名称			|类型			|出现要求	|描述  
 :----				|:---			|:------	|:---	
 id					|Integer		|R			|业务系统id
-uuids				|String[]		|R			|节点id
+uuids				|Integer[]		|R			|节点id
 
 示例：
 
 ```
-GET /system/deleteRel?id=3&uuids=40192374019473,42342134235d,32434ccar
+GET /system/deleteRel?id=3&uuids=4,42,3
 ```
 
 ###### 返回结果
@@ -2172,18 +2128,13 @@ GET /system/nameCheck?id=5&name=system2
 :----						|:---		|:------	|:---	
 code						|int		|R			|响应码，详见 附录A
 msg							|string		|R			|&nbsp;
-data						|Object		|R			|&nbsp;
-&emsp;state					|Integer	|R			|校验结果 false不可用，true可用
 
 示例：
 
 ```
 {
     "code": 200,
-    "msg": "success",
-    "data": {
-        "state": true
-    }
+    "msg": "success"
 }
 ```
 
@@ -2352,20 +2303,13 @@ userIds				|Integer[]		|O			|用户id
 :----						|:---		|:------	|:---	
 code						|int		|R			|响应码，详见 附录A
 msg							|string		|R			|&nbsp;
-data						|Object		|R			|&nbsp;
-&emsp;state					|boolean	|R			|操作结果 false失败，true成功
-&emsp;msg					|String		|R			|失败原因
 
 示例：
 
 ```
 {
-    "code": 200,
-    "msg": "success",
-    "data": {
-        "state": false,
-        "msg": "名称已被占用"
-    }
+    "code": 200/600,
+    "msg": "success"
 }
 ```
 
@@ -2408,12 +2352,8 @@ msg							|string		|R			|&nbsp;
 
 ```
 {
-    "code": 200,
-    "msg": "success",
-    "data": {
-        "state": false,
-        "msg": "名称已被占用"
-    }
+    "code": 200/600,
+    "msg": "success"
 }
 ```
 
@@ -2482,18 +2422,13 @@ GET /usergroup/nameCheck?id=5&name=ug2
 :----						|:---		|:------	|:---	
 code						|int		|R			|响应码，详见 附录A
 msg							|string		|R			|&nbsp;
-data						|Object		|R			|&nbsp;
-&emsp;state					|Integer	|R			|校验结果 false不可用，true可用
 
 示例：
 
 ```
 {
-    "code": 200,
-    "msg": "success",
-    "data": {
-        "state": true
-    }
+    "code": 200/600,
+    "msg": "success"
 }
 ```
 
@@ -2720,7 +2655,7 @@ deteTypeParams		|Object[]		|R			|类别参数数组
         "fieldName": "",
         "i18nCode": "",
         "remark": "",
-        "deteTypeMetas": [{
+		"deteTypeMetas": [{
             "id": 1,
             "name": "earae",
             "typeId": 1,
@@ -2751,20 +2686,13 @@ deteTypeParams		|Object[]		|R			|类别参数数组
 :----						|:---		|:------	|:---	
 code						|int		|R			|响应码，详见 附录A
 msg							|string		|R			|&nbsp;
-data						|Object		|R			|&nbsp;
-&emsp;state					|boolean	|R			|操作结果 false失败，true成功
-&emsp;msg					|String		|R			|失败原因
 
 示例：
 
 ```
 {
-    "code": 200,
-    "msg": "success",
-    "data": {
-        "state": false,
-        "msg": "名称已被占用"
-    }
+    "code": 200/600,
+    "msg": "success"
 }
 ```
 
@@ -2860,12 +2788,8 @@ msg							|string		|R			|&nbsp;
 
 ```
 {
-    "code": 200,
-    "msg": "success",
-    "data": {
-        "state": true,
-        "msg": ""
-    }
+    "code": 200/600,
+    "msg": "success"
 }
 ```
 
@@ -2980,18 +2904,13 @@ GET /deteType/nameCheck?id=5&name=cpu
 :----						|:---		|:------	|:---	
 code						|int		|R			|响应码，详见 附录A
 msg							|string		|R			|&nbsp;
-data						|Object		|R			|&nbsp;
-&emsp;state					|Integer	|R			|校验结果 false不可用，true可用
 
 示例：
 
 ```
 {
-    "code": 200,
-    "msg": "success",
-    "data": {
-        "state": true
-    }
+    "code": 200/600,
+    "msg": "true/false"
 }
 ```
 
@@ -3118,7 +3037,7 @@ data						|Object		|R			|&nbsp;
 &emsp;&emsp;id				|Integer	|R			|节点组id
 &emsp;&emsp;name			|String		|R			|节点组名称
 &emsp;nodes					|Object[]	|R			|节点
-&emsp;&emsp;uuid			|String		|R			|节点id
+&emsp;&emsp;uuid			|Integer	|R			|节点id
 &emsp;&emsp;name			|String		|R			|节点名称
 &emsp;&emsp;ip				|String		|R			|节点ip
 
@@ -3151,7 +3070,7 @@ data						|Object		|R			|&nbsp;
             "name": "group1"
         }],
         "nodes": [{
-            "uuid": "aerawerawerwae",
+            "uuid": 9,
             "name": "node1",
             "ip": "10.20.30.40"
         }]
@@ -3199,20 +3118,13 @@ nodeIds				|String[]		|R			|节点id
 :----						|:---		|:------	|:---	
 code						|int		|R			|响应码，详见 附录A
 msg							|string		|R			|&nbsp;
-data						|Object		|R			|&nbsp;
-&emsp;state					|boolean	|R			|操作结果 false失败，true成功
-&emsp;msg					|String		|R			|失败原因
 
 示例：
 
 ```
 {
-    "code": 200,
-    "msg": "success",
-    "data": {
-        "state": true,
-        "msg": ""
-    }
+    "code": 200/600,
+    "msg": "success"
 }
 ```
 
@@ -3258,20 +3170,13 @@ nodeIds				|Integer[]		|R			|节点id
 :----						|:---		|:------	|:---	
 code						|int		|R			|响应码，详见 附录A
 msg							|string		|R			|&nbsp;
-data						|Object		|R			|&nbsp;
-&emsp;state					|boolean	|R			|操作结果 false失败，true成功
-&emsp;msg					|String		|R			|失败原因
 
 示例：
 
 ```
 {
-    "code": 200,
-    "msg": "success",
-    "data": {
-        "state": false,
-        "msg": "名称已被占用"
-    }
+    "code": 200/600,
+    "msg": "success"
 }
 ```
 
@@ -3336,18 +3241,13 @@ GET /deteSet/nameCheck?id=5&name=cpu
 :----						|:---		|:------	|:---	
 code						|int		|R			|响应码，详见 附录A
 msg							|string		|R			|&nbsp;
-data						|Object		|R			|&nbsp;
-&emsp;state					|Integer	|R			|校验结果 false不可用，true可用
 
 示例：
 
 ```
 {
-    "code": 200,
-    "msg": "success",
-    "data": {
-        "state": true
-    }
+    "code": 200/600,
+    "msg": "true/false"
 }
 ```
 
@@ -3586,20 +3486,13 @@ remark				|String			|R			|备注
 :----						|:---		|:------	|:---	
 code						|int		|R			|响应码，详见 附录A
 msg							|string		|R			|&nbsp;
-data						|Object		|R			|&nbsp;
-&emsp;state					|boolean	|R			|操作结果 false失败，true成功
-&emsp;msg					|String		|R			|失败原因
 
 示例：
 
 ```
 {
-    "code": 200,
-    "msg": "success",
-    "data": {
-        "state": true,
-        "msg": ""
-    }
+    "code": 200/600,
+    "msg": "success"
 }
 ```
 
@@ -3632,7 +3525,7 @@ remark				|String			|R			|备注
 
 ```
 {
-	"id": 133,
+    "id": 133,
     "name": "",
     "metaId": 1,
     "trigger": "",
@@ -3655,20 +3548,13 @@ remark				|String			|R			|备注
 :----						|:---		|:------	|:---	
 code						|int		|R			|响应码，详见 附录A
 msg							|string		|R			|&nbsp;
-data						|Object		|R			|&nbsp;
-&emsp;state					|boolean	|R			|操作结果 false失败，true成功
-&emsp;msg					|String		|R			|失败原因
 
 示例：
 
 ```
 {
-    "code": 200,
-    "msg": "success",
-    "data": {
-        "state": false,
-        "msg": "名称已被占用"
-    }
+    "code": 200/600,
+    "msg": "success"
 }
 ```
 
@@ -3732,19 +3618,13 @@ GET /deteWarn/nameCheck?id=5&name=cpu
 参数名称					|类型		|出现要求	|描述  
 :----						|:---		|:------	|:---	
 code						|int		|R			|响应码，详见 附录A
-msg							|string		|R			|&nbsp;
-data						|Object		|R			|&nbsp;
-&emsp;state					|Integer	|R			|校验结果 false不可用，true可用
 
 示例：
 
 ```
 {
-    "code": 200,
-    "msg": "success",
-    "data": {
-        "state": true
-    }
+    "code": 200/600,
+    "msg": "true/false"
 }
 ```
 
@@ -3870,7 +3750,7 @@ data						|Object		|R			|&nbsp;
 &emsp;&emsp;id				|Integer	|R			|节点组id
 &emsp;&emsp;name			|String		|R			|节点组名称
 &emsp;nodes					|Object[]	|R			|节点
-&emsp;&emsp;uuid			|String		|R			|节点id
+&emsp;&emsp;uuid			|Integer	|R			|节点id
 &emsp;&emsp;ip				|String		|R			|节点ip
 &emsp;&emsp;name			|String		|R			|节点名称
 &emsp;remark				|String		|R			|备注
@@ -3899,7 +3779,7 @@ data						|Object		|R			|&nbsp;
 			"name": "hehe"
 		}],
 		"nodes": [{
-			"UUid": "2342QL4JH23LK5J2",
+			"uuid": 2,
 			"name": "haha",
 			"ip": "10.20.20.10"
 		}]
@@ -3928,7 +3808,7 @@ isLoop				|String			|R			|是否周期任务，0：不是，1：是
 loopInterval		|Integer		|R			|周期间隔，单位分钟
 param				|String			|R			|任务参数，json方式保存
 nodeGroupIds		|Integer[]		|R			|节点组id
-nodeIds				|String[]		|R			|节点uuid
+nodeIds				|Integer[]		|R			|节点uuid
 remark				|String			|R			|备注
 
 示例：
@@ -3944,7 +3824,7 @@ remark				|String			|R			|备注
     "param": "",
     "remark": "",
     "nodeGroupIds": [1,2,3],
-    "nodeIds": ["aetrqewtawret34234","lkaewrhapewhaoeirpaoie"]
+    "nodeIds": [7,8]
 }
 ```
 
@@ -3954,20 +3834,13 @@ remark				|String			|R			|备注
 :----						|:---		|:------	|:---	
 code						|int		|R			|响应码，详见 附录A
 msg							|string		|R			|&nbsp;
-data						|Object		|R			|&nbsp;
-&emsp;state					|boolean	|R			|操作结果 false失败，true成功
-&emsp;msg					|String		|R			|失败原因
 
 示例：
 
 ```
 {
-    "code": 200,
-    "msg": "success",
-    "data": {
-        "state": true,
-        "msg": ""
-    }
+    "code": 200/600,
+    "msg": "success"
 }
 ```
 
@@ -4003,20 +3876,13 @@ viewLevel			|String			|R			|查看权限 1:用户组，2：系统内全部人员
 :----						|:---		|:------	|:---	
 code						|int		|R			|响应码，详见 附录A
 msg							|string		|R			|&nbsp;
-data						|Object		|R			|&nbsp;
-&emsp;state					|boolean	|R			|操作结果 false失败，true成功
-&emsp;msg					|String		|R			|失败原因
 
 示例：
 
 ```
 {
-    "code": 200,
-    "msg": "success",
-    "data": {
-        "state": true,
-        "msg": ""
-    }
+    "code": 200/600,
+    "msg": "success"
 }
 ```
 
@@ -4047,26 +3913,19 @@ state				|String			|R			|0: 停用，1：启用
 :----						|:---		|:------	|:---	
 code						|int		|R			|响应码，详见 附录A
 msg							|string		|R			|&nbsp;
-data						|Object		|R			|&nbsp;
-&emsp;state					|boolean	|R			|操作结果 false失败，true成功
-&emsp;msg					|String		|R			|失败原因
 
 示例：
 
 ```
 {
-    "code": 200,
-    "msg": "success",
-    "data": {
-        "state": true,
-        "msg": ""
-    }
+    "code": 200/?,
+    "msg": "success"
 }
 ```
 
 ##### 2.4.1.6 新增逆向任务
 
-- **接口说明：** 获取逆向任务内容，用于升级部署任务回退
+- **接口说明：** 获取逆向任务内容，用于升级部署任务回退。获取内容后，提交任务接口等同于2.4.1.3 任务新增
 - **接口地址：** /mission/converse
 - **请求方式：** GET
 
@@ -4103,7 +3962,7 @@ data						|Object		|R			|&nbsp;
 &emsp;&emsp;id				|Integer	|R			|节点组id
 &emsp;&emsp;name			|String		|R			|节点组名称
 &emsp;nodes					|Object[]	|R			|节点
-&emsp;&emsp;uuid			|String		|R			|节点uuid
+&emsp;&emsp;uuid			|Integer	|R			|节点uuid
 &emsp;&emsp;ip				|String		|R			|节点ip
 &emsp;&emsp;name			|String		|R			|节点名称
 &emsp;remark				|String		|R			|备注
@@ -4132,7 +3991,7 @@ data						|Object		|R			|&nbsp;
 			"name": "hehe"
 		}],
 		"nodes": [{
-			"uuid": "243232kjh4lk3h4k134h",
+			"uuid": 2,
 			"name": "haha",
 			"ip": "10.20.20.10"
 		}]
@@ -4175,7 +4034,7 @@ data						|Object		|R			|&nbsp;
 &emsp;&emsp;id				|Integer	|R			|&nbsp;
 &emsp;&emsp;missionId		|Integer	|R			|&nbsp;
 &emsp;&emsp;node			|Object		|R			|节点
-&emsp;&emsp;&emsp;uuid		|String		|R			|节点标识
+&emsp;&emsp;&emsp;uuid		|Integer	|R			|节点标识
 &emsp;&emsp;&emsp;ip		|String		|R			|节点ip
 &emsp;&emsp;&emsp;name		|String		|R			|节点名称
 &emsp;&emsp;desc			|String		|R			|任务结果描述信息
@@ -4198,7 +4057,7 @@ data						|Object		|R			|&nbsp;
             "id": 1,
             "missionId": 1,
             "node": {
-                "uuid": "242345fsarfaser",
+                "uuid": 4,
                 "ip": "10.20.30.40",
                 "name": "node1"
             },
@@ -4222,6 +4081,7 @@ data						|Object		|R			|&nbsp;
 302		|无效调用凭证
 303		|参数不正确
 500		|系统内部错误
+600		|校验不通过
 999		|处理失败
 
 
