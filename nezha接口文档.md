@@ -328,7 +328,7 @@ msg							|string		|R			|&nbsp;
 }
 失败
 {
-    "code": 600,
+    "code": xxx,
     "msg": "机柜该位置无法使用"
 }
 ```
@@ -394,7 +394,7 @@ msg							|string		|R			|&nbsp;
 }
 失败
 {
-    "code": 600,
+    "code": xxx,
     "msg": "机柜该位置无法使用"
 }
 ```
@@ -527,7 +527,7 @@ msg							|String		|R			|&nbsp;
 }
 失败
 {
-	"code": 600,
+	"code": xxx,
     "msg": "IP已被占用"
 }
 ```
@@ -568,7 +568,7 @@ msg							|String		|R			|&nbsp;
 }
 失败
 {
-	"code": 600,
+	"code": xxx,
     "msg": "名称已被占用"
 }
 ```
@@ -723,7 +723,7 @@ msg							|string		|R			|&nbsp;
 }
 失败
 {
-    "code": 600,
+    "code": xxx,
     "msg": "原因"
 }
 ```
@@ -768,7 +768,7 @@ msg							|string		|R			|&nbsp;
 }
 失败
 {
-    "code": 600,
+    "code": xxx,
     "msg": "原因"
 }
 ```
@@ -984,7 +984,7 @@ msg							|string		|R			|&nbsp;
 }
 失败
 {
-    "code": 600,
+    "code": xxx,
     "msg": "原因"
 }
 ```
@@ -1147,7 +1147,7 @@ msg							|string		|R			|&nbsp;
 }
 失败
 {
-    "code": 600,
+    "code": xxx,
     "msg": "原因"
 }
 ```
@@ -1199,7 +1199,7 @@ msg							|string		|R			|&nbsp;
 }
 失败
 {
-    "code": 600,
+    "code": xxx,
     "msg": "原因"
 }
 ```
@@ -1240,7 +1240,7 @@ msg							|string		|R			|&nbsp;
 }
 失败
 {
-    "code": 600,
+    "code": xxx,
     "msg": "存在关联的机柜"
 }
 ```
@@ -1280,7 +1280,7 @@ msg							|string		|R			|&nbsp;
 }
 失败
 {
-    "code": 600,
+    "code": xxx,
     "msg": "原因"
 }
 ```
@@ -1321,7 +1321,7 @@ msg							|string		|R			|&nbsp;
 }
 失败
 {
-    "code": 600,
+    "code": xxx,
     "msg": "原因"
 }
 ```
@@ -1501,7 +1501,7 @@ msg							|string		|R			|&nbsp;
 
 ```
 {
-    "code": 200/600
+    "code": 200/xxx
     "msg": "xxx"
 }
 ```
@@ -1547,7 +1547,7 @@ msg							|string		|R			|&nbsp;
 
 ```
 {
-    "code": 200/600
+    "code": 200/xxx
     "msg": "xxx"
 }
 ```
@@ -1583,7 +1583,7 @@ msg							|string		|R			|&nbsp;
 
 ```
 {
-    "code": 200/600
+    "code": 200/xxx
     "msg": "success/存在关联的节点"
 }
 ```
@@ -1619,7 +1619,7 @@ msg							|string		|R			|&nbsp;
 
 ```
 {
-    "code": 200/600
+    "code": 200/xxx
     "msg": "xxx"
 }
 ```
@@ -1654,7 +1654,7 @@ msg							|string		|R			|&nbsp;
 
 ```
 {
-    "code": 200/600
+    "code": 200/xxx
     "msg": "xxx"
 }
 ```
@@ -1884,7 +1884,7 @@ msg							|string		|R			|&nbsp;
 
 ```
 {
-    "code": 200/600
+    "code": 200/xxx
     "msg": "xxx"
 }
 ```
@@ -1926,7 +1926,7 @@ msg							|string		|R			|&nbsp;
 
 ```
 {
-    "code": 200/600
+    "code": 200/xxx
     "msg": "xxx"
 }
 ```
@@ -2308,7 +2308,7 @@ msg							|string		|R			|&nbsp;
 
 ```
 {
-    "code": 200/600,
+    "code": 200/xxx,
     "msg": "success"
 }
 ```
@@ -2352,7 +2352,7 @@ msg							|string		|R			|&nbsp;
 
 ```
 {
-    "code": 200/600,
+    "code": 200/xxx,
     "msg": "success"
 }
 ```
@@ -2427,7 +2427,7 @@ msg							|string		|R			|&nbsp;
 
 ```
 {
-    "code": 200/600,
+    "code": 200/xxx,
     "msg": "success"
 }
 ```
@@ -2691,7 +2691,7 @@ msg							|string		|R			|&nbsp;
 
 ```
 {
-    "code": 200/600,
+    "code": 200/xxx,
     "msg": "success"
 }
 ```
@@ -2788,7 +2788,7 @@ msg							|string		|R			|&nbsp;
 
 ```
 {
-    "code": 200/600,
+    "code": 200/xxx,
     "msg": "success"
 }
 ```
@@ -2909,7 +2909,7 @@ msg							|string		|R			|&nbsp;
 
 ```
 {
-    "code": 200/600,
+    "code": 200/xxx,
     "msg": "true/false"
 }
 ```
@@ -3123,7 +3123,7 @@ msg							|string		|R			|&nbsp;
 
 ```
 {
-    "code": 200/600,
+    "code": 200/xxx,
     "msg": "success"
 }
 ```
@@ -3175,7 +3175,7 @@ msg							|string		|R			|&nbsp;
 
 ```
 {
-    "code": 200/600,
+    "code": 200/xxx,
     "msg": "success"
 }
 ```
@@ -3246,7 +3246,7 @@ msg							|string		|R			|&nbsp;
 
 ```
 {
-    "code": 200/600,
+    "code": 200/xxx,
     "msg": "true/false"
 }
 ```
@@ -3491,7 +3491,7 @@ msg							|string		|R			|&nbsp;
 
 ```
 {
-    "code": 200/600,
+    "code": 200/xxx,
     "msg": "success"
 }
 ```
@@ -3553,7 +3553,7 @@ msg							|string		|R			|&nbsp;
 
 ```
 {
-    "code": 200/600,
+    "code": 200/xxx,
     "msg": "success"
 }
 ```
@@ -3623,7 +3623,7 @@ code						|int		|R			|响应码，详见 附录A
 
 ```
 {
-    "code": 200/600,
+    "code": 200/xxx,
     "msg": "true/false"
 }
 ```
@@ -3839,7 +3839,7 @@ msg							|string		|R			|&nbsp;
 
 ```
 {
-    "code": 200/600,
+    "code": 200/xxx,
     "msg": "success"
 }
 ```
@@ -3881,7 +3881,7 @@ msg							|string		|R			|&nbsp;
 
 ```
 {
-    "code": 200/600,
+    "code": 200/xxx,
     "msg": "success"
 }
 ```
