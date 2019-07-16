@@ -1,4225 +1,714 @@
-# NEZHA接口文档 v1.0.0
-
-- [1-规范说明](#1-规范说明)
-- &emsp;[1.1-通信协议](#11-通信协议)
-- &emsp;[1.2-请求方法](#12-请求方法)
-- &emsp;[1.3-字符编码](#13-字符编码)
-- &emsp;[1.4-格式说明](#14-格式说明)
-- &emsp;[1.5-响应报文结构](#15-响应报文结构)
-- [2-接口定义](#2-接口定义)
-- &emsp;[2.1-设备管理](#21-设备管理)
-- &emsp;[2.2-权限](#22-权限)
-- &emsp;[2.3-监测配置](#23-监测配置)
-- &emsp;[2.4-任务](#24-任务)
-
-## 1 规范说明
-
-### 1.1 通信协议
-
-HTTP协议
-
-### 1.2 请求方法
-
-HttpRequest Method	|SQL	|实现方式	|说明
----- | ---- | -----|----
-GET					|SELECT	            |GET请求	|服务器获取资源(一项或多项)
-POST				|INSERT	            |POST请求	|服务器新建一个资源，返回操作结果
-PUT					|UPDATE         	|PUT 请求   |服务器更新资源（向客户端提供改变后的完整资源）
-PATCH				|UPDATE	            |PATCH请求  |服务器更新资源（向客户端提供改变的属性）
-DELETE				|UPDATE/DELETE	    |DELETE请求 |从服务器删除资源，返回空文档
-
-### 1.3 字符编码
-HTTP通讯均采用UTF-8字符集编码格式。
-
-### 1.4 格式说明
-元素出现要求说明：
-
-符号				|说明
-:----:			|:---
-R				|报文中该元素必须出现（Required）
-O				|报文中该元素可选出现（Optional）
-C				|报文中该元素在一定条件下出现（Conditional）
-
-### 1.5 响应报文结构
-
-#### 1.5.1 结构说明
-所有接口响应均采用JSON格式，如无特殊说明，每次请求的返回值中，都包含下列字段：
-
-参数名称						|类型		|出现要求	|描述  
-:----						|:---		|:------	|:---	
-code						|int		|R			|响应码，代码定义请见“附录A 响应吗说明”
-msg							|string		|R			|响应描述
-data						|object		|R			|每个接口特有的参数，详见每个接口定义
-&emsp;totalCount			|int		|C			|总结果数，批量分页查询时需要
-&emsp;list					|Object[]	|C			|当前页查询结果，批量查询时需要
-
-
-#### 1.5.2 响应报文示例
-
-```
-{
-    "code": 200,
-    "msg": "success",
-    "data": {
-        "totalCount": 1,
-        "totalPage": 1,
-        "currPage": 1,
-        "list": [{
-            "Channel": "A10086",
-            "Type": 7004
-        }]
-    }
-}
-```
-
-
-## 2. 接口定义
-
-### 2.1 设备管理
-
-#### 2.1.1 节点管理
-
-##### 2.1.1.1 节点列表查询
-
-- **接口说明：** 节点列表查询
-- **接口地址：** /node/list
-- **请求方式：** GET
-
-###### 请求参数
-  
-参数名称			|类型			|出现要求	|描述  
-:----				|:---			|:------	|:---	
-page				|Integer		|O			|页码，为空时默认为1
-limit				|Integer		|O			|每页记录数，为空时默认为10
-order	 			|String 		|O			|排序
-ip       			|String 		|O			|查询ip
-state 		    	|String			|O			|设备状态，1：在线，2：下线
-type      			|String 		|O			|设备类型 数字1|2, 1：server,2：net
-tag      			|Integer 		|O			|设备标签
-cabinetId      		|Integer 		|O			|机柜
-roomId				|Integer		|O			|机房
-groupId				|Integer		|C			|节点组ID
-name				|String			|O			|名称
-
-示例：
-
-```
-GET /node/list?pageSize=20&currPage=1&ip=192.168.1.1&state=1&tag=1&type=1&cabinetId=12&order=asc
-
-```
-
-
-###### 返回结果
-
-参数名称					|类型		|出现要求	|描述  
-:----						|:---		|:------	|:---	
-code						|int		|R			|响应码，详见 附录A
-msg							|string		|R			|&nbsp;
-data						|object		|R			|&nbsp;
-&emsp;totalCount			|int		|R			|&nbsp;
-&emsp;totalPage				|int		|R			|&nbsp;
-&emsp;currPage				|int		|R			|&nbsp;
-&emsp;list					|Object[]	|R			|&nbsp;
-&emsp;&emsp;name			|String		|R			|&nbsp;
-&emsp;&emsp;hostName		|String		|R			|主机名
-&emsp;&emsp;ip				|String		|R			|ip
-&emsp;&emsp;uuid			|Integer	|R			|全局唯一
-&emsp;&emsp;type			|String		|R			|设备类型，返回国际化翻译后的“服务器”、“网元”
-&emsp;&emsp;tag				|Integer 	|R			|设备标签id，与sys_dict的type:node-type关联
-&emsp;&emsp;tagName			|String 	|R			|设备标签名称（翻译后）
-&emsp;&emsp;userName		|String		|R			|snmpv3 用户名
-&emsp;&emsp;password		|String		|R			|snmpv3 密码
-&emsp;&emsp;state			|String		|R			|设备状态，1：在线，2：下线
-&emsp;&emsp;roomName		|String 	|R			|机房名称
-&emsp;&emsp;cabinetInfo		|Object 	|R			|机柜
-&emsp;&emsp;&emsp;id		|Integer 	|R			|机柜ID
-&emsp;&emsp;&emsp;name		|String 	|R			|机柜名称
-&emsp;&emsp;uSize			|Integer	|R			|u位大小
-&emsp;&emsp;cabinetStart	|Integer	|R			|机柜起始位置
-&emsp;&emsp;snmpPort		|Integer	|R			|snmp默认端口号
-&emsp;&emsp;snmpCommunity	|String		|R			|snmp团体字
-&emsp;&emsp;remark			|String		|R			|备注
-&emsp;&emsp;systemInfo		|Object[]	|R			|所在业务系统
-&emsp;&emsp;&emsp;id      	|Integer 	|R			|业务系统id
-&emsp;&emsp;&emsp;name    	|String 	|R			|业务系统名称
-
-示例：
-
-```
-{
-    "code": 200,
-    "msg": "success",
-    "data": {
-        "totalCount": 1,
-        "totalPage": 1,
-        "currPage": 1,
-        "list": [{
-            "name": "node1",
-            "hostName": "ysp-01",
-            "ip": "192.168.10.1",
-            "uuid": 1,
-            "type": "服务器",
-            "tag": 9,
-            "tagName": "server9",
-            "userName": "",
-            "password": "",
-            "state": "1",
-            "roomName": "机房1",
-            "cabinetInfo": {
-                "id": 3,
-                "name": "cab1"
-            },
-            "uSize": 1,
-            "cabinetStart": 1,
-            "snmpPort": 1,
-            "snmpCommunity": "",
-            "remark": "",
-            "systemInfo": [{
-                "id": 1,
-                "name": "业务系统1"
-            }]
-		}]
-    }
-}
-```
-
-##### 2.1.1.2 节点详情查询
-
-- **接口说明：** 节点详情查询
-- **接口地址：** /node/detail
-- **请求方式：** GET
-
-###### 请求参数
-  
-参数名称			|类型			|出现要求	|描述  
-:----				|:---			|:------	|:---	
-uuid 				|String			|R			|唯一标识
-
-示例：
-
-```
-GET /node/detail?uuid=56ae4ra3ws2e1tae5t7aw65e*aer
-```
-
-
-###### 返回结果
-
-参数名称					|类型		|出现要求	|描述  
-:----						|:---		|:------	|:---	
-code						|int		|R			|响应码，详见 附录A
-msg							|string		|R			|&nbsp;
-data						|object		|R			|&nbsp;
-&emsp;name					|String		|R			|
-&emsp;hostName				|String		|R			|主机名
-&emsp;ip					|String		|R			|ip
-&emsp;uuid					|String		|R			|全局唯一
-&emsp;type					|String		|R			|设备类型，返回国际化翻译后的“服务器”、“网元”
-&emsp;tag					|Integer 	|R			|设备标签id，与sys_dict的type:node-type关联
-&emsp;tagName				|String 	|R			|设备标签名称（翻译后）
-&emsp;userName				|String		|R			|snmpv3 用户名
-&emsp;password				|String		|R			|snmpv3 密码
-&emsp;state					|String		|R			|设备状态，1：在线，2：下线
-&emsp;roomName				|String 	|R			|机房名称
-&emsp;cabinetInfo			|Object 	|R			|机柜
-&emsp;&emsp;id				|Integer 	|R			|机柜ID
-&emsp;&emsp;name			|String 	|R			|机柜名称
-&emsp;uSize					|Integer	|R			|u位大小
-&emsp;cabinetStart			|Integer	|R			|机柜起始位置
-&emsp;snmpPort				|Integer	|R			|snmp默认端口号
-&emsp;snmpCommunity			|String		|R			|snmp团体字
-&emsp;remark				|String		|R			|备注
-&emsp;systemInfo			|Object[]	|R			|所在业务系统
-&emsp;&emsp;id      		|Integer 	|R			|业务系统id
-&emsp;&emsp;name    		|String 	|R			|业务系统名称
-
-示例：
-
-```
-{
-    "code": 200,
-    "msg": "success",
-    "data": {
-        "name": "node1",
-        "hostName": "ysp-01",
-        "ip": "192.168.10.1",
-        "uuid": 1,
-        "type": "服务器",
-        "tag": 9,
-        "tagName": "server9",
-        "userName": "",
-        "password": "",
-        "state": "1",
-        "roomName": "机房1",
-        "cabinetInfo": {
-            "id": 3,
-            "name": "cab1"
-        },
-        "uSize": 1,
-        "cabinetStart": 1,
-        "snmpPort": 1,
-        "snmpCommunity": "",
-        "remark": "",
-        "systemInfo": [{
-            "id": 1,
-            "name": "业务系统1"
-        }]
-    }
-}
-```
-
-##### 2.1.1.3 节点新增
-
-- **接口说明：** 节点新增
-- **接口地址：** /node/save
-- **请求方式：** POST
-
-###### 请求参数
-  
-参数名称			|类型			|出现要求	|描述  
-:----				|:---			|:------	|:---	
-ip       			|String 		|R			|ip
-type      			|String 		|R			|设备类型  1：server，2：net（传数字1或2）
-tag      			|Integer 		|O			|设备标签id
-cabinetId      		|Integer 		|O			|机柜
-cabinetStart      	|Integer 		|O			|机柜起始位置
-name				|String			|R			|名称
-userName			|String			|O			|snmpv3 用户名
-password			|String			|O			|snmpv3 密码
-snmpPort			|Integer		|O			|snmp端口号
-snmpCommunity		|String			|O			|snmp团体字
-uSize				|Integer		|O			|U位大小
-remark				|String			|O			|备注
-
-
-示例：
-
-```
-{
-    "name": "",
-    "ip": "",
-    "type": "2",
-    "tag": 1,
-    "userName": "snnnn",
-    "password": "mpppp",
-    "cabinetId": 1,
-    "uSize": 1,
-    "cabinetStart": 1,
-    "snmpPort": 161,
-    "snmpCommunity": "public",
-    "remark": "en"
-}
-```
-
-
-###### 返回结果
-
-参数名称					|类型		|出现要求	|描述  
-:----						|:---		|:------	|:---	
-code						|int		|R			|响应码，详见 附录A
-msg							|string		|R			|&nbsp;
-data						|Object		|R			|&nbsp;
-&emsp;state					|boolean	|R			|操作结果 false失败，true成功
-&emsp;msg					|String		|R			|失败原因
-
-示例：
-
-```
-{
-	"code": 200,
-    "msg": "success",
-    "data": {
-        "state": false,
-        "msg": "机柜该位置无法使用"
-    }
-}
-```
-
-##### 2.1.1.4 节点修改
-
-- **接口说明：** 节点修改
-- **接口地址：** /node/update
-- **请求方式：** PUT
-
-###### 请求参数
-  
-参数名称			|类型			|出现要求	|描述  
-:----				|:---			|:------	|:---	
-uuid       			|String 		|R			|唯一标识
-ip       			|String 		|R			|查询ip
-type      			|String 		|R			|设备类型  1：server，2：net（传数字1或2）
-tag      			|Integer 		|O			|设备标签
-cabinetId      		|Integer 		|O			|机柜
-cabinetStart      	|Integer 		|O			|机柜起始位置
-name				|String			|R			|名称
-userName			|String			|O			|snmpv3 用户名
-password			|String			|O			|snmpv3 密码
-snmpPort			|Integer		|O			|snmp端口号
-snmpCommunity		|String			|O			|snmp团体字
-uSize				|Integer		|O			|U位大小
-remark				|String			|O			|备注
-
-示例：
-
-```
-{
-    "uuid": "3a5e4r6awe4ra86we4**are",
-    "name": "",
-    "ip": "",
-    "type": "1",
-    "tag": 1,
-    "userName": "snnnn",
-    "password": "mpppp",
-    "cabinetId": 1,
-    "uSize": 1,
-    "cabinetStart": 1,
-    "snmpPort": 161,
-    "snmpCommunity": "public",
-    "remark": "enac"
-}
-```
-
-###### 返回结果
-
-参数名称					|类型		|出现要求	|描述  
-:----						|:---		|:------	|:---	
-code						|int		|R			|响应码，详见 附录A
-msg							|string		|R			|&nbsp;
-data						|Object		|R			|&nbsp;
-&emsp;state					|boolean	|R			|操作结果 false失败，true成功
-&emsp;msg					|String		|R			|失败原因
-
-示例：
-
-```
-{
-    "code": 200,
-    "msg": "success",
-    "data": {
-        "state": true,
-        "msg": ""
-    }
-}
-```
-
-##### 2.1.1.5 节点状态变更
-
-- **接口说明：** 节点状态变更(上线/下线/删除)
-- **接口地址：** /node/changeState
-- **请求方式：** PUT
-
-###### 请求参数
-  
-参数名称			|类型			|出现要求	|描述  
-:----				|:---			|:------	|:---	
-uuids       		|String[] 		|R			|唯一标识
-state				|String			|R			|变更的状态，1：在线，2：下线，3：删除
-
-示例：
-
-```
-{
-    "uuids": ["3a5e4r6awe4ra86we4**are", "rawe5r4w65e4r6awe8r7a6we"],
-    "state": "1"
-}
-```
-
-###### 返回结果
-
-参数名称					|类型		|出现要求	|描述  
-:----						|:---		|:------	|:---	
-code						|int		|R			|响应码，详见 附录A
-msg							|String		|R			|&nbsp;
-
-示例：
-
-```
-{
-    "code": 200,
-    "msg": "success"
-}
-```
-
-##### 2.1.1.6 查询可用机柜
-
-- **接口说明：** 节点修改
-- **接口地址：** /node/selectCab
-- **请求方式：** GET
-
-###### 请求参数
-  
-参数名称			|类型			|出现要求	|描述  
-:----				|:---			|:------	|:---	
-uuid       			|String 		|O			|唯一标识，为空表示正在新增节点
-uSize				|Integer		|R			|u位大小
-
-示例：
-
-```
-GET /node/selectCab?uuid=56ae4ra3ws2e1tae5t7aw65e*aer&uSize=2
-```
-
-###### 返回结果
-
-参数名称					|类型		|出现要求	|描述  
-:----						|:---		|:------	|:---	
-code						|int		|R			|响应码，详见 附录A
-msg							|string		|R			|&nbsp;
-data						|Object		|R			|&nbsp;
-&emsp;list					|Object		|R			|&nbsp;
-&emsp;&emsp;roomId			|Integer	|R			|机房id
-&emsp;&emsp;roomName		|String		|R			|机房名称
-&emsp;&emsp;cabinets		|Object[]	|R			|机柜
-&emsp;&emsp;&emsp;id		|Integer	|R			|机柜id
-&emsp;&emsp;&emsp;name		|String		|R			|机柜名称
-&emsp;&emsp;&emsp;starts	|Integer[]	|R			|机柜起始位置
-
-示例：
-
-```
-{
-    "code": 200,
-    "msg": "success",
-    "data": {
-        "list": [{
-            "roomId": 2,
-            "roomName": "room1",
-            "cabinets": [{
-                "id": 1,
-                "name": "机柜1",
-                "starts": [1,2,8,9,10]
-            }]
-        }]
-    }
-}
-```
-
-##### 2.1.1.7 IP校验
-
-- **接口说明：** IP校验
-- **接口地址：** /node/ipCheck
-- **请求方式：** GET
-
-###### 请求参数
-  
-参数名称			|类型			|出现要求	|描述  
-:----				|:---			|:------	|:---	
-uuid       			|String 		|O			|唯一标识，为空表示正在新增节点
-ip					|String			|R			|IP
-
-示例：
-
-```
-GET /node/ipCheck?uuid=56ae4ra3ws2e1tae5t7aw65e*aer&ip=192.11.14.20
-```
-
-###### 返回结果
-
-参数名称					|类型		|出现要求	|描述  
-:----						|:---		|:------	|:---	
-code						|int		|R			|响应码，详见 附录A
-msg							|String		|R			|&nbsp;
-data						|Object		|R			|&nbsp;
-&emsp;state					|boolean	|R			|校验结果 false不可用，true可用
-
-示例：
-
-```
-{
-    "code": 200,
-    "msg": "success",
-    "data": {
-        "state": false
-    }
-}
-```
-
-##### 2.1.1.8 节点名称校验
-
-- **接口说明：** 节点名称校验
-- **接口地址：** /node/nodeNameCheck
-- **请求方式：** GET
-
-###### 请求参数
-  
-参数名称			|类型			|出现要求	|描述  
-:----				|:---			|:------	|:---	
-uuid       			|String 		|O			|唯一标识，为空表示正在新增节点
-name				|String			|R			|节点名称
-
-示例：
-
-```
-GET /node/nodeNameCheck?uuid=56ae4ra3ws2e1tae5t7aw65e*aer&name=atc2
-```
-
-###### 返回结果
-
-参数名称					|类型		|出现要求	|描述  
-:----						|:---		|:------	|:---	
-code						|int		|R			|响应码，详见 附录A
-msg							|String		|R			|&nbsp;
-data						|Object		|R			|&nbsp;
-&emsp;state					|boolean	|R			|校验结果 false不可用，true可用
-
-示例：
-
-```
-{
-    "code": 200,
-    "msg": "success",
-    "data": {
-        "state": true
-    }
-}
-```
-
-
-#### 2.1.2 节点组管理
-
-##### 2.1.2.1 节点组列表查询
-
-- **接口说明：** 节点组列表查询
-- **接口地址：** /nodegroup/list
-- **请求方式：** GET
-
-###### 请求参数
-  
-参数名称			|类型			|出现要求	|描述  
-:----				|:---			|:------	|:---	
-
-示例：
-
-```
-GET /nodegroup/list
-```
-
-###### 返回结果
-
-参数名称					|类型		|出现要求	|描述  
-:----						|:---		|:------	|:---	
-code						|int		|R			|响应码，详见 附录A
-msg							|string		|R			|&nbsp;
-data						|Object		|R			|&nbsp;
-&emsp;list					|Object[]	|R			|&nbsp;
-&emsp;&emsp;systemId		|Integer	|R			|业务系统id
-&emsp;&emsp;systemName		|String		|R			|业务系统名称
-&emsp;&emsp;groups			|Object[]	|R			|接电阻
-&emsp;&emsp;&emsp;id		|Integer	|R			|节点组id
-&emsp;&emsp;&emsp;name		|String		|R			|节点组名称
-&emsp;&emsp;&emsp;allowAss	|String		|R			|能否分配节点 0不能，1可以
-&emsp;&emsp;&emsp;allowSub	|String		|R			|能否增加子节点组 0不能，1可以
-&emsp;&emsp;&emsp;pid		|Integer	|R			|父ID，默认0
-
-示例：
-
-```
-{
-    "code": 200,
-    "msg": "success",
-    "data": {
-        "list": [{
-            "systemId": 1,
-            "systemName": "system1",
-            "groups": [
-                {"id": 8, "name": "group1", "pid": 0, "allowAss": "0", "allowSub": "1"},
-                {"id": 9, "name": "group1-1", "pid": 8, "allowAss": "0", "allowSub": "1"},
-                {"id": 28, "name": "group1-1-9", "pid": 9, "allowAss": "1", "allowSub": "0"}
-            ]
-        }]
-    }
-}
-```
-
-##### 2.1.2.2 节点组详情查询
-
-- **接口说明：** 节点组详情查询
-- **接口地址：** /nodegroup/detail
-- **请求方式：** GET
-
-###### 请求参数
-  
-参数名称			|类型			|出现要求	|描述  
-:----				|:---			|:------	|:---	
-id					|Integer		|R			|节点组ID
-
-示例：
-
-```
-GET /nodegroup/detail?id=3
-```
-
-###### 返回结果
-
-参数名称					|类型		|出现要求	|描述  
-:----						|:---		|:------	|:---	
-code						|int		|R			|响应码，详见 附录A
-msg							|string		|R			|&nbsp;
-data						|Object		|R			|&nbsp;
-&emsp;id					|Integer	|R			|&nbsp;
-&emsp;name					|String		|R			|节点组名称
-&emsp;pid					|Integer	|R			|父ID，默认0
-&emsp;pname					|String		|R			|父名称
-&emsp;remark				|String		|R			|备注
-
-示例：
-
-```
-{
-    "code": 200,
-    "msg": "success",
-    "data": {
-        "id": 8,
-        "name": "group1",
-        "pid": 2,
-        "pname": "group0",
-        "remark": "呵呵"
-    }
-}
-```
-
-##### 2.1.2.3 节点组下的节点列表查询
-
-- **接口说明：** 节点组下属节点列表查询，同 "2.1.1.1 节点列表查询"，请求参数"groupId"为必须参数
-
-##### 2.1.2.4 节点组新增
-
-- **接口说明：** 节点组新增
-- **接口地址：** /nodegroup/save
-- **请求方式：** POST
-
-###### 请求参数
-  
-参数名称			|类型			|出现要求	|描述  
-:----				|:---			|:------	|:---	
-name				|String			|R			|名称
-systemId			|Integer		|O			|业务系统ID
-pid					|Integer		|R			|父ID
-remark				|String			|O			|备注
-
-示例：
-
-```
-{
-    "name": "节点组4",
-    "systemId": 1,
-    "pid": 1,
-    "remark": "en"
-}
-```
-
-###### 返回结果
-
-参数名称					|类型		|出现要求	|描述  
-:----						|:---		|:------	|:---	
-code						|int		|R			|响应码，详见 附录A
-msg							|string		|R			|&nbsp;
-data						|Object		|R			|&nbsp;
-&emsp;state					|boolean	|R			|操作结果 false失败，true成功
-&emsp;msg					|String		|R			|失败原因
-
-示例：
-
-```
-{
-    "code": 200,
-    "msg": "success",
-    "data": {
-        "state": false,
-        "msg": "当前层级下名称已存在"
-    }
-}
-```
-
-##### 2.1.2.5 节点组修改
-
-- **接口说明：** 节点组修改
-- **接口地址：** /nodegroup/update
-- **请求方式：** PUT
-
-###### 请求参数
-  
-参数名称			|类型			|出现要求	|描述  
-:----				|:---			|:------	|:---	
-id					|Integer		|R			|id
-name				|String			|R			|名称
-remark				|String			|O			|备注
-
-示例：
-
-```
-{
-    "id": 35,
-    "name": "节点组4",
-    "remark": "enaccc"
-}
-```
-
-###### 返回结果
-
-参数名称					|类型		|出现要求	|描述  
-:----						|:---		|:------	|:---	
-code						|int		|R			|响应码，详见 附录A
-msg							|string		|R			|&nbsp;
-data						|Object		|R			|&nbsp;
-&emsp;state					|boolean	|R			|操作结果 false失败，true成功
-&emsp;msg					|String		|R			|失败原因
-
-示例：
-
-```
-{
-    "code": 200,
-    "msg": "success",
-    "data": {
-        "state": false,
-        "msg": "当前层级下名称已存在"
-    }
-}
-```
-
-##### 2.1.2.6 节点组删除
-
-- **接口说明：** 节点组删除
-- **接口地址：** /nodegroup/delete
-- **请求方式：** DELETE
-
-###### 请求参数
-  
-参数名称			|类型			|出现要求	|描述  
-:----				|:---			|:------	|:---	
-id					|Integer		|R			|id
-
-示例：
-
-```
-{
-	"id": 35
-}
-```
-
-###### 返回结果
-
-参数名称					|类型		|出现要求	|描述  
-:----						|:---		|:------	|:---	
-code						|int		|R			|响应码，详见 附录A
-msg							|string		|R			|&nbsp;
-
-示例：
-
-```
-{
-    "code": 200,
-    "msg": "success"
-}
-```
-
-##### 2.1.2.7 可分配节点查询
-
-- **接口说明：** 查询可以分配给指定节点组的节点
-- **接口地址：** /nodegroup/assList
-- **请求方式：** GET
-
-###### 请求参数
-  
-参数名称			|类型			|出现要求	|描述  
-:----				|:---			|:------	|:---	
-page				|Integer		|O			|页码，为空时默认为1
-limit				|Integer		|O			|每页记录数，为空时默认为10
-order	 			|String 		|O			|排序
-groupId				|Integer		|R			|节点组id
-systemId			|Integer		|R			|业务系统id
-ip					|String			|O			|ip查询条件,支持模糊查询
-
-示例：
-
-```
-GET /nodegroup/assList?groupId=3&systemId=1&ip=192
-```
-
-###### 返回结果
-
-参数名称					|类型		|出现要求	|描述  
-:----						|:---		|:------	|:---	
-code						|int		|R			|响应码，详见 附录A
-msg							|string		|R			|&nbsp;
-data						|object		|R			|&nbsp;
-&emsp;totalCount			|int		|R			|&nbsp;
-&emsp;totalPage				|int		|R			|&nbsp;
-&emsp;currPage				|int		|R			|&nbsp;
-&emsp;list					|Object[]	|R			|&nbsp;
-&emsp;&emsp;name			|String		|R			|名称
-&emsp;&emsp;hostName		|String		|R			|主机名
-&emsp;&emsp;ip				|String		|R			|ip
-&emsp;&emsp;uuid			|Integer	|R			|全局唯一
-&emsp;&emsp;type			|String		|R			|设备类型，返回国际化翻译后的“服务器”、“网元”
-&emsp;&emsp;tagName			|String 	|R			|设备标签名称，与sys_dict code关联，type:node-type
-
-示例：
-
-```
-{
-    "code": 200,
-    "msg": "success",
-    "data": {
-        "totalCount": 1,
-        "totalPage": 1,
-        "currPage": 1,
-        "list": [{
-            "name": "node1",
-            "hostName": "ysp-01",
-            "ip": "192.168.10.1",
-            "uuid": 1,
-            "type": "服务器",
-            "tagName": "server9"
-        }]
-    }
-}
-```
-
-##### 2.1.2.8 节点组分配节点
-
-- **接口说明：** 建立节点组--节点关系
-- **接口地址：** /nodegroup/saveNodeRel
-- **请求方式：** POST
-
-###### 请求参数
-  
-参数名称			|类型			|出现要求	|描述  
-:----				|:---			|:------	|:---	
-id					|Integer		|R			|节点组id
-uuids				|String[]		|R			|节点id
-
-示例：
-
-```
-{
-    "id": 2,
-    "uuids": ["a", "b"]
-}
-```
-
-###### 返回结果
-
-参数名称					|类型		|出现要求	|描述  
-:----						|:---		|:------	|:---	
-code						|int		|R			|响应码，详见 附录A
-msg							|string		|R			|&nbsp;
-
-示例：
-
-```
-{
-    "code": 200,
-    "msg": "success"
-}
-```
-
-##### 2.1.2.9 节点组移除节点
-
-- **接口说明：** 解除节点组--节点关系
-- **接口地址：** /nodegroup/deleteNodeRel
-- **请求方式：** DELETE
-
-###### 请求参数
-  
-参数名称			|类型			|出现要求	|描述  
-:----				|:---			|:------	|:---	
-id					|Integer		|R			|节点组id
-uuids				|String[]		|R			|节点id
-
-示例：
-
-```
-    "id": 2,
-    "uuids": ["a", "b"]
-```
-
-###### 返回结果
-
-参数名称					|类型		|出现要求	|描述  
-:----						|:---		|:------	|:---	
-code						|int		|R			|响应码，详见 附录A
-msg							|string		|R			|&nbsp;
-
-示例：
-
-```
-{
-    "code": 200,
-    "msg": "success"
-}
-```
-
-##### 2.1.2.10 节点组名称校验
-
-- **接口说明：** 节点组名称校验，同父节点下名称不能重复
-- **接口地址：** /nodegroup/groupNameCheck
-- **请求方式：** GET
-
-###### 请求参数
-  
-参数名称			|类型			|出现要求	|描述  
-:----				|:---			|:------	|:---	
-id       			|Integer 		|O			|节点组ID，为空表示正在新增节点组
-name				|String			|R			|名称
-pid					|Integer		|R			|父节点组id
-
-示例：
-
-```
-GET /nodegroup/groupNameCheck?pid=5&id=15&name=group2
-```
-
-###### 返回结果
-
-参数名称					|类型		|出现要求	|描述  
-:----						|:---		|:------	|:---	
-code						|int		|R			|响应码，详见 附录A
-msg							|string		|R			|&nbsp;
-data						|Object		|R			|&nbsp;
-&emsp;state					|Integer	|R			|校验结果 false不可用，true可用
-
-示例：
-
-```
-{
-    "code": 200,
-    "msg": "success",
-    "data": {
-        "state": true,
-        "msg": ""
-    }
-}
-```
-
-
-#### 2.1.3 机房管理
-
-##### 2.1.3.1 机房列表查询
-
-- **接口说明：** 机房列表查询
-- **接口地址：** /room/list
-- **请求方式：** GET
-
-###### 请求参数
-  
-参数名称			|类型			|出现要求	|描述  
-:----				|:---			|:------	|:---	
-page				|Integer		|O			|页码，为空时默认为1
-limit				|Integer		|O			|每页记录数，为空时默认为10
-order	 			|String 		|O			|排序
-name				|String			|O			|机房名称
-area				|Integer		|O			|所属区域
-
-示例：
-
-```
-GET /room/list?pageSize=10&currPage=2&name=room2&area=43
-```
-
-###### 返回结果
-
-参数名称					|类型		|出现要求	|描述  
-:----						|:---		|:------	|:---	
-code						|int		|R			|响应码，详见 附录A
-msg							|string		|R			|&nbsp;
-data						|Object		|R			|&nbsp;
-&emsp;totalCount			|int		|R			|&nbsp;
-&emsp;totalPage				|int		|R			|&nbsp;
-&emsp;currPage				|int		|R			|&nbsp;
-&emsp;list					|Object[]	|R			|&nbsp;
-&emsp;&emsp;id				|Integer	|R			|主键
-&emsp;&emsp;name			|String		|R			|机房名称
-&emsp;&emsp;rows			|Integer	|R			|行数
-&emsp;&emsp;cols			|Integer	|R			|列数
-&emsp;&emsp;addr			|Integer	|R			|地区
-&emsp;&emsp;remarks			|String		|R			|备注
-
-示例：
-
-```
-{
-    "code": 200,
-    "msg": "success",
-    "data": {
-        "totalCount": 1,
-        "totalPage": 1,
-        "currPage": 1,
-        "list": [{
-            "id": 1,
-            "name": "room2",
-            "rows": 4,
-            "cols": 6,
-            "addr": 1,
-            "remarks": ""
-        }]
-    }
-}
-```
-
-##### 2.1.3.2 机房详情查询
-
-- **接口说明：** 机房列表查询
-- **接口地址：** /room/detail
-- **请求方式：** GET
-
-###### 请求参数
-  
-参数名称			|类型			|出现要求	|描述  
-:----				|:---			|:------	|:---
-id					|Integer		|R			|机房id
-
-示例：
-
-```
-GET /room/detail?id=4
-```
-
-###### 返回结果
-
-参数名称					|类型		|出现要求	|描述  
-:----						|:---		|:------	|:---	
-code						|int		|R			|响应码，详见 附录A
-msg							|string		|R			|&nbsp;
-data						|Object		|R			|&nbsp;
-&emsp;id					|Integer	|R			|主键
-&emsp;name					|String		|R			|机房名称
-&emsp;rows					|Integer	|R			|行数
-&emsp;cols					|Integer	|R			|列数
-&emsp;addr					|Integer	|R			|地区
-&emsp;remarks				|String		|R			|备注
-
-示例：
-
-```
-{
-    "code": 200,
-    "msg": "success",
-    "data": {
-        "id": 1,
-        "name": "room2",
-        "rows": 4,
-        "cols": 6,
-        "addr": 1,
-        "remarks": ""
-    }
-}
-```
-
-##### 2.1.3.3 机房新增
-
-- **接口说明：** 机房新增
-- **接口地址：** /room/save
-- **请求方式：** POST
-
-###### 请求参数
-  
-参数名称			|类型			|出现要求	|描述  
-:----				|:---			|:------	|:---	
-name				|String			|R			|名称
-rows				|Integer		|R			|行数
-cols				|Integer		|R			|列数
-addr				|Integer		|R			|地区
-remark				|String			|O			|备注
-
-示例：
-
-```
-{
-    "name": "room9",
-    "rows": 2,
-    "cols": 4,
-    "addr": 54,
-	"remark": "en"
-}
-```
-
-###### 返回结果
-
-参数名称					|类型		|出现要求	|描述  
-:----						|:---		|:------	|:---	
-code						|int		|R			|响应码，详见 附录A
-msg							|string		|R			|&nbsp;
-data						|Object		|R			|&nbsp;
-&emsp;state					|boolean	|R			|操作结果 false失败，true成功
-&emsp;msg					|String		|R			|失败原因
-
-示例：
-
-```
-{
-    "code": 200,
-    "msg": "success",
-    "data": {
-        "state": false,
-        "msg": "名称已被占用"
-    }
-}
-```
-
-##### 2.1.3.4 机房修改
-
-- **接口说明：** 机房修改
-- **接口地址：** /room/update
-- **请求方式：** PUT
-
-###### 请求参数
-  
-参数名称			|类型			|出现要求	|描述  
-:----				|:---			|:------	|:---	
-id					|Integer		|R			|id
-name				|String			|R			|名称
-rows				|Integer		|R			|行数
-cols				|Integer		|R			|列数
-addr				|Integer		|R			|地区
-remark				|String			|O			|备注
-
-
-示例：
-
-```
-{
-    "id": 9,
-    "name": "room9",
-    "rows": 2,
-    "cols": 4,
-    "addr": 54,
-    "remark": "en"
-}
-```
-
-###### 返回结果
-
-参数名称					|类型		|出现要求	|描述  
-:----						|:---		|:------	|:---	
-code						|int		|R			|响应码，详见 附录A
-msg							|string		|R			|&nbsp;
-data						|Object		|O			|&nbsp;
-&emsp;state					|boolean	|O			|修改是否成功  false失败、true成功
-&emsp;msg					|String		|O			|失败原因
-
-示例：
-
-```
-{
-    "code": 200,
-    "msg": "success",
-    "data": {
-        "state": false,
-        "msg": "机柜行/列已占用"
-    }
-}
-```
-
-##### 2.1.3.5 机房删除
-
-- **接口说明：** 机房删除
-- **接口地址：** /room/delete
-- **请求方式：** DELETE
-
-###### 请求参数
-  
-参数名称			|类型			|出现要求	|描述  
-:----				|:---			|:------	|:---	
-id					|Integer		|R			|id
-
-示例：
-
-```
-{
-    "id": 35
-}
-```
-
-###### 返回结果
-
-参数名称					|类型		|出现要求	|描述  
-:----						|:---		|:------	|:---	
-code						|int		|R			|响应码，详见 附录A
-msg							|string		|R			|&nbsp;
-data						|Object		|R			|&nbsp;
-&emsp;state					|boolean	|R			|结果 false失败、true成功
-&emsp;msg					|String		|O			|失败原因，成功时为空
-
-示例：
-
-```
-{
-    "code": 200,
-    "msg": "success",
-    "data": {
-        "state": false,
-        "msg": "存在关联的机柜"
-    }
-}
-```
-
-##### 2.1.3.6 机房名称校验
-
-- **接口说明：** 机房名称校验，不能重复
-- **接口地址：** /room/roomNameCheck
-- **请求方式：** GET
-
-###### 请求参数
-  
-参数名称			|类型			|出现要求	|描述  
-:----				|:---			|:------	|:---	
-id       			|String 		|O			|唯一标识，为空表示正在新增节点组
-name				|String			|R			|父id
-
-示例：
-
-```
-GET /room/roomNameCheck?pid=5&id=15
-```
-
-###### 返回结果
-
-参数名称					|类型		|出现要求	|描述  
-:----						|:---		|:------	|:---	
-code						|int		|R			|响应码，详见 附录A
-msg							|string		|R			|&nbsp;
-data						|Object		|R			|&nbsp;
-&emsp;state					|Integer	|R			|校验结果 false不可用，true可用
-&emsp;msg					|String		|R			|校验信息，校验不通过时有值
-
-示例：
-
-```
-{
-    "code": 200,
-    "msg": "success",
-    "data": {
-        "state": true,
-        "msg": ""
-    }
-}
-```
-
-##### 2.1.3.7 机房修改时行列校验
-
-- **接口说明：** 机房修改时行列校验，行、列数不能小于已被机柜占用的数
-- **接口地址：** /room/roomSizeCheck
-- **请求方式：** GET
-
-###### 请求参数
-  
-参数名称			|类型			|出现要求	|描述  
-:----				|:---			|:------	|:---	
-id       			|String 		|R			|唯一标识
-cols				|Integer		|R			|列数
-rows				|Integer		|R			|行数
-
-示例：
-
-```
-GET /room/roomSizeCheck?id=15&cols=5&rows=3
-```
-
-###### 返回结果
-
-参数名称					|类型		|出现要求	|描述  
-:----						|:---		|:------	|:---	
-code						|int		|R			|响应码，详见 附录A
-msg							|string		|R			|&nbsp;
-data						|Object		|R			|&nbsp;
-&emsp;state					|Integer	|R			|校验结果 false不可用，true可用
-&emsp;msg					|String		|R			|校验信息，校验不通过时有值
-
-示例：
-
-```
-{
-    "code": 200,
-    "msg": "success",
-    "data": {
-        "state": true,
-        "msg": ""
-    }
-}
-```
-
-##### 2.1.3.8 机房内机柜列表查询
-
-- **接口说明：** 查询机房内的机柜列表，同"2.1.4.1 机柜列表查询"，"roomId"为必须参数
-
-#### 2.1.4 机柜管理
-
-##### 2.1.4.1 机柜列表查询
-
-- **接口说明：** 机柜列表查询
-- **接口地址：** /cab/list
-- **请求方式：** GET
-
-###### 请求参数
-  
-参数名称			|类型			|出现要求	|描述  
-:----				|:---			|:------	|:---	
-page				|Integer		|O			|页码，为空时默认为1
-limit				|Integer		|O			|每页记录数，为空时默认为10
-order	 			|String 		|O			|排序
-name				|String			|O			|机柜名称
-roomId				|Integer		|O			|所属机房id
-
-示例：
-
-```
-GET /cab/list?pageSize=10&currPage=2&name=cab3&roomId=2
-```
-
-###### 返回结果
-
-参数名称					|类型		|出现要求	|描述  
-:----						|:---		|:------	|:---	
-code						|int		|R			|响应码，详见 附录A
-msg							|string		|R			|&nbsp;
-data						|Object		|R			|&nbsp;
-&emsp;totalCount			|int		|R			|&nbsp;
-&emsp;totalPage				|int		|R			|&nbsp;
-&emsp;currPage				|int		|R			|&nbsp;
-&emsp;list					|Object[]	|R			|&nbsp;
-&emsp;&emsp;id				|Integer	|R			|主键
-&emsp;&emsp;name			|String		|R			|机柜名称
-&emsp;&emsp;roomName		|String		|R			|机房名称
-&emsp;&emsp;row				|Integer	|R			|行号
-&emsp;&emsp;col				|Integer	|R			|列号
-&emsp;&emsp;ubit			|Integer	|R			|u位数量
-&emsp;&emsp;remarks			|String		|R			|备注
-
-示例：
-
-```
-{
-    "code": 200,
-    "msg": "success",
-    "data": [{
-        "totalCount": 1,
-        "totalPage": 1,
-        "currPage": 1,
-        "list": [{
-            "id": 1,
-            "name": "cab2",
-            "roomName": "room2",
-            "rows": 4,
-            "cols": 6,
-            "ubit": 1,
-            "remarks": ""
-        }]
-    }]
-}
-```
-
-##### 2.1.4.2 机柜详情查询
-
-- **接口说明：** 机柜列表查询
-- **接口地址：** /cab/detail
-- **请求方式：** GET
-
-###### 请求参数
-  
-参数名称			|类型			|出现要求	|描述  
-:----				|:---			|:------	|:---	
-id					|Integer		|O			|机柜id
-
-示例：
-
-```
-GET /cab/detail?id=2
-```
-
-###### 返回结果
-
-参数名称					|类型		|出现要求	|描述  
-:----						|:---		|:------	|:---	
-code						|int		|R			|响应码，详见 附录A
-msg							|string		|R			|&nbsp;
-data						|Object		|R			|&nbsp;
-&emsp;id					|Integer	|R			|主键
-&emsp;name					|String		|R			|机柜名称
-&emsp;roomName				|String		|R			|机房名称
-&emsp;row					|Integer	|R			|行号
-&emsp;col					|Integer	|R			|列号
-&emsp;ubit					|Integer	|R			|u位数量
-&emsp;nodes					|Object[]	|R			|包含的节点
-&emsp;&emsp;uuid			|String		|R			|uuid
-&emsp;&emsp;ip				|String		|R			|ip
-&emsp;&emsp;name			|String		|R			|节点名称
-&emsp;&emsp;uSize			|Integer	|R			|u位大小
-&emsp;&emsp;uStart			|Integer	|R			|起始U位
-&emsp;remarks				|String		|R			|备注
-
-示例：
-
-```
-{
-    "code": 200,
-    "msg": "success",
-    "data": {
-        "id": 1,
-        "name": "cab2",
-        "roomName": "room2",
-        "rows": 4,
-        "cols": 6,
-		"nodes": [{
-			"uuid": "abc",
-			"ip": "1.2.3.4",
-			"name": "node2",
-			"uSize": 3,
-			"uStart": 1
-		}],
-        "ubit": 1,
-        "remarks": ""
-    }
-}
-```
-
-##### 2.1.4.3 机柜新增
-
-- **接口说明：** 机柜新增
-- **接口地址：** /cab/save
-- **请求方式：** POST
-
-###### 请求参数
-  
-参数名称			|类型			|出现要求	|描述  
-:----				|:---			|:------	|:---	
-name				|String			|R			|名称
-roomId				|Integer		|R			|机房id
-row					|Integer		|R			|行号
-col					|Integer		|R			|列号
-ubit				|Integer		|R			|U位数量
-remark				|String			|O			|备注
-
-示例：
-
-```
-{
-    "name": "cab9",
-	"roomId": 1,
-    "row": 2,
-    "col": 4,
-    "ubit": 12,
-	"remark": "en"
-}
-```
-
-###### 返回结果
-
-参数名称					|类型		|出现要求	|描述  
-:----						|:---		|:------	|:---	
-code						|int		|R			|响应码，详见 附录A
-msg							|string		|R			|&nbsp;
-data						|Object		|R			|&nbsp;
-&emsp;state					|boolean	|R			|操作结果 false失败，true成功
-&emsp;msg					|String		|R			|失败原因
-
-示例：
-
-```
-{
-    "code": 200,
-    "msg": "success",
-    "data": {
-        "state": false,
-        "msg": "机房该位置无法使用"
-    }
-}
-```
-
-##### 2.1.4.4 机柜修改
-
-- **接口说明：** 机柜修改
-- **接口地址：** /cab/update
-- **请求方式：** PUT
-
-###### 请求参数
-  
-参数名称			|类型			|出现要求	|描述  
-:----				|:---			|:------	|:---	
-id					|Integer		|R			|id
-name				|String			|R			|名称
-row					|Integer		|R			|行号
-col					|Integer		|R			|列号
-ubit				|Integer		|R			|U位数量
-remark				|String			|O			|备注
-
-示例：
-
-```
-{
-    "id": 9,
-    "name": "cab9",
-    "row": 2,
-    "col": 4,
-    "ubit": 12,
-    "remark": "en"
-}
-```
-
-###### 返回结果
-
-参数名称					|类型		|出现要求	|描述  
-:----						|:---		|:------	|:---	
-code						|int		|R			|响应码，详见 附录A
-msg							|string		|R			|&nbsp;
-data						|Object		|R			|&nbsp;
-&emsp;state					|boolean	|R			|操作结果 false失败，true成功
-&emsp;msg					|String		|R			|失败原因
-
-示例：
-
-```
-{
-    "code": 200,
-    "msg": "success",
-    "data": {
-        "state": false,
-        "msg": "机房该位置无法使用"
-    }
-}
-```
-
-##### 2.1.4.5 机柜删除
-
-- **接口说明：** 机柜删除
-- **接口地址：** /cab/delete
-- **请求方式：** DELETE
-
-###### 请求参数
-  
-参数名称			|类型			|出现要求	|描述  
-:----				|:---			|:------	|:---	
-id					|Integer		|R			|id
-
-示例：
-
-```
-{
-    "id": 35
-}
-```
-
-###### 返回结果
-
-参数名称					|类型		|出现要求	|描述  
-:----						|:---		|:------	|:---	
-code						|int		|R			|响应码，详见 附录A
-msg							|string		|R			|&nbsp;
-data						|Object[]	|R			|&nbsp;
-&emsp;state					|Integer	|R			|结果 false失败，true成功
-&emsp;msg					|String		|O			|失败原因，成功时为空
-
-示例：
-
-```
-{
-    "code": 200,
-    "msg": "success",
-    "data": {
-        "state": false,
-        "msg": "存在关联的节点"
-    }
-}
-```
-
-##### 2.1.4.6 机柜名称校验
-
-- **接口说明：** 机柜名称校验，同机房下名称不能重复
-- **接口地址：** /cab/cabNameCheck
-- **请求方式：** GET
-
-###### 请求参数
-  
-参数名称			|类型			|出现要求	|描述  
-:----				|:---			|:------	|:---	
-id       			|String 		|O			|唯一标识，为空表示正在新增
-name				|String			|R			|名称
-roomId				|Integer		|R			|机房id
-
-示例：
-
-```
-GET /cab/cabNameCheck?id=5&roomId=15&name=cab54
-```
-
-###### 返回结果
-
-参数名称					|类型		|出现要求	|描述  
-:----						|:---		|:------	|:---	
-code						|int		|R			|响应码，详见 附录A
-msg							|string		|R			|&nbsp;
-data						|Object		|R			|&nbsp;
-&emsp;state					|Integer	|R			|校验结果 false不可用，true可用
-&emsp;msg					|String		|R			|校验信息，校验不通过时有值
-
-示例：
-
-```
-{
-    "code": 200,
-    "msg": "success",
-    "data": {
-        "state": true,
-        "msg": ""
-    }
-}
-```
-
-##### 2.1.4.7 校验U位数量是否可用
-
-- **接口说明：** 机柜名称校验，同机房下名称不能重复
-- **接口地址：** /cab/cabUbitCheck
-- **请求方式：** GET
-
-###### 请求参数
-  
-参数名称			|类型			|出现要求	|描述  
-:----				|:---			|:------	|:---	
-id       			|String 		|O			|唯一标识，为空表示正在新增
-ubit				|Integer		|R			|U位数量
-
-示例：
-
-```
-GET /cab/cabUbitCheck?id=5&ubit=15
-```
-
-###### 返回结果
-
-参数名称					|类型		|出现要求	|描述  
-:----						|:---		|:------	|:---	
-code						|int		|R			|响应码，详见 附录A
-msg							|string		|R			|&nbsp;
-data						|Object		|R			|&nbsp;
-&emsp;state					|Integer	|R			|校验结果 false不可用，true可用
-&emsp;msg					|String		|R			|校验信息，校验不通过时有值
-
-示例：
-
-```
-{
-    "code": 200,
-    "msg": "success",
-    "data": {
-        "state": false,
-        "msg": "设备已占用至15U"
-    }
-}
-```
-
-##### 2.1.4.8 查询机柜可选的机房及行号列号
-
-- **接口说明：** 查询机柜下可选的机房及行号列号
-- **接口地址：** /cab/optionalRoom
-- **请求方式：** GET
-
-###### 请求参数
-  
-参数名称			|类型			|出现要求	|描述  
-:----				|:---			|:------	|:---	
-id       			|String 		|O			|唯一标识，为空表示正在新增
-
-示例：
-
-```
-GET /cab/cabUbitCheck?id=5
-```
-
-###### 返回结果
-
-参数名称					|类型		|出现要求	|描述  
-:----						|:---		|:------	|:---	
-code						|int		|R			|响应码，详见 附录A
-msg							|String		|R			|&nbsp;
-data						|Object		|R			|&nbsp;
-&emsp;roomId				|Integer	|R			|房间id
-&emsp;roomName				|String		|R			|房间名称
-&emsp;rows					|Object[]	|R			|可用行
-&emsp;&emsp;row				|Integer	|R			|可用行号
-&emsp;&emsp;cols			|Integer[]	|R			|可用列号
-
-示例：
-
-```
-{
-    "code": 200,
-    "msg": "success",
-    "data": {
-        "roomId": 1,
-        "roomName": "room88"
-        "rows": [{
-            "row": 1,
-            "cols": [1,3,4]
-        },
-        {
-            "row": 2,
-            "cols": [1,2,3,4,7,8,9]
-        }]
-    }
-}
-```
-
-
-### 2.2 权限
-
-#### 2.2.1 业务系统
-
-##### 2.2.1.1 业务系统列表查询
-
-- **接口说明：** 业务系统列表查询
-- **接口地址：** /system/list
-- **请求方式：** GET
-
-###### 请求参数
-  
-参数名称			|类型			|出现要求	|描述  
-:----				|:---			|:------	|:---	
-page				|Integer		|O			|页码，为空时默认为1
-limit				|Integer		|O			|每页记录数，为空时默认为10
-order	 			|String 		|O			|排序
-usergroupId			|Integer		|C			|用户组id
-
-示例：
-
-```
-GET /system/list?pageSize=10&currPage=2
-```
-
-###### 返回结果
-
-参数名称					|类型		|出现要求	|描述  
-:----						|:---		|:------	|:---	
-code						|int		|R			|响应码，详见 附录A
-msg							|string		|R			|&nbsp;
-data						|Object		|R			|&nbsp;
-&emsp;totalCount			|int		|R			|&nbsp;
-&emsp;totalPage				|int		|R			|&nbsp;
-&emsp;currPage				|int		|R			|&nbsp;
-&emsp;list					|Object[]	|R			|&nbsp;
-&emsp;&emsp;id				|Integer	|R			|编号
-&emsp;&emsp;name			|String		|R			|系统名称
-&emsp;&emsp;builtIn			|Integer	|R			|是否内置，内置不可删除，1：内置，0：非内置
-&emsp;&emsp;remarks			|String		|R			|备注信息
-&emsp;&emsp;createDate		|Date		|R			|创建时间
-&emsp;&emsp;updateDate		|Date		|R			|更新时间
-&emsp;&emsp;delFlag			|Integer	|R			|删除标记 1：删除，0：未删除，默认：0
-
-示例：
-
-```
-{
-    "code": 200,
-    "msg": "success",
-    "data": {
-        "totalCount": 1,
-        "totalPage": 1,
-        "currPage": 1,
-        "list": [{
-            "id": 1,
-            "name": "system1",
-            "builtIn": 1,
-            "remarks": "",
-            "delFlag": 0,
-            "createDate": "2019-07-10 10:10:10",
-            "updateDate": "2019-07-10 10:10:10"
-        }]
-    }
-}
-```
-
-##### 2.2.1.2 业务系统详情查询
-
-- **接口说明：** 业务系统详情查询
-- **接口地址：** /system/detail
-- **请求方式：** GET
-
-###### 请求参数
-  
-参数名称			|类型			|出现要求	|描述  
-:----				|:---			|:------	|:---	
-id					|Integer		|O			|业务系统id
-
-示例：
-
-```
-GET /system/detail?id=2
-```
-
-###### 返回结果
-
-参数名称					|类型		|出现要求	|描述  
-:----						|:---		|:------	|:---	
-code						|int		|R			|响应码，详见 附录A
-msg							|string		|R			|&nbsp;
-data						|Object		|R			|&nbsp;
-&emsp;id					|Integer	|R			|编号
-&emsp;name					|String		|R			|系统名称
-&emsp;builtIn				|Integer	|R			|是否内置，内置不可删除，1：内置，0：非内置
-&emsp;createBy				|Integer	|R			|创建者
-&emsp;createDate			|Date		|R			|创建时间
-&emsp;updateBy				|Integer	|R			|更新者
-&emsp;updateDate			|Date		|R			|更新时间
-&emsp;remarks				|String		|R			|备注信息
-&emsp;delFlag				|Integer	|R			|删除标记 1：删除，0：未删除，默认：0
-&emsp;usergroups			|Object[]	|R			|用户组列表
-&emsp;&emsp;id				|Integer	|R			|用户组ID
-&emsp;&emsp;name			|Integer	|R			|用户组名称
-
-示例：
-
-```
-{
-    "code": 200,
-    "msg": "success",
-    "data": {
-        "id": 1,
-        "name": "system2",
-        "builtIn": 1,
-        "createBy": 1,
-        "createDate": "2019-07-10 10:10:10",
-        "updateBy": 1,
-        "updateDate": "2019-07-10 10:10:10",
-        "remarks": "",
-        "delFlag": 1,
-        "usergroups": [{
-            "id": 2,
-            "name": "group1"
-        },
-        {
-            "id": 3,
-            "name": "group2"
-        }]
-    }
-}
-```
-
-##### 2.2.1.3 业务系统新增
-
-- **接口说明：** 业务系统新增
-- **接口地址：** /system/save
-- **请求方式：** POST
-
-###### 请求参数
-  
-参数名称			|类型			|出现要求	|描述  
-:----				|:---			|:------	|:---	
-name				|String			|R			|名称
-remark				|String			|O			|备注
-usergroupIds		|Integer[]		|O			|用户组id,分配现有节点组
-
-
-示例：
-
-```
-{
-    "name": "system22",
-    "remark": "en",
-    "usergroupIds": [1,2,3,4]
-}
-```
-
-###### 返回结果
-
-参数名称					|类型		|出现要求	|描述  
-:----						|:---		|:------	|:---	
-code						|int		|R			|响应码，详见 附录A
-msg							|string		|R			|&nbsp;
-data						|Object		|R			|&nbsp;
-&emsp;state					|boolean	|R			|操作结果 false失败，true成功
-&emsp;msg					|String		|R			|失败原因
-
-示例：
-
-```
-{
-    "code": 200,
-    "msg": "success",
-    "data": {
-        "state": true,
-        "msg": ""
-    }
-}
-```
-
-##### 2.2.1.4 业务系统修改
-
-- **接口说明：** 业务系统修改
-- **接口地址：** /system/update
-- **请求方式：** PUT
-
-###### 请求参数
-  
-参数名称			|类型			|出现要求	|描述  
-:----				|:---			|:------	|:---	
-id					|Integer		|R			|id
-name				|String			|R			|名称
-remark				|String			|O			|备注
-usergroupIds		|Integer[]		|O			|用户组id
-
-示例：
-
-```
-{
-    "id": 9,
-    "name": "cab9",
-    "remark": "en",
-    "usergroupIds": [1,2,3,4]
-}
-```
-
-###### 返回结果
-
-参数名称					|类型		|出现要求	|描述  
-:----						|:---		|:------	|:---	
-code						|int		|R			|响应码，详见 附录A
-msg							|string		|R			|&nbsp;
-data						|Object		|R			|&nbsp;
-&emsp;state					|boolean	|R			|操作结果 false失败，true成功
-&emsp;msg					|String		|R			|失败原因
-
-示例：
-
-```
-{
-    "code": 200,
-    "msg": "success",
-    "data": {
-        "state": false,
-        "msg": "名称已被占用"
-    }
-}
-```
-
-##### 2.2.1.5 业务系统删除
-
-- **接口说明：** 业务系统删除
-- **接口地址：** /system/delete
-- **请求方式：** DELETE
-
-###### 请求参数
-  
-参数名称			|类型			|出现要求	|描述  
-:----				|:---			|:------	|:---	
-id					|Integer		|R			|id
-
-示例：
-
-```
-{
-    "id": 35
-}
-```
-
-##### 2.2.1.6 查询业务系统下的节点
-
-- **接口说明：** 查询业务系统下的节点
-- **接口地址：** /system/nodes
-- **请求方式：** GET
-
-###### 请求参数
-  
-参数名称			|类型			|出现要求	|描述  
-:----				|:---			|:------	|:---	
-id					|Integer		|R			|业务系统id
-
-示例：
-
-```
-GET /system/nodes?id=5
-```
-
-###### 返回结果
-
-参数名称					|类型		|出现要求	|描述  
-:----						|:---		|:------	|:---	
-code						|int		|R			|响应码，详见 附录A
-msg							|String		|R			|&nbsp;
-data						|Object		|R			|&nbsp;
-&emsp;totalCount			|int		|R			|&nbsp;
-&emsp;totalPage				|int		|R			|&nbsp;
-&emsp;currPage				|int		|R			|&nbsp;
-&emsp;list					|Object[]	|R			|&nbsp;
-&emsp;&emsp;name			|String		|R			|名称
-&emsp;&emsp;hostName		|String		|R			|主机名
-&emsp;&emsp;ip				|String		|R			|ip
-&emsp;&emsp;uuid			|Integer	|R			|全局唯一
-&emsp;&emsp;type			|Integer	|R			|设备类型，1、server,2、net
-&emsp;&emsp;tagName			|String 	|R			|设备标签名称
-&emsp;&emsp;tag				|Integer	|R			|设备标签，与sys_dict关联
-&emsp;&emsp;state			|String		|R			|设备状态，1：在线，2：下线，3：删除
-&emsp;&emsp;remark			|String		|R			|备注
-
-示例：
-
-```
-{
-    "code": 200,
-    "msg": "success",
-    "data": {
-        "totalCount": 1,
-        "totalPage": 1,
-        "currPage": 1,
-        "list": [{
-            "id": 1,
-            "name": "a",
-            "hostName": "b",
-            "ip": "112.21.122.212",
-            "uuid": 1,
-            "tagName": "atc",
-            "type": 1,
-            "tag": 1,
-            "state": 1,
-            "remark": ""
-        }]
-    }
-}
-```
-
-##### 2.2.1.7 业务系统分配节点
-
-- **接口说明：** 建立业务系统--节点关系
-- **接口地址：** /system/saveNodeRel
-- **请求方式：** GET
-
-###### 请求参数
-  
-参数名称			|类型			|出现要求	|描述  
-:----				|:---			|:------	|:---	
-id					|Integer		|R			|业务系统id
-uuids				|String[]		|R			|节点id
-
-示例：
-
-```
-GET /system/saveNodeRel?id=3&uuids=40192374019473,42342134235d,32434ccar
-```
-
-###### 返回结果
-
-参数名称					|类型		|出现要求	|描述  
-:----						|:---		|:------	|:---	
-code						|int		|R			|响应码，详见 附录A
-msg							|string		|R			|&nbsp;
-
-示例：
-
-```
-{
-    "code": 200,
-    "msg": "success"
-}
-```
-
-##### 2.2.1.8 业务系统移除节点
-
-- **接口说明：** 解除业务系统--节点关系
-- **接口地址：** /system/deleteNodeRel
-- **请求方式：** DELETE
-
-###### 请求参数
-  
-参数名称			|类型			|出现要求	|描述  
-:----				|:---			|:------	|:---	
-id					|Integer		|R			|业务系统id
-uuids				|String[]		|R			|节点id
-
-示例：
-
-```
-GET /system/deleteRel?id=3&uuids=40192374019473,42342134235d,32434ccar
-```
-
-###### 返回结果
-
-参数名称					|类型		|出现要求	|描述  
-:----						|:---		|:------	|:---	
-code						|int		|R			|响应码，详见 附录A
-msg							|string		|R			|&nbsp;
-
-示例：
-
-```
-{
-    "code": 200,
-    "msg": "success"
-}
-```
-
-##### 2.2.1.9 业务系统名称校验
-
-- **接口说明：** 业务系统名称校验，同父节点下名称不能重复
-- **接口地址：** /system/nameCheck
-- **请求方式：** GET
-
-###### 请求参数
-  
-参数名称			|类型			|出现要求	|描述  
-:----				|:---			|:------	|:---	
-id       			|String 		|O			|唯一标识，为空表示正在新增业务系统
-name				|String			|R			|名称
-
-示例：
-
-```
-GET /system/nameCheck?id=5&name=system2
-```
-
-###### 返回结果
-
-参数名称					|类型		|出现要求	|描述  
-:----						|:---		|:------	|:---	
-code						|int		|R			|响应码，详见 附录A
-msg							|string		|R			|&nbsp;
-data						|Object		|R			|&nbsp;
-&emsp;state					|Integer	|R			|校验结果 false不可用，true可用
-
-示例：
-
-```
-{
-    "code": 200,
-    "msg": "success",
-    "data": {
-        "state": true
-    }
-}
-```
-
-##### 2.2.1.10 用户组列表
-
-- **接口说明：** 用于新增/修改业务系统时展示用户组，同 "2.2.2.1 用户组列表查询"，请求参数"systemId"为必须参数
-
-
-#### 2.2.2 用户组
-
-##### 2.2.2.1 用户组列表查询
-
-- **接口说明：** 用户组列表查询
-- **接口地址：** /usergroup/list
-- **请求方式：** GET
-
-###### 请求参数
-  
-参数名称			|类型			|出现要求	|描述  
-:----				|:---			|:------	|:---	
-page				|Integer		|O			|页码，为空时默认为1
-limit				|Integer		|O			|每页记录数，为空时默认为10
-order	 			|String 		|O			|排序
-systemId			|Integer		|C			|业务系统id
-
-示例：
-
-```
-GET /usergroup/list?pageSize=10&currPage=2&systemId=4
-```
-
-###### 返回结果
-
-参数名称					|类型		|出现要求	|描述  
-:----						|:---		|:------	|:---	
-code						|int		|R			|响应码，详见 附录A
-msg							|string		|R			|&nbsp;
-data						|Object		|R			|&nbsp;
-&emsp;totalCount			|int		|R			|&nbsp;
-&emsp;totalPage				|int		|R			|&nbsp;
-&emsp;currPage				|int		|R			|&nbsp;
-&emsp;list					|Object[]	|R			|&nbsp;
-&emsp;&emsp;id				|Integer	|R			|主键
-&emsp;&emsp;name			|String		|R			|用户组名称
-&emsp;&emsp;remark			|String		|R			|备注信息
-&emsp;&emsp;systemInfos		|Object[]	|R			|业务系统
-&emsp;&emsp;&emsp;id		|Integer	|R			|业务系统id
-&emsp;&emsp;&emsp;name		|String		|R			|业务系统名称
-&emsp;&emsp;users			|Object[]	|R			|用户组内的用户
-&emsp;&emsp;&emsp;id		|Integer	|R			|用户id
-&emsp;&emsp;&emsp;username	|String		|R			|用户登录名
-
-示例：
-
-```
-{
-    "code": 200,
-    "msg": "success",
-    "data": {
-        "totalCount": 1,
-        "totalPage": 1,
-        "currPage": 1,
-        "list": [{
-            "id": 1,
-            "name": "usergroup1",
-            "remarks": "",
-            “systemInfos": [{
-                "id": 1,
-                "name": "system1"
-            }],
-            "users": [{
-                "id": 1,
-                "username": "admin"
-            }]
-        }]
-    }
-}
-```
-
-##### 2.2.2.2 用户组详情查询
-
-- **接口说明：** 用户组详情查询
-- **接口地址：** /usergroup/detail
-- **请求方式：** GET
-
-###### 请求参数
-  
-参数名称			|类型			|出现要求	|描述  
-:----				|:---			|:------	|:---	
-id					|Integer		|O			|用户组id
-
-示例：
-
-```
-GET /usergroup/detail?id=2
-```
-
-###### 返回结果
-
-参数名称					|类型		|出现要求	|描述  
-:----						|:---		|:------	|:---	
-code						|int		|R			|响应码，详见 附录A
-msg							|string		|R			|&nbsp;
-data						|Object		|R			|&nbsp;
-&emsp;id					|Integer	|R			|主键
-&emsp;name					|String		|R			|用户组名称
-&emsp;remark				|String		|R			|备注信息
-&emsp;systemInfos			|Object[]	|R			|业务系统
-&emsp;&emsp;id				|Integer	|R			|业务系统id
-&emsp;&emsp;name			|String		|R			|业务系统名称
-&emsp;users					|Object[]	|R			|用户组内的用户
-&emsp;&emsp;id				|Integer	|R			|用户id
-&emsp;&emsp;username		|String		|R			|用户登录名
-
-示例：
-
-```
-{
-    "code": 200,
-    "msg": "success",
-    "data": {
-        "id": 1,
-        "name": "usergroup1",
-        "remarks": "",
-        “systemInfos": [{
-            "id": 1,
-            "name": "system1"
-        }],
-        "users": [{
-            "id": 1,
-            "username": "admin"
-        }]
-    }
-}
-```
-
-##### 2.2.2.3 用户组新增
-
-- **接口说明：** 用户组新增
-- **接口地址：** /usergroup/save
-- **请求方式：** POST
-
-###### 请求参数
-  
-参数名称			|类型			|出现要求	|描述  
-:----				|:---			|:------	|:---	
-name				|String			|R			|名称
-remark				|String			|O			|备注
-systemIds			|Integer[]		|O			|业务系统id
-userIds				|Integer[]		|O			|用户id
-
-示例：
-
-```
-{
-    "name": "usergroup22",
-    "remark": "en",
-    "systemIds": [1,2,3,4],
-    "userIds": [1,3]
-}
-```
-
-###### 返回结果
-
-参数名称					|类型		|出现要求	|描述  
-:----						|:---		|:------	|:---	
-code						|int		|R			|响应码，详见 附录A
-msg							|string		|R			|&nbsp;
-data						|Object		|R			|&nbsp;
-&emsp;state					|boolean	|R			|操作结果 false失败，true成功
-&emsp;msg					|String		|R			|失败原因
-
-示例：
-
-```
-{
-    "code": 200,
-    "msg": "success",
-    "data": {
-        "state": false,
-        "msg": "名称已被占用"
-    }
-}
-```
-
-##### 2.2.2.4 用户组修改
-
-- **接口说明：** 用户组修改
-- **接口地址：** /usergroup/update
-- **请求方式：** PUT
-
-###### 请求参数
-  
-参数名称			|类型			|出现要求	|描述  
-:----				|:---			|:------	|:---	
-id					|Integer		|R			|id
-name				|String			|R			|名称
-remark				|String			|O			|备注
-systemIds			|Integer[]		|O			|业务系统id
-userIds				|Integer[]		|O			|用户id
-
-示例：
-
-```
-{
-    "id": 9,
-    "name": "cab9",
-    "remark": "en",
-    "systemIds": [1,2,3,4],
-    "userIds": [1,3]
-}
-```
-
-###### 返回结果
-
-参数名称					|类型		|出现要求	|描述  
-:----						|:---		|:------	|:---	
-code						|int		|R			|响应码，详见 附录A
-msg							|string		|R			|&nbsp;
-
-示例：
-
-```
-{
-    "code": 200,
-    "msg": "success",
-    "data": {
-        "state": false,
-        "msg": "名称已被占用"
-    }
-}
-```
-
-##### 2.2.2.5 用户组删除
-
-- **接口说明：** 用户组删除
-- **接口地址：** /usergroup/delete
-- **请求方式：** DELETE
-
-###### 请求参数
-  
-参数名称			|类型			|出现要求	|描述  
-:----				|:---			|:------	|:---	
-id					|Integer		|R			|id
-
-示例：
-
-```
-{
-    "id": 35
-}
-```
-
-###### 返回结果
-
-参数名称					|类型		|出现要求	|描述  
-:----						|:---		|:------	|:---	
-code						|int		|R			|响应码，详见 附录A
-msg							|string		|R			|&nbsp;
-
-示例：
-
-```
-{
-    "code": 200,
-    "msg": "success"
-}
-```
-
-##### 2.2.2.6 业务系统列表
-
-- **接口说明：** 用于新增/修改用户组时展示业务系统，同 "2.2.1.1 业务系统列表查询"，请求参数"usergroupId"为必须参数
-
-##### 2.2.2.7 用户组名称校验
-
-- **接口说明：** 用户组名称校验，不能重复
-- **接口地址：** /usergroup/nameCheck
-- **请求方式：** GET
-
-###### 请求参数
-  
-参数名称			|类型			|出现要求	|描述  
-:----				|:---			|:------	|:---	
-id       			|String 		|O			|唯一标识，为空表示正在新增
-name				|String			|R			|名称
-
-示例：
-
-```
-GET /usergroup/nameCheck?id=5&name=ug2
-```
-
-###### 返回结果
-
-参数名称					|类型		|出现要求	|描述  
-:----						|:---		|:------	|:---	
-code						|int		|R			|响应码，详见 附录A
-msg							|string		|R			|&nbsp;
-data						|Object		|R			|&nbsp;
-&emsp;state					|Integer	|R			|校验结果 false不可用，true可用
-
-示例：
-
-```
-{
-    "code": 200,
-    "msg": "success",
-    "data": {
-        "state": true
-    }
-}
-```
-
-
-### 2.3 监测配置
-
-#### 2.3.1 监测类别
-
-##### 2.3.1.1 监测类别列表查询
-
-- **接口说明：** 监测类别列表查询
-- **接口地址：** /deteType/list
-- **请求方式：** GET
-
-###### 请求参数
-  
-参数名称			|类型			|出现要求	|描述  
-:----				|:---			|:------	|:---	
-page				|Integer		|O			|页码，为空时默认为1
-limit				|Integer		|O			|每页记录数，为空时默认为10
-order	 			|String 		|O			|排序
-name				|String			|O			|监测类别
-
-示例：
-
-```
-GET /deteType/list?pageSize=10&currPage=2&name=cpu
-```
-
-###### 返回结果
-
-参数名称					|类型		|出现要求	|描述  
-:----						|:---		|:------	|:---	
-code						|int		|R			|响应码，详见 附录A
-msg							|string		|R			|&nbsp;
-data						|Object		|R			|&nbsp;
-&emsp;totalCount			|int		|R			|&nbsp;
-&emsp;totalPage				|int		|R			|&nbsp;
-&emsp;currPage				|int		|R			|&nbsp;
-&emsp;list					|Object[]	|R			|&nbsp;
-&emsp;&emsp;id				|Integer	|R			|&nbsp;
-&emsp;&emsp;name			|String		|R			|名称，唯一索引
-&emsp;&emsp;method			|String		|R			|1、脚本，2、snmp，3、内置，默认：1，页面显示翻译后内容
-&emsp;&emsp;interval		|Integer	|R			|监控间隔，单位：s，默认：60
-&emsp;&emsp;content			|String		|R			|1、脚本储存路径，2、oid，可以为空，3、类全路径
-&emsp;&emsp;buildIn			|String		|R			|1、隐藏界面不显示，2、内置，不允许修改，3、用户自定义，默认3
-&emsp;&emsp;version			|Integer	|R			|更新version加1，默认：1
-&emsp;&emsp;i18nCode		|String		|R			|name 的国际化 code，不为空时页面显示翻译后的内容，为空直接显示name
-&emsp;&emsp;remark			|String		|R			|备注
-
-示例：
-
-```
-{
-    "code": 200,
-    "msg": "success",
-    "data": {
-        "totalCount": 1,
-        "totalPage": 1,
-        "currPage": 1,
-        "list": [{
-           "id": 1,
-           "name": "",
-           "viewLevel": "",
-           "method": "",
-           "interval": 1,
-           "content": "",
-           "buildIn": "",
-           "tableName": "",
-           "version": 1,
-           "i18nCode": "",
-           "remark": ""
-        }]
-    }
-}
-```
-
-##### 2.3.1.2 监测类别详情查询
-
-- **接口说明：** 监测类别详情查询，返回监测类别、元数据和参数
-- **接口地址：** /deteType/detail
-- **请求方式：** GET
-
-###### 请求参数
-  
-参数名称			|类型			|出现要求	|描述  
-:----				|:---			|:------	|:---	
-id					|Integer		|R			|类别id
-
-示例：
-
-```
-GET /deteType/detail?id=2
-```
-
-###### 返回结果
-
-参数名称					|类型		|出现要求	|描述  
-:----						|:---		|:------	|:---	
-code						|int		|R			|响应码，详见 附录A
-msg							|string		|R			|&nbsp;
-data						|Object		|R			|&nbsp;
-&emsp;id					|Integer	|R			|&nbsp;
-&emsp;name					|String		|R			|名称，唯一索引
-&emsp;method				|String		|R			|1、脚本，2、snmp，3、内置，默认：1，显示翻译后的内容
-&emsp;interval				|Integer	|R			|监控间隔，单位：s，默认：60
-&emsp;content				|String		|R			|1、脚本储存路径，2、oid，可以为空，3、类全路径
-&emsp;i18nCode				|String		|R			|name 的国际化 code，不为空时name显示翻译后的内容，为空直接显示
-&emsp;remark				|String		|R			|备注
-&emsp;opTime				|String		|R			|操作时间
-&emsp;deteTypeMetas			|Object[]	|R			|元数据列表
-&emsp;&emsp;id				|Integer	|R			|&nbsp;
-&emsp;&emsp;name			|String		|R			|显示名称，唯一索引
-&emsp;&emsp;typeId			|Integer	|R			|类别id
-&emsp;&emsp;fieldType		|String		|R			|字段分类，1:Tag 数据库添加索引 ,2:field 普通字段, 3:temp 临时字段，数据传输不入库, 4:cal 计算字段，根据field，temp计算得出
-&emsp;&emsp;dataType		|String		|R			|数据类型，1:counter，需要根据上一个监测周期的数据差值计算2：gauge瞬时值 3：string 字符类型
-&emsp;&emsp;dataLenth		|Integer	|R			|数据长度
-&emsp;&emsp;sort			|Integer	|R			|排序
-&emsp;&emsp;oid				|String		|R			|snmp oid
-&emsp;&emsp;unit			|String		|R			|单位
-&emsp;&emsp;dicType			|Integer	|O			|字典类型
-&emsp;&emsp;i18nCode		|String		|R			|name 的国际化 code，不为空时name显示翻译后的内容，为空直接显示name
-&emsp;&emsp;remark			|String		|R			|备注
-&emsp;deteTypeParams		|Object[]	|R			|类别参数数组
-&emsp;&emsp;id				|Integer	|R			|
-&emsp;&emsp;name			|String		|R			|参数名称
-&emsp;&emsp;typeId			|Integer	|R			|类别id
-&emsp;&emsp;index			|Integer	|R			|参数索引
-&emsp;&emsp;default			|String		|R			|参数默认值
-&emsp;&emsp;remark			|String		|R			|备注
-
-示例：
-
-```
-{
-    "code": 200,
-    "msg": "success",
-    "data": {
-        "id": 1,
-        "name": "enc",
-        "method": "脚本",
-        "interval": 60,
-        "content": "",
-        "i18nCode": "cpu监测",
-        "remark": "",
-        "opTime": "2019-07-10 10:10:10",
-        "deteTypeMetas": [{
-            "id": 1,
-            "name": "earae",
-            "typeId": 1,
-            "fieldType": "",
-            "dataType": "",
-            "dataLenth": 1,
-            "sort": 1,
-            "oid": "",
-            "unit": "",
-            "dicType": 2,
-            "i18nCode": "",
-            "remark": ""
-        }],
-        "deteTypeParams": [{
-            "id": 1,
-            "name": "cc",
-            "typeId": 1,
-            "index": 1,
-            "default": "",
-            "remark": ""
-        }]
-    }
-}
-```
-
-##### 2.3.1.3 监测类别新增
-
-- **接口说明：** 监测类别新增
-- **接口地址：** /deteType/save
-- **请求方式：** POST
-
-###### 请求参数
-  
-参数名称			|类型			|出现要求	|描述  
-:----				|:---			|:------	|:---	
-name				|String			|R			|唯一索引
-viewLevel			|String			|R			|1:用户组，2：系统内全部人员，3：无限制，默认2
-method				|String			|R			|1、脚本，2、snmp，3、内置，默认：1
-interval			|Integer		|R			|监控间隔，单位：s，默认：60
-content				|String			|R			|1、脚本储存路径，2、oid，可以为空，3、类全路径
-i18nCode			|String			|R			|name 的国际化 code，不为空时name显示翻译后的内容，为空直接显示
-remark				|String			|R			|备注
-deteTypeMetas		|Object[]		|R			|元数据数据
-&emsp;id			|Integer		|R			|
-&emsp;name			|String			|R			|显示名称，唯一索引
-&emsp;typeId		|Integer		|R			|类别id
-&emsp;fieldType		|String			|R			|字段分类，1:Tag 数据库添加索引 ,2:field 普通字段, 3:temp 临时字段，数据传输不入库, 4:cal 计算字段，根据field，temp计算得出
-&emsp;dataType		|String			|R			|数据类型，1:counter，需要根据上一个监测周期的数据差值计算2：gauge瞬时值 3：string 字符类型
-&emsp;dataLenth		|Integer		|R			|数据长度
-&emsp;sort			|Integer		|R			|排序
-&emsp;oid			|String			|R			|snmp oid
-&emsp;unit			|String			|R			|单位
-&emsp;dicType		|Integer		|O			|字典类型
-&emsp;i18nCode		|String			|R			|name 的国际化 code，不为空时name显示翻译后的内容，为空直接显示name
-&emsp;remark		|String			|R			|备注
-deteTypeParams		|Object[]		|R			|类别参数数组
-&emsp;id			|Integer		|R			|
-&emsp;name			|String			|R			|参数名称
-&emsp;typeId		|Integer		|R			|类别id
-&emsp;index			|Integer		|R			|参数索引
-&emsp;default		|String			|R			|参数默认值
-&emsp;remark		|String			|R			|备注
-
-示例：
-
-```
-    {
-        "name": "enc",
-        "typeId": 1,
-        "fieldType": "1",
-        "dataType": "2",
-        "dataLenth": 1,
-        "viewLevel": "2",
-        "sort": 1,
-        "oid": "",
-        "unit": "",
-        "fieldName": "",
-        "i18nCode": "",
-        "remark": "",
-        "deteTypeMetas": [{
-            "id": 1,
-            "name": "earae",
-            "typeId": 1,
-            "fieldType": "",
-            "dataType": "",
-            "dataLenth": 1,
-            "sort": 1,
-            "oid": "",
-            "unit": "",
-            "dicType": 2,
-            "i18nCode": "",
-            "remark": ""
-        }],
-        "deteTypeParams": [{
-            "id": 1,
-            "name": "cc",
-            "typeId": 1,
-            "index": 1,
-            "default": "",
-            "remark": ""
-        }]
-    }
-```
-
-###### 返回结果
-
-参数名称					|类型		|出现要求	|描述  
-:----						|:---		|:------	|:---	
-code						|int		|R			|响应码，详见 附录A
-msg							|string		|R			|&nbsp;
-data						|Object		|R			|&nbsp;
-&emsp;state					|boolean	|R			|操作结果 false失败，true成功
-&emsp;msg					|String		|R			|失败原因
-
-示例：
-
-```
-{
-    "code": 200,
-    "msg": "success",
-    "data": {
-        "state": false,
-        "msg": "名称已被占用"
-    }
-}
-```
-
-##### 2.3.1.4 监测类别修改
-
-- **接口说明：** 监测类别修改
-- **接口地址：** /deteType/update
-- **请求方式：** PUT
-
-###### 请求参数
-  
-参数名称			|类型			|出现要求	|描述  
-:----				|:---			|:------	|:---	
-id					|Integer		|R			|id
-name				|String			|R			|唯一索引
-viewLevel			|String			|R			|1:用户组，2：系统内全部人员，3：无限制，默认2
-method				|String			|R			|1、脚本，2、snmp，3、内置，默认：1
-interval			|Integer		|R			|监控间隔，单位：s，默认：60
-content				|String			|R			|1、脚本储存路径，2、oid，可以为空，3、类全路径
-i18nCode			|String			|R			|name 的国际化 code，不为空时name显示翻译后的内容，为空直接显示
-remark				|String			|R			|备注
-deteTypeMetas		|Object[]		|R			|元数据数据
-&emsp;id			|Integer		|R			|&nbsp;
-&emsp;name			|String			|R			|显示名称，唯一索引
-&emsp;typeId		|Integer		|R			|类别id
-&emsp;fieldType		|String			|R			|字段分类，1:Tag 数据库添加索引 ,2:field 普通字段, 3:temp 临时字段，数据传输不入库, 4:cal 计算字段，根据field，temp计算得出
-&emsp;dataType		|String			|R			|数据类型，1:counter，需要根据上一个监测周期的数据差值计算2：gauge瞬时值 3：string 字符类型
-&emsp;dataLenth		|Integer		|R			|数据长度
-&emsp;sort			|Integer		|R			|排序
-&emsp;oid			|String			|R			|snmp oid
-&emsp;unit			|String			|R			|单位
-&emsp;dicType		|Integer		|O			|字典类型
-&emsp;i18nCode		|String			|R			|name 的国际化 code，不为空时name显示翻译后的内容，为空直接显示name
-&emsp;remark		|String			|R			|备注
-deteTypeParams		|Object[]		|R			|类别参数数组
-&emsp;id			|Integer		|R			|
-&emsp;name			|String			|R			|参数名称
-&emsp;typeId		|Integer		|R			|类别id
-&emsp;index			|Integer		|R			|参数索引
-&emsp;default		|String			|R			|参数默认值
-&emsp;remark		|String			|R			|备注
-
-示例：
-
-```
-    {
-        "id": 223
-        "name": "enc",
-        "typeId": 1,
-        "fieldType": "1",
-        "dataType": "2",
-        "dataLenth": 1,
-        "viewLevel": "2",
-        "sort": 1,
-        "oid": "",
-        "unit": "",
-        "fieldName": "",
-        "i18nCode": "",
-        "remark": "",
-		"deteTypeMetas": [{
-            "id": 1,
-            "name": "earae",
-            "typeId": 1,
-            "fieldType": "",
-            "dataType": "",
-            "dataLenth": 1,
-            "sort": 1,
-            "oid": "",
-            "unit": "",
-            "dicType": 2,
-            "i18nCode": "",
-            "remark": ""
-        }],
-        "deteTypeParams": [{
-            "id": 1,
-            "name": "cc",
-            "typeId": 1,
-            "index": 1,
-            "default": "",
-            "remark": ""
-        }]
-    }
-```
-
-###### 返回结果
-
-参数名称					|类型		|出现要求	|描述  
-:----						|:---		|:------	|:---	
-code						|int		|R			|响应码，详见 附录A
-msg							|string		|R			|&nbsp;
-
-示例：
-
-```
-{
-    "code": 200,
-    "msg": "success",
-    "data": {
-        "state": true,
-        "msg": ""
-    }
-}
-```
-
-##### 2.3.1.5 监测类别删除
-
-- **接口说明：** 监测类别删除
-- **接口地址：** /deteType/delete
-- **请求方式：** DELETE
-
-###### 请求参数
-  
-参数名称			|类型			|出现要求	|描述  
-:----				|:---			|:------	|:---	
-id					|Integer		|R			|id
-
-示例：
-
-```
-{
-    "id": 35
-}
-```
-
-###### 返回结果
-
-参数名称					|类型		|出现要求	|描述  
-:----						|:---		|:------	|:---	
-code						|int		|R			|响应码，详见 附录A
-msg							|string		|R			|&nbsp;
-
-示例：
-
-```
-{
-    "code": 200,
-    "msg": "success"
-}
-```
-
-##### 2.3.1.6 元数据字典查询
-
-- **接口说明：** 监测类别字典查询
-- **接口地址：** /deteType/dic
-- **请求方式：** GET
-
-###### 请求参数
-  
-参数名称			|类型			|出现要求	|描述  
-:----				|:---			|:------	|:---	
-type				|Integer		|C			|类型，字典管理页用
-
-示例：
-
-```
-GET /deteType/dic
-```
-
-###### 返回结果
-
-参数名称					|类型		|出现要求	|描述  
-:----						|:---		|:------	|:---	
-code						|int		|R			|响应码，详见 附录A
-msg							|string		|R			|&nbsp;
-data						|Object		|R			|&nbsp;
-&emsp;type					|Integer	|R			|映射类型
-&emsp;mappings				|Object[]	|R			|映射内容
-&emsp;&emsp;id				|String		|R			|mapping表主键
-&emsp;&emsp;val				|String		|R			|原值
-&emsp;&emsp;mapping			|String		|R			|映射后值
-
-示例：
-
-```
-{
-    "code": 200,
-    "msg": "success",
-    "data": {
-        "list": [{
-            "type": 18,
-            "mappings": [{
-                "id": 11,
-                "val": "1",
-                "mapping": "是"
-            }]
-        }]
-    }
-}
-```
-
-##### 2.3.1.7 监测类别名称校验
-
-- **接口说明：** 监测类别名称校验，不能重复
-- **接口地址：** /deteType/nameCheck
-- **请求方式：** GET
-
-###### 请求参数
-  
-参数名称			|类型			|出现要求	|描述  
-:----				|:---			|:------	|:---	
-id       			|String 		|O			|唯一标识，为空表示正在新增监测类别
-name				|String			|R			|名称
-
-示例：
-
-```
-GET /deteType/nameCheck?id=5&name=cpu
-```
-
-###### 返回结果
-
-参数名称					|类型		|出现要求	|描述  
-:----						|:---		|:------	|:---	
-code						|int		|R			|响应码，详见 附录A
-msg							|string		|R			|&nbsp;
-data						|Object		|R			|&nbsp;
-&emsp;state					|Integer	|R			|校验结果 false不可用，true可用
-
-示例：
-
-```
-{
-    "code": 200,
-    "msg": "success",
-    "data": {
-        "state": true
-    }
-}
-```
-
-
-#### 2.3.2 监测设置
-
-##### 2.3.2.1 监测设置列表查询
-
-- **接口说明：** 监测类别列表查询
-- **接口地址：** /deteSet/list
-- **请求方式：** GET
-
-###### 请求参数
-  
-参数名称			|类型			|出现要求	|描述  
-:----				|:---			|:------	|:---	
-page				|Integer		|O			|页码，为空时默认为1
-limit				|Integer		|O			|每页记录数，为空时默认为10
-order	 			|String 		|O			|排序
-name				|String			|O			|监测设置
-typeId				|Integer		|O			|监测类别ID
-
-示例：
-
-```
-GET /deteSet/list?pageSize=10&currPage=2&name=cpu
-```
-
-###### 返回结果
-
-参数名称					|类型		|出现要求	|描述  
-:----						|:---		|:------	|:---	
-code						|int		|R			|响应码，详见 附录A
-msg							|string		|R			|&nbsp;
-data						|Object		|R			|&nbsp;
-&emsp;totalCount			|int		|R			|&nbsp;
-&emsp;totalPage				|int		|R			|&nbsp;
-&emsp;currPage				|int		|R			|&nbsp;
-&emsp;&emsp;list			|Object[]	|R			|&nbsp;
-&emsp;&emsp;id				|Integer	|R			|主键
-&emsp;&emsp;name			|String		|R			|设置名称，唯一索引
-&emsp;&emsp;type			|Object		|R			|类别
-&emsp;&emsp;&emsp;id		|Integer	|R			|类别ID
-&emsp;&emsp;&emsp;name		|String		|R			|类别名称
-&emsp;&emsp;buildIn			|String		|R			|1:内置，2：用户自定义，默认2
-&emsp;&emsp;params			|String		|R			|类别定义的参数，多个逗号分隔，参数内逗号需要转义
-&emsp;&emsp;viewLevel		|String		|R			|1:用户组，2：系统内全部人员，3：无限制，默认2
-&emsp;&emsp;state			|String		|R			|状态，1：删除，2：停止，3：监控中
-&emsp;&emsp;remark			|String		|R			|备注
-&emsp;&emsp;i18nCode		|String		|R			| name i18n code值
-&emsp;&emsp;operator		|Integer	|R			|操作人
-&emsp;&emsp;opTime			|Date		|R			|操作时间
-
-示例：
-
-```
-{
-    "code": 200,
-    "msg": "success",
-    "data": {
-        "totalCount": 1,
-        "totalPage": 1,
-        "currPage": 1,
-        "list": [{
-            "id": 1,
-            "name": "cpu",
-            "type": {
-                "id": 2,
-                "name": "cpu"
-            },
-            "buildIn": "1",
-            "params": "",
-            "viewLevel": "",
-            "state": "",
-            "remark": "",
-            "i18nCode": ""
-        }]
-    }
-}
-```
-
-##### 2.3.2.2 监测设置详情查询
-
-- **接口说明：** 监测设置详情查询
-- **接口地址：** /deteSet/detail
-- **请求方式：** GET
-
-###### 请求参数
-  
-参数名称			|类型			|出现要求	|描述  
-:----				|:---			|:------	|:---	
-id					|Integer		|R			|
-
-示例：
-
-```
-GET /deteSet/detail?id=2
-```
-
-###### 返回结果
-
-参数名称					|类型		|出现要求	|描述  
-:----						|:---		|:------	|:---	
-code						|int		|R			|响应码，详见 附录A
-msg							|string		|R			|&nbsp;
-data						|Object		|R			|&nbsp;
-&emsp;id					|Integer	|R			|主键
-&emsp;name					|String		|R			|设置名称，唯一索引
-&emsp;type					|Object		|R			|类别
-&emsp;&emsp;id				|Integer	|R			|类别ID
-&emsp;&emsp;name			|String		|R			|类别名称
-&emsp;&emsp;params			|Object[]	|R			|类别参数
-&emsp;&emsp;&emsp;id		|Integer	|R			|参数id
-&emsp;&emsp;&emsp;name		|String		|R			|参数名称
-&emsp;&emsp;&emsp;default	|String		|R			|参数默认值
-&emsp;buildIn				|String		|R			|1:内置，2：用户自定义，默认2
-&emsp;params				|String		|R			|类别定义的参数，多个逗号分隔，参数内逗号需要转义
-&emsp;viewLevel				|String		|R			|1:用户组，2：系统内全部人员，3：无限制，默认2
-&emsp;state					|String		|R			|状态，1：删除，2：停止，3：监控中
-&emsp;remark				|String		|R			|备注
-&emsp;i18nCode				|String		|R			| name i18n code值
-&emsp;opTime				|Date		|R			|操作时间
-&emsp;nodeGroups			|Object[]	|R			|节点组
-&emsp;&emsp;id				|Integer	|R			|节点组id
-&emsp;&emsp;name			|String		|R			|节点组名称
-&emsp;nodes					|Object[]	|R			|节点
-&emsp;&emsp;uuid			|String		|R			|节点id
-&emsp;&emsp;name			|String		|R			|节点名称
-&emsp;&emsp;ip				|String		|R			|节点ip
-
-示例：
-
-```
-{
-    "code": 200,
-    "msg": "success",
-    "data": {
-        "id": 1,
-        "name": "cpu",
-        "type": {
-            "id": 2,
-            "name": "cpu",
-            "params": [{
-                "id": 2,
-                "name": "a",
-                "default": "12"
-            }]
-        },
-        "buildIn": "1",
-        "params": "",
-        "viewLevel": "",
-        "state": "",
-        "remark": "",
-        "i18nCode": "",
-        "nodeGroups": [{
-            "id": 1,
-            "name": "group1"
-        }],
-        "nodes": [{
-            "uuid": "aerawerawerwae",
-            "name": "node1",
-            "ip": "10.20.30.40"
-        }]
-    }
-}
-```
-
-##### 2.3.2.3 监测设置新增
-
-- **接口说明：** 监测设置新增
-- **接口地址：** /deteSet/save
-- **请求方式：** POST
-
-###### 请求参数
-  
-参数名称			|类型			|出现要求	|描述  
-:----				|:---			|:------	|:---	
-name				|String			|R			|设置名称，唯一索引
-typeId				|Integer		|R			|类别id
-params				|String			|R			|类别定义的参数，多个逗号分隔，参数内逗号需要转义
-viewLevel			|String			|R			|1:用户组，2：系统内全部人员，3：无限制，默认2
-remark				|String			|R			|备注
-i18nCode			|String			|R			| name i18n code值
-nodeGroupIds		|Integer[]		|R			|节点组id
-nodeIds				|String[]		|R			|节点id
-
-示例：
-
-```
-{
-    "name": "",
-    "typeId": 1,
-    "params": "1,'a',3",
-    "viewLevel": "",
-    "remark": "",
-    "i18nCode": "",
-    "nodeGroupIds": [1,2,3],
-    "nodeIds": ["awe5r4a3w1fa6w8e54rw","hrdshs4tj4aw4e5Q4EQ","rqwerwat5wa5et75ew456"]
-}
-```
-
-###### 返回结果
-
-参数名称					|类型		|出现要求	|描述  
-:----						|:---		|:------	|:---	
-code						|int		|R			|响应码，详见 附录A
-msg							|string		|R			|&nbsp;
-data						|Object		|R			|&nbsp;
-&emsp;state					|boolean	|R			|操作结果 false失败，true成功
-&emsp;msg					|String		|R			|失败原因
-
-示例：
-
-```
-{
-    "code": 200,
-    "msg": "success",
-    "data": {
-        "state": true,
-        "msg": ""
-    }
-}
-```
-
-##### 2.3.2.4 监测设置修改
-
-- **接口说明：** 监测设置修改
-- **接口地址：** /deteSet/update
-- **请求方式：** PUT
-
-###### 请求参数
-  
-参数名称			|类型			|出现要求	|描述  
-:----				|:---			|:------	|:---	
-id					|Integer		|R			|id
-name				|String			|R			|设置名称，唯一索引
-typeId				|Integer		|R			|类别id
-params				|String			|R			|类别定义的参数，多个逗号分隔，参数内逗号需要转义
-viewLevel			|String			|R			|1:用户组，2：系统内全部人员，3：无限制，默认2
-remark				|String			|R			|备注
-i18nCode			|String			|R			| name i18n code值
-nodeGroupIds		|Integer[]		|R			|节点组id
-nodeIds				|Integer[]		|R			|节点id
-
-示例：
-
-```
-{
-	"id": 3
-    "name": "eeee",
-    "typeId": 1,
-    "params": "1,'a',3",
-    "viewLevel": "1",
-    "remark": "",
-    "i18nCode": "",
-    "nodeGroupIds": [1,2,3],
-    "nodes": [4,5,6]
-}
-```
-
-###### 返回结果
-
-参数名称					|类型		|出现要求	|描述  
-:----						|:---		|:------	|:---	
-code						|int		|R			|响应码，详见 附录A
-msg							|string		|R			|&nbsp;
-data						|Object		|R			|&nbsp;
-&emsp;state					|boolean	|R			|操作结果 false失败，true成功
-&emsp;msg					|String		|R			|失败原因
-
-示例：
-
-```
-{
-    "code": 200,
-    "msg": "success",
-    "data": {
-        "state": false,
-        "msg": "名称已被占用"
-    }
-}
-```
-
-##### 2.3.2.5 监测设置删除
-
-- **接口说明：** 监测类别删除
-- **接口地址：** /deteSet/delete
-- **请求方式：** DELETE
-
-###### 请求参数
-  
-参数名称			|类型			|出现要求	|描述  
-:----				|:---			|:------	|:---	
-id					|Integer		|R			|id
-
-示例：
-
-```
-{
-    "id": 35
-}
-```
-
-###### 返回结果
-
-参数名称					|类型		|出现要求	|描述  
-:----						|:---		|:------	|:---	
-code						|int		|R			|响应码，详见 附录A
-msg							|string		|R			|&nbsp;
-
-示例：
-
-```
-{
-    "code": 200,
-    "msg": "success"
-}
-```
-
-##### 2.3.2.6 监测设置名称校验
-
-- **接口说明：** 监测类别名称校验，不能重复
-- **接口地址：** /deteSet/nameCheck
-- **请求方式：** GET
-
-###### 请求参数
-  
-参数名称			|类型			|出现要求	|描述  
-:----				|:---			|:------	|:---	
-id       			|String 		|O			|唯一标识，为空表示正在新增监测类别
-name				|String			|R			|名称
-
-示例：
-
-```
-GET /deteSet/nameCheck?id=5&name=cpu
-```
-
-###### 返回结果
-
-参数名称					|类型		|出现要求	|描述  
-:----						|:---		|:------	|:---	
-code						|int		|R			|响应码，详见 附录A
-msg							|string		|R			|&nbsp;
-data						|Object		|R			|&nbsp;
-&emsp;state					|Integer	|R			|校验结果 false不可用，true可用
-
-示例：
-
-```
-{
-    "code": 200,
-    "msg": "success",
-    "data": {
-        "state": true
-    }
-}
-```
-
-
-#### 2.3.3 告警设置
-
-##### 2.3.3.1 告警设置列表查询
-
-- **接口说明：** 监测类别列表查询
-- **接口地址：** /deteWarn/list
-- **请求方式：** GET
-
-###### 请求参数
-  
-参数名称			|类型			|出现要求	|描述  
-:----				|:---			|:------	|:---	
-page				|Integer		|O			|页码，为空时默认为1
-limit				|Integer		|O			|每页记录数，为空时默认为10
-order	 			|String 		|O			|排序
-setId				|Integer		|O			|监测设置ID
-typeId				|Integer		|O			|监测类别ID
-
-示例：
-
-```
-GET /deteWarn/list?pageSize=10&currPage=2&setId=12
-```
-
-###### 返回结果
-
-参数名称					|类型		|出现要求	|描述  
-:-----------				|:---		|:------	|:---	
-code						|int		|R			|响应码，详见 附录A
-msg							|string		|R			|&nbsp;
-data						|Object		|R			|&nbsp;
-&emsp;totalCount			|int		|R			|&nbsp;
-&emsp;totalPage				|int		|R			|&nbsp;
-&emsp;currPage				|int		|R			|&nbsp;
-&emsp;list					|Object[]	|R			|&nbsp;
-&emsp;&emsp;id				|Integer	|R			|&nbsp;
-&emsp;&emsp;name			|String		|R			|&nbsp;
-&emsp;&emsp;deteType		|Object		|R			|监测类别
-&emsp;&emsp;&emsp;id		|Integer	|R			|类别id
-&emsp;&emsp;&emsp;name		|String		|R			|类别名称
-&emsp;&emsp;deteSet			|Object[]	|O			|监测设置
-&emsp;&emsp;&emsp;id		|Integer	|R			|设置id
-&emsp;&emsp;&emsp;name		|String		|R			|设置名称
-&emsp;&emsp;meta			|Object		|R			|告警字段
-&emsp;&emsp;&emsp;id		|Integer	|R			|字段id
-&emsp;&emsp;&emsp;name		|String		|R			|字段名称
-&emsp;&emsp;trigger			|String		|R			|1:阈值触发,2：变化触发，当本次监测数值与上次不一致时触发，用于配置文件是否修改等,3：主动，默认：1
-&emsp;&emsp;mode			|String		|R			|告警模式，1、单台，2、汇总
-&emsp;&emsp;statType		|String		|R			|1:avg 2:count 3:sum 4:min 5:max，默认：1
-&emsp;&emsp;symbol			|String		|R			|1:> 2:< 3:= 4:equals 5:include 6:exclude 默认：1
-&emsp;&emsp;threshold		|String		|R			|阈值
-&emsp;&emsp;tips			|String		|R			|告警提示信息
-&emsp;&emsp;level			|String		|R			|告警级别，1:normal，2:info，3:warning，4:error，默认：3
-&emsp;&emsp;callbackType	|String		|R			|回调方式，0:无，1：shell，2：http，默认：0
-&emsp;&emsp;viewLevel		|String		|R			|1:用户组，2：系统内全部人员，3：无限制，默认2
-&emsp;&emsp;remark			|String		|R			|备注
-
-示例：
-
-```
-{
-    "code": 200,
-    "msg": "success",
-    "data": {
-        "totalCount": 1,
-        "totalPage": 1,
-        "currPage": 1,
-        "list": [{
-            "id": 1,
-            "name": "",
-            "deteType": {
-                "id": 1,
-                "name": "22ww"
-            },
-            "deteSet": [{
-                "id": 2,
-                "name": "2211"
-            }],
-            "meta": {
-                "id": 2, 
-                "name": "使用率"
-            },
-            "trigger": "1",
-            "mode": "2",
-            "statType": "1",
-            "symbol": ">",
-            "threshold": "15",
-            "tips": "enen",
-            "level": "1",
-            "callbackType": "",
-            "viewLevel": "",
-            "remark": ""
-        }]
-    }
-}
-```
-
-##### 2.3.3.2 告警设置详情查询
-
-- **接口说明：** 告警设置详情查询
-- **接口地址：** /deteWarn/detail
-- **请求方式：** GET
-
-###### 请求参数
-  
-参数名称			|类型			|出现要求	|描述  
-:----				|:---			|:------	|:---	
-id					|Integer		|R			|&nbsp;
-
-示例：
-
-```
-GET /deteWarn/detail?id=2
-```
-
-###### 返回结果
-
-参数名称					|类型		|出现要求	|描述  
-:----						|:---		|:------	|:---	
-code						|int		|R			|响应码，详见 附录A
-msg							|string		|R			|&nbsp;
-data						|Object		|R			|&nbsp;
-&emsp;id					|Integer	|R			|&nbsp;
-&emsp;name					|String		|R			|&nbsp;
-&emsp;deteType				|Object		|R			|监测类别
-&emsp;&emsp;id				|Integer	|R			|类别id
-&emsp;&emsp;name			|String		|R			|类别名称
-&emsp;deteSet				|Object[]	|O			|监测设置
-&emsp;&emsp;id				|Integer	|R			|设置id
-&emsp;&emsp;name			|String		|R			|设置名称
-&emsp;meta					|Object		|R			|告警字段
-&emsp;&emsp;id				|Integer	|R			|字段id
-&emsp;&emsp;name			|String		|R			|字段名称
-&emsp;trigger				|String		|R			|1:阈值触发,2：变化触发，当本次监测数值与上次不一致时触发，用于配置文件是否修改等,3：主动，默认：1
-&emsp;mode					|String		|R			|告警模式，1、单台，2、汇总
-&emsp;statType				|String		|R			|1:avg 2:count 3:sum 4:min 5:max，默认：1
-&emsp;symbol				|String		|R			|1:> 2:< 3:= 4:equals 5:include 6:exclude 默认：1
-&emsp;threshold				|String		|R			|阈值
-&emsp;tips					|String		|R			|告警提示信息
-&emsp;level					|String		|R			|告警级别，1:normal，2:info，3:warning，4:error，默认：3
-&emsp;callbackType			|String		|R			|回调方式，0:无，1：shell，2：http，默认：0
-&emsp;callbackContent		|String		|R			|回调内容
-&emsp;viewLevel				|String		|R			|1:用户组，2：系统内全部人员，3：无限制，默认2
-&emsp;remark				|String		|R			|备注
-
-示例：
-
-```
-{
-    "code": 200,
-    "msg": "success",
-    "data": {
-        "id": 1,
-        "name": "",
-        "deteType": {
-            "id": 1,
-            "name": "22ww"
-        },
-        "deteSet": [{
-            "id": 2,
-            "name": "2211"
-        }],
-        "meta": {
-            "id": 2, 
-            "name": "使用率"
-        },
-        "trigger": "1",
-        "mode": "2",
-        "statType": "1",
-        "symbol": ">",
-        "threshold": "15",
-        "tips": "enen",
-        "level": "1",
-        "callbackType": "",
-        "viewLevel": "",
-        "remark": ""
-    }
-}
-```
-
-##### 2.3.3.3 告警设置新增
-
-- **接口说明：** 告警设置新增
-- **接口地址：** /deteWarn/save
-- **请求方式：** POST
-
-###### 请求参数
-  
-参数名称			|类型			|出现要求	|描述  
-:----				|:---			|:------	|:---	
-name				|String			|R			|&nbsp;
-deteTypeId			|Integer		|R			|监测类别id
-deteSetIds			|Integer[]		|O			|监测设置id
-metaId				|Integer		|R			|告警字段id
-trigger				|String			|R			|1:阈值触发,2：变化触发，当本次监测数值与上次不一致时触发，用于配置文件是否修改等,3：主动，默认：1
-mode				|String			|R			|告警模式，1、单台，2、汇总
-statType			|String			|R			|1:avg 2:count 3:sum 4:min 5:max，默认：1
-symbol				|String			|R			|1:> 2:< 3:= 4:equals 5:include 6:exclude 默认：1
-threshold			|String			|R			|阈值
-tips				|String			|R			|告警提示信息
-level				|String			|R			|告警级别，1:normal，2:info，3:warning，4:error，默认：3
-callbackType		|String			|R			|回调方式，0:无，1：shell，2：http，默认：0
-callbackContent		|String			|R			|回调内容
-viewLevel			|String			|R			|1:用户组，2：系统内全部人员，3：无限制，默认2
-remark				|String			|R			|备注
-
-示例：
-
-```
-{
-    "name": "",
-    "deteTypeId": 32,
-    "deteSetIds": [1,2,3],
-    "metaId": 1,
-    "trigger": "",
-    "mode": "",
-    "statType": "",
-    "symbol": "",
-    "threshold": "",
-    "tips": "",
-    "level": "",
-    "callbackType": "",
-    "callbackContent": "",
-    "viewLevel": "",
-    "remark": ""
-}
-```
-
-###### 返回结果
-
-参数名称					|类型		|出现要求	|描述  
-:----						|:---		|:------	|:---	
-code						|int		|R			|响应码，详见 附录A
-msg							|string		|R			|&nbsp;
-data						|Object		|R			|&nbsp;
-&emsp;state					|boolean	|R			|操作结果 false失败，true成功
-&emsp;msg					|String		|R			|失败原因
-
-示例：
-
-```
-{
-    "code": 200,
-    "msg": "success",
-    "data": {
-        "state": true,
-        "msg": ""
-    }
-}
-```
-
-##### 2.3.3.4 告警设置修改
-
-- **接口说明：** 告警设置修改
-- **接口地址：** /deteWarn/update
-- **请求方式：** PUT
-
-###### 请求参数
-  
-参数名称			|类型			|出现要求	|描述  
-:----				|:---			|:------	|:---	
-id					|Integer		|R			|主键
-name				|String			|R			|&nbsp;
-metaId				|Integer		|R			|告警字段id
-trigger				|String			|R			|1:阈值触发,2：变化触发，当本次监测数值与上次不一致时触发，用于配置文件是否修改等,3：主动，默认：1
-mode				|String			|R			|告警模式，1、单台，2、汇总
-statType			|String			|R			|1:avg 2:count 3:sum 4:min 5:max，默认：1
-symbol				|String			|R			|1:> 2:< 3:= 4:equals 5:include 6:exclude 默认：1
-threshold			|String			|R			|阈值
-tips				|String			|R			|告警提示信息
-level				|String			|R			|告警级别，1:normal，2:info，3:warning，4:error，默认：3
-callbackType		|String			|R			|回调方式，0:无，1：shell，2：http，默认：0
-callbackContent		|String			|R			|回调内容
-viewLevel			|String			|R			|1:用户组，2：系统内全部人员，3：无限制，默认2
-remark				|String			|R			|备注
-
-示例：
-
-```
-{
-	"id": 133,
-    "name": "",
-    "metaId": 1,
-    "trigger": "",
-    "mode": "",
-    "statType": "",
-    "symbol": "",
-    "threshold": "",
-    "tips": "",
-    "level": "",
-    "callbackType": "",
-    "callbackContent": "",
-    "viewLevel": "",
-    "remark": ""
-}
-```
-
-###### 返回结果
-
-参数名称					|类型		|出现要求	|描述  
-:----						|:---		|:------	|:---	
-code						|int		|R			|响应码，详见 附录A
-msg							|string		|R			|&nbsp;
-data						|Object		|R			|&nbsp;
-&emsp;state					|boolean	|R			|操作结果 false失败，true成功
-&emsp;msg					|String		|R			|失败原因
-
-示例：
-
-```
-{
-    "code": 200,
-    "msg": "success",
-    "data": {
-        "state": false,
-        "msg": "名称已被占用"
-    }
-}
-```
-
-##### 2.3.3.5 告警设置删除
-
-- **接口说明：** 告警类别删除
-- **接口地址：** /deteWarn/delete
-- **请求方式：** DELETE
-
-###### 请求参数
-  
-参数名称			|类型			|出现要求	|描述  
-:----				|:---			|:------	|:---	
-id					|Integer		|R			|id
-
-示例：
-
-```
-{
-    "id": 35
-}
-```
-
-###### 返回结果
-
-参数名称					|类型		|出现要求	|描述  
-:----						|:---		|:------	|:---	
-code						|int		|R			|响应码，详见 附录A
-msg							|string		|R			|&nbsp;
-
-示例：
-
-```
-{
-    "code": 200,
-    "msg": "success"
-}
-```
-
-##### 2.3.3.6 告警名称校验
-
-- **接口说明：** 监测类别名称校验，不能重复
-- **接口地址：** /deteWarn/nameCheck
-- **请求方式：** GET
-
-###### 请求参数
-  
-参数名称			|类型			|出现要求	|描述  
-:----				|:---			|:------	|:---	
-id       			|String 		|O			|唯一标识，为空表示正在新增监测类别
-name				|String			|R			|名称
-
-示例：
-
-```
-GET /deteWarn/nameCheck?id=5&name=cpu
-```
-
-###### 返回结果
-
-参数名称					|类型		|出现要求	|描述  
-:----						|:---		|:------	|:---	
-code						|int		|R			|响应码，详见 附录A
-msg							|string		|R			|&nbsp;
-data						|Object		|R			|&nbsp;
-&emsp;state					|Integer	|R			|校验结果 false不可用，true可用
-
-示例：
-
-```
-{
-    "code": 200,
-    "msg": "success",
-    "data": {
-        "state": true
-    }
-}
-```
-
-
-### 2.4 任务
-
-#### 2.4.1 任务
-
-##### 2.4.1.1 任务列表查询
-
-- **接口说明：** 任务列表查询
-- **接口地址：** /mission/list
-- **请求方式：** GET
-
-###### 请求参数
-  
-参数名称			|类型			|出现要求	|描述  
-:----				|:---			|:------	|:---	
-page				|Integer		|O			|页码，为空时默认为1
-limit				|Integer		|O			|每页记录数，为空时默认为10
-order	 			|String 		|O			|排序
-isLoop				|String			|O			|是否周期任务 0：不是，1：是
-type				|String			|O			|任务类型 1：文件推送，2：命令执行，3：升级部署
-isLoop				|String			|O			|是否周期任务 0：不是，1：是
-name				|String			|O			|任务名称
-
-示例：
-
-```
-GET /usergroup/list?pageSize=10&currPage=2&name=file&isLoop=0
-```
-
-###### 返回结果
-
-参数名称					|类型		|出现要求	|描述  
-:----						|:---		|:------	|:---	
-code						|int		|R			|响应码，详见 附录A
-msg							|string		|R			|&nbsp;
-data						|Object		|R			|&nbsp;
-&emsp;totalCount			|int		|R			|&nbsp;
-&emsp;totalPage				|int		|R			|&nbsp;
-&emsp;currPage				|int		|R			|&nbsp;
-&emsp;list					|Object[]	|R			|&nbsp;
-&emsp;&emsp;id				|Integer	|R			|&nbsp;
-&emsp;&emsp;name			|String		|R			|任务名称
-&emsp;&emsp;type			|String		|R			|任务类型，1、文件推送，2、命令执行，3、升级部署
-&emsp;&emsp;state			|String		|R			|任务状态，周期任务有效，0、非周期任务，1、运行，2、暂停，3、终止
-&emsp;&emsp;stateDesc		|String		|R			|任务状态描述，成功几个失败几个等
-&emsp;&emsp;viewLevel		|String		|R			|查看权限 1:用户组，2：系统内全部人员，3：无限制，默认2
-&emsp;&emsp;viewer			|String		|R			|查看人，组名或业务系统名
-&emsp;&emsp;isLoop			|String		|R			|是否周期任务，0：不是，1：是
-&emsp;&emsp;loopInterval	|Integer	|R			|周期间隔，单位分钟
-&emsp;&emsp;param			|String		|R			|任务参数，json方式保存
-&emsp;&emsp;remark			|String		|R			|备注
-&emsp;&emsp;operator		|String		|R			|操作人登录名
-&emsp;&emsp;opTime			|Date		|R			|操作时间
-
-示例：
-
-```
-{
-    "code": 200,
-    "msg": "success",
-    "data": {
-        "totalCount": 1,
-        "totalPage": 1,
-        "currPage": 1,
-        "list": [{
-            "id": 1,
-            "name": "task1",
-            "type": "2",
-            "state": "",
-            "stateDesc": "成功1个，未完成0个，失败5个",
-            "viewLevel": "1",
-            "viewer": "group1",
-            "isLoop": "0",
-            "loopInterval": 1,
-            "param": "",
-            "remark": "",
-            "operator": "admin",
-            "opTime": "2007-07-07 07:07:07"
-        }]
-    }
-}
-```
-
-##### 2.4.1.2 任务详情查询
-
-- **接口说明：** 任务详情查询
-- **接口地址：** /mission/detail
-- **请求方式：** GET
-
-###### 请求参数
-  
-参数名称			|类型			|出现要求	|描述  
-:----				|:---			|:------	|:---	
-id					|Integer		|O			|用户组id
-
-示例：
-
-```
-GET /usergroup/detail?id=2
-```
-
-###### 返回结果
-
-参数名称					|类型		|出现要求	|描述  
-:----						|:---		|:------	|:---	
-code						|int		|R			|响应码，详见 附录A
-msg							|string		|R			|&nbsp;
-data						|Object		|R			|&nbsp;
-&emsp;id					|Integer	|R			|&nbsp;
-&emsp;name					|String		|R			|任务名称
-&emsp;type					|String		|R			|任务类型，1、文件推送，2、命令执行，3、升级部署
-&emsp;state					|String		|R			|任务状态，周期任务有效，0、非周期任务，1、运行，2、暂停，3、终止
-&emsp;stateDesc				|String		|R			|任务状态描述，成功几个失败几个等
-&emsp;viewLevel				|String		|R			|查看权限 1:用户组，2：系统内全部人员，3：无限制，默认2
-&emsp;viewer				|String		|R			|查看人，组名或业务系统名
-&emsp;isLoop				|String		|R			|是否周期任务，0：不是，1：是
-&emsp;loopInterval			|Integer	|R			|周期间隔，单位分钟
-&emsp;param					|String		|R			|任务参数，json方式保存
-&emsp;nodeGroups			|Object[]	|R			|节点组
-&emsp;&emsp;id				|Integer	|R			|节点组id
-&emsp;&emsp;name			|String		|R			|节点组名称
-&emsp;nodes					|Object[]	|R			|节点
-&emsp;&emsp;uuid			|String		|R			|节点id
-&emsp;&emsp;ip				|String		|R			|节点ip
-&emsp;&emsp;name			|String		|R			|节点名称
-&emsp;remark				|String		|R			|备注
-&emsp;operator				|String		|R			|操作人登录名
-&emsp;opTime				|Date		|R			|操作时间
-
-示例：
-
-```
-{
-    "code": 200,
-    "msg": "success",
-    "data": {
-        "id": 1,
-        "name": "task1",
-        "type": "2",
-        "state": "",
-        "stateDesc": "成功1个，未完成0个，失败5个",
-        "viewLevel": "1",
-        "viewer": "group1",
-        "isLoop": "0",
-        "loopInterval": 1,
-        "param": "",
-		"nodeGroups": [{
-			"id": 1,
-			"name": "hehe"
-		}],
-		"nodes": [{
-			"UUid": "2342QL4JH23LK5J2",
-			"name": "haha",
-			"ip": "10.20.20.10"
-		}]
-        "remark": "",
-        "operator": "admin",
-        "opTime": "2007-07-07 07:07:07"
-    }
-}
-```
-
-##### 2.4.1.3 任务新增
-
-- **接口说明：** 任务新增
-- **接口地址：** /mission/save
-- **请求方式：** POST
-
-###### 请求参数
-  
-参数名称			|类型			|出现要求	|描述  
-:----				|:---			|:------	|:---	
-name				|String			|R			|任务名称
-type				|String			|R			|任务类型，1、文件推送，2、命令执行，3、升级部署
-state				|String			|R			|任务状态，周期任务有效，0、非周期任务，1、运行，2、暂停，3、终止
-viewLevel			|String			|R			|查看权限 1:用户组，2：系统内全部人员，3：无限制，默认2
-isLoop				|String			|R			|是否周期任务，0：不是，1：是
-loopInterval		|Integer		|R			|周期间隔，单位分钟
-param				|String			|R			|任务参数，json方式保存
-nodeGroupIds		|Integer[]		|R			|节点组id
-nodeIds				|String[]		|R			|节点uuid
-remark				|String			|R			|备注
-
-示例：
-
-```
-{
-    "name": "",
-    "type": "",
-    "state": "",
-    "viewLevel": "",
-    "isLoop": "",
-    "loopInterval": 1,
-    "param": "",
-    "remark": "",
-    "nodeGroupIds": [1,2,3],
-    "nodeIds": ["aetrqewtawret34234","lkaewrhapewhaoeirpaoie"]
-}
-```
-
-###### 返回结果
-
-参数名称					|类型		|出现要求	|描述  
-:----						|:---		|:------	|:---	
-code						|int		|R			|响应码，详见 附录A
-msg							|string		|R			|&nbsp;
-data						|Object		|R			|&nbsp;
-&emsp;state					|boolean	|R			|操作结果 false失败，true成功
-&emsp;msg					|String		|R			|失败原因
-
-示例：
-
-```
-{
-    "code": 200,
-    "msg": "success",
-    "data": {
-        "state": true,
-        "msg": ""
-    }
-}
-```
-
-##### 2.4.1.4 任务修改
-
-- **接口说明：** 任务修改，只支持改名称、权限、备注
-- **接口地址：** /mission/update
-- **请求方式：** PUT
-
-###### 请求参数
-  
-参数名称			|类型			|出现要求	|描述  
-:----				|:---			|:------	|:---	
-id					|Integer		|R			|id
-name				|String			|R			|名称
-remark				|String			|O			|备注
-viewLevel			|String			|R			|查看权限 1:用户组，2：系统内全部人员，3：无限制，默认2
-
-示例：
-
-```
-{
-    "id": 9,
-    "name": "cab9",
-    "remark": "en",
-    "viewLevel": "1"
-}
-```
-
-###### 返回结果
-
-参数名称					|类型		|出现要求	|描述  
-:----						|:---		|:------	|:---	
-code						|int		|R			|响应码，详见 附录A
-msg							|string		|R			|&nbsp;
-data						|Object		|R			|&nbsp;
-&emsp;state					|boolean	|R			|操作结果 false失败，true成功
-&emsp;msg					|String		|R			|失败原因
-
-示例：
-
-```
-{
-    "code": 200,
-    "msg": "success",
-    "data": {
-        "state": true,
-        "msg": ""
-    }
-}
-```
-
-##### 2.4.1.5 周期任务停用/启用
-
-- **接口说明：** 周期任务停用/启用
-- **接口地址：** /mission/loopStateChange
-- **请求方式：** PUT
-
-###### 请求参数
-  
-参数名称			|类型			|出现要求	|描述  
-:----				|:---			|:------	|:---	
-id					|Integer		|R			|id
-state				|String			|R			|0: 停用，1：启用
-
-示例：
-
-```
-{
-    "id": 35
-}
-```
-
-###### 返回结果
-
-参数名称					|类型		|出现要求	|描述  
-:----						|:---		|:------	|:---	
-code						|int		|R			|响应码，详见 附录A
-msg							|string		|R			|&nbsp;
-data						|Object		|R			|&nbsp;
-&emsp;state					|boolean	|R			|操作结果 false失败，true成功
-&emsp;msg					|String		|R			|失败原因
-
-示例：
-
-```
-{
-    "code": 200,
-    "msg": "success",
-    "data": {
-        "state": true,
-        "msg": ""
-    }
-}
-```
-
-##### 2.4.1.6 新增逆向任务
-
-- **接口说明：** 获取逆向任务内容，用于升级部署任务回退
-- **接口地址：** /mission/converse
-- **请求方式：** GET
-
-###### 请求参数
-
-参数名称			|类型			|出现要求	|描述  
-:----				|:---			|:------	|:---	
-id					|Integer		|O			|需要逆向的任务的id
-
-示例：
-
-```
-GET /mission/converse?id=2
-```
-
-###### 返回结果
-
-参数名称					|类型		|出现要求	|描述  
-:----						|:---		|:------	|:---	
-code						|int		|R			|响应码，详见 附录A
-msg							|string		|R			|&nbsp;
-data						|Object		|R			|&nbsp;
-&emsp;id					|Integer	|R			|&nbsp;
-&emsp;name					|String		|R			|任务名称
-&emsp;type					|String		|R			|任务类型，1、文件推送，2、命令执行，3、升级部署
-&emsp;state					|String		|R			|任务状态，周期任务有效，0、非周期任务，1、运行，2、暂停，3、终止
-&emsp;stateDesc				|String		|R			|任务状态描述，成功几个失败几个等
-&emsp;viewLevel				|String		|R			|查看权限 1:用户组，2：系统内全部人员，3：无限制，默认2
-&emsp;viewer				|String		|R			|查看人，组名或业务系统名
-&emsp;isLoop				|String		|R			|是否周期任务，0：不是，1：是
-&emsp;loopInterval			|Integer	|R			|周期间隔，单位分钟
-&emsp;param					|String		|R			|任务参数，json方式保存
-&emsp;nodeGroups			|Object[]	|R			|节点组
-&emsp;&emsp;id				|Integer	|R			|节点组id
-&emsp;&emsp;name			|String		|R			|节点组名称
-&emsp;nodes					|Object[]	|R			|节点
-&emsp;&emsp;uuid			|String		|R			|节点uuid
-&emsp;&emsp;ip				|String		|R			|节点ip
-&emsp;&emsp;name			|String		|R			|节点名称
-&emsp;remark				|String		|R			|备注
-&emsp;operator				|String		|R			|操作人登录名
-&emsp;opTime				|Date		|R			|操作时间
-
-示例：
-
-```
-{
-    "code": 200,
-    "msg": "success",
-    "data": [{
-        "id": 1,
-        "name": "task1",
-        "type": "2",
-        "state": "",
-        "stateDesc": "成功1个，未完成0个，失败5个",
-        "viewLevel": "1",
-        "viewer": "group1",
-        "isLoop": "0",
-        "loopInterval": 1,
-        "param": "",
-		"nodeGroups": [{
-			"id": 1,
-			"name": "hehe"
-		}],
-		"nodes": [{
-			"uuid": "243232kjh4lk3h4k134h",
-			"name": "haha",
-			"ip": "10.20.20.10"
-		}]
-        "remark": "",
-        "operator": "admin",
-        "opTime": "2007-07-07 07:07:07"
-    }]
-}
-```
-
-##### 2.4.1.7 结果查看
-
-- **接口说明：** 查看节点的任务执行情况
-- **接口地址：** /mission/result
-- **请求方式：** GET
-
-###### 请求参数
-
-参数名称			|类型			|出现要求	|描述  
-:----				|:---			|:------	|:---	
-id					|Integer		|R			|任务id
-
-示例：
-
-```
-GET /mission/result?id=2
-```
-
-###### 返回结果
-
-参数名称					|类型		|出现要求	|描述  
-:----						|:---		|:------	|:---	
-code						|int		|R			|响应码，详见 附录A
-msg							|string		|R			|&nbsp;
-data						|Object		|R			|&nbsp;
-&emsp;totalCount			|int		|R			|&nbsp;
-&emsp;totalPage				|int		|R			|&nbsp;
-&emsp;currPage				|int		|R			|&nbsp;
-&emsp;list					|Object[]	|R			|&nbsp;
-&emsp;&emsp;id				|Integer	|R			|&nbsp;
-&emsp;&emsp;missionId		|Integer	|R			|&nbsp;
-&emsp;&emsp;node			|Object		|R			|节点
-&emsp;&emsp;&emsp;uuid		|String		|R			|节点标识
-&emsp;&emsp;&emsp;ip		|String		|R			|节点ip
-&emsp;&emsp;&emsp;name		|String		|R			|节点名称
-&emsp;&emsp;desc			|String		|R			|任务结果描述信息
-&emsp;&emsp;state			|String		|R			|任务执行状态
-&emsp;&emsp;cycle			|Integer	|R			|第几周期
-&emsp;&emsp;file			|String		|R			|回传文件路径
-&emsp;&emsp;opTime			|Date		|R			|操作时间
-
-示例：
-
-```
-{
-    "code": 200,
-    "msg": "success",
-    "data": {
-        "totalCount": 1,
-        "totalPage": 1,
-        "currPage": 1,
-        "list": [{
-            "id": 1,
-            "missionId": 1,
-            "node": {
-                "uuid": "242345fsarfaser",
-                "ip": "10.20.30.40",
-                "name": "node1"
-            },
-            "desc": "",
-            "state": "",
-            "cycle": 1,
-            "file": "",
-            "opTime": "2019-07-10 10:10:10"
-        }]
-    }
-}
-```
-
-
-## 3 附录A 响应码说明
-
-响应码	|说明  
-:----	|:---
-200		|处理成功
-301		|解析报文错误
-302		|无效调用凭证
-303		|参数不正确
-500		|系统内部错误
-999		|处理失败
-
-
+# 目录
+
+- [仪表盘信息表](#dashboard)
+- [监测设置信息表](#dete_set_info)
+- [监测信息节点关系表](#dete_set_node_rel)
+- [监测类别信息表](#dete_type_info)
+- [监测类别元数据表](#dete_type_meta)
+- [监测类别元数据值映射表](#dete_type_meta_mapping)
+- [监测类别参数表](#dete_type_param)
+- [监测告警信息表](#dete_warn_info)
+- [监测告警设置关系表](#dete_warn_rel)
+- [任务信息表](#mission_info)
+- [任务节点关系表](#mission_node_rel)
+- [任务结果表](#mission_result)
+- [机柜信息表](#node_cabinet)
+- [节点节点组关系表](#node_group_rel)
+- [节点信息表](#node_info)
+- [机房信息表](#node_room)
+- [节点组信息表](#nodegroup_info)
+- [数据权限表](#permission_info)
+- [系统配置表](#sys_config)
+- [系统字典表](#sys_dict)
+- [i18n信息表](#sys_i18n)
+- [系统日志表](#sys_log)
+- [系统菜单表](#sys_menu)
+- [系统角色表](#sys_role)
+- [系统角色菜单关系表](#sys_role_menu)
+- [sequence表](#sys_sequence)
+- [系统用户表](#sys_user)
+- [系统用户角色关系表](#sys_user_role)
+- [业务系统信息表](#system_info)
+- [业务系统节点关系表](#system_node_rel)
+- [业务系统用户组关系表](#system_usergroup_rel)
+- [topo信息表](#topo_info)
+- [topo线](#topo_line_info)
+- [topo节点](#topo_node_info)
+- [用户组信息表](#user_group)
+- [用户用户组关系表](#user_usergroup)
+
+
+#  DASHBOARD
+
+|表名|仪表盘信息表|
+|---|---- |
+|功能||
+|说明||
+
+|字段名|中文说明|数据类型|是否可空|备注|
+|----|----|----|----|----|
+|id		    |主键	        |BIGINT(19)		|NO	|主键			|
+|name		|图表标题	    |VARCHAR(255)	|NO	|图表标题			|
+|system_id	|业务系统id	    |BIGINT(19)		|NO	|业务系统id			|
+|chart_type	|图表类型	    |INT(10)		|NO	|图表类型			|
+|x		    |x轴起点	    |INT(10)		|NO	|x轴起点			|
+|y		    |y轴起点	    |INT(10)		|NO	|y轴起点			|
+|width		|宽	            |INT(10)		|NO	|宽			|
+|height		|高	            |INT(10)		|NO	|高			|
+|data		|图表参数信息	|TEXT(65535)	|NO	|图表参数信息			|
+|operator	|操作人	        |BIGINT(19)		|NO	|操作人			|
+|op_time	|操作时间	    |DATETIME		|NO	|操作时间			|
+
+#  DETE_SET_INFO
+
+|表名|监测设置信息表|
+|---|---- |
+|功能||
+|说明||
+
+|字段名|中文说明|数据类型|是否可空|备注|
+|----|----|----|----|----|
+|id		|主键	|BIGINT(19)		|NO	|主键			|
+|name		|设置名称	|VARCHAR(255)		|NO	|设置名称，唯一索引			|
+|type_id	|类别id	|BIGINT(19)		|NO	|类别id			|
+|build_in	|是否内置|CHAR(255)		|NO	|1:内置，2：用户自定义，默认2			|
+|params		|参数	|VARCHAR(255)		|NO	|类别定义的参数，多个逗号分隔，参数内逗号需要转义			|
+|view_level	|查看权限|CHAR(1)		|NO	|1:用户组，2：系统内全部人员，3：无限制，默认2			|
+|state		|状态   |CHAR(1)		|NO	|状态，1：删除，2：停止，3：监控中			|
+|remark		|备注	|VARCHAR(255)		|NO	|备注			|
+|i18n_code	|i18n code值	|VARCHAR(255)		|NO	| name i18n code值			|
+|operator	|操作人	|BIGINT(19)		|NO	|操作人			|
+|op_time	|操作时间	|DATETIME		|NO	|操作时间			|
+
+#  DETE_SET_NODE_REL
+
+|表名|监测信息节点关系表|
+|---|---- |
+|功能||
+|说明||
+
+|字段名|中文说明|数据类型|是否可空|备注|
+|----|----|----|----|----|
+|id			|主键		|BIGINT(19)		|NO	|			|
+|set_id		|设置id		|BIGINT(19)		|NO	|设置id			|
+|type		|关联类型	|BIGINT(19)		|NO	|1、node,2、nodeGroup			|
+|rel_id		|关联id		|BIGINT(19)		|NO	|关联id			|
+|del_flag	|是否删除	|CHAR(1)		|NO	|是否删除，1：删除，0：未删除，默认：0			|
+|operator	|操作人		|BIGINT(19)		|NO	|			|
+|op_time	|操作时间	|DATETIME		|NO	|操作时间			|
+
+#  DETE_TYPE_INFO
+
+|表名|监测类别信息表|
+|---|---- |
+|功能||
+|说明||
+
+|字段名|中文说明|数据类型|是否可空|备注|
+|----|----|----|----|----|
+|id			|			|BIGINT(19)		|NO	|			|
+|name		|类别名称	|VARCHAR(255)		|NO	|唯一索引			|
+|view_level	|查看权限	|CHAR(1)		|NO	|1:用户组，2：系统内全部人员，3：无限制，默认2			|
+|method		|监控方式	|CHAR(1)		|NO	|1、脚本，2、snmp，3、内置，默认：1			|
+|interval	|监控间隔	|INT(10)		|NO	|监控间隔，单位：s，默认：60			|
+|content	|内容		|VARCHAR(512)		|NO	|1、脚本储存路径，2、oid，可以为空，3、类全路径			|
+|build_in	|是否内置	|CHAR(1)		|NO	|1、隐藏界面不显示，2、内置，不允许修改，3、用户自定义，默认3			|
+|table_name	|表名		|VARCHAR(255)		|NO	|di_name,用户不在填写			|
+|version	|版本号		|INT(10)		|NO	|更新version加1，默认：1			|
+|i18n_code	|国际化code	|VARCHAR(255)		|NO	|name 的国际化 code，不为空时name显示翻译后的内容，为空直接显示			|
+|remark		|备注	|VARCHAR(255)		|NO	|备注			|
+|del_flag	|是否删除	|CHAR(1)		|NO	|是否删除，1：删除，0：未删除，默认：0			|
+|operator	|操作人	|BIGINT(19)		|NO	|			|
+|op_time	|操作时间	|DATETIME		|NO	|操作时间			|
+
+#  DETE_TYPE_META
+
+|表名|监测类别元数据表|
+|---|---- |
+|功能||
+|说明||
+
+|字段名|中文说明|数据类型|是否可空|备注|
+|----|----|----|----|----|
+|id			|主键	|BIGINT(19)		|NO	|			|
+|name		|显示名称	|VARCHAR(32)		|NO	|显示名称，唯一索引			|
+|type_id	|类别id		|BIGINT(19)		|NO	|类别id			|
+|field_type	|字段分类	|CHAR(1)		|NO	|字段分类，1:Tag 数据库添加索引 ,2:field 普通字段, 3:temp 临时字段，数据传输不入库, 4:cal 计算字段，根据field，temp计算得出			|
+|data_type	|数据类型	|CHAR(1)		|NO	|数据类型，1:counter，需要根据上一个监测周期的数据差值计算2：gauge瞬时值 3：string 字符类型			|
+|data_lenth	|数据长度	|INT(10)		|NO	|数据长度			|
+|sort		|排序		|INT(10)		|NO	|排序			|
+|oid		|snmp oid	|VARCHAR(128)		|NO	|snmp oid			|
+|unit		|单位		|VARCHAR(32)		|NO	|单位			|
+|dic_type   |字典类型   |BIGINT(19)     |YES|与DETE_TYPE_META_MAPPING表的type关联|
+|field_name	|数据库字段名称	|VARCHAR(64)		|NO	|数据库字段名称，不需要用户填写，使用name值去除特殊字符			|
+|i18n_code	|国际化code	|VARCHAR(255)		|NO	|name 的国际化 code，不为空时name显示翻译后的内容，为空直接显示name			|
+|remark		|备注		|VARCHAR(255)		|NO	|备注			|
+|del_flag	|是否删除	|CHAR(1)		|NO	|是否删除，1：删除，0：未删除，默认：0			|
+|operator	|操作人		|BIGINT(19)		|NO	|			|
+|op_time	|操作时间	|DATETIME		|NO	|操作时间			|
+
+#  DETE_TYPE_META_MAPPING
+
+|表名|监测类别元数据值映射表|
+|---|---- |
+|功能||
+|说明||
+
+|字段名|中文说明|数据类型|是否可空|备注|
+|----|----|----|----|----|
+|id		|主键	|BIGINT(19)		|NO	|			|
+|type		|映射类型	|BIGINT(19)		|NO	|映射类型			|
+|val		|原值	|VARCHAR(256)		|NO	|原值			|
+|mapping	|映射后值	|VARCHAR(255)		|NO	|映射后值			|
+|del_flag	|是否删除	|CHAR(1)		|NO	|是否删除，1：删除，0：未删除，默认：0			|
+|operator	|操作人	|BIGINT(19)		|NO	|			|
+|op_time	|操作时间	|DATETIME		|NO	|操作时间			|
+
+#  DETE_TYPE_PARAM
+
+|表名|监测类别参数表|
+|---|---- |
+|功能||
+|说明||
+
+|字段名|中文说明|数据类型|是否可空|备注|
+|----|----|----|----|----|
+|id		|主键	|BIGINT(19)		|NO	|			|
+|name		|参数名称	|VARCHAR(32)		|NO	|参数名称			|
+|type_id	|类别id	|BIGINT(19)		|NO	|类别id			|
+|index		|参数索引	|INT(10)		|NO	|参数索引			|
+|default	|参数默认值	|VARCHAR(256)		|NO	|参数默认值			|
+|remark		|备注	|VARCHAR(255)		|NO	|备注			|
+|del_flag	|是否删除	|CHAR(1)		|NO	|是否删除，1：删除，0：未删除，默认：0			|
+|operator	|操作人	|BIGINT(19)		|NO	|			|
+|op_time	|操作时间	|DATETIME		|NO	|操作时间			|
+
+#  DETE_WARN_INFO
+
+|表名|监测告警信息表|
+|---|---- |
+|功能||
+|说明||
+
+|字段名|中文说明|数据类型|是否可空|备注|
+|----|----|----|----|----|
+|id			|主键		|BIGINT(19)		|NO	|			|
+|name		|告警名称	|VARCHAR(255)		|NO	|			|
+|meta_id	|告警字段	|BIGINT(19)		|NO	|告警字段			|
+|trigger	|触发方式	|CHAR(1)		|NO	|1:阈值触发,2：变化触发，当本次监测数值与上次不一致时触发，用于配置文件是否修改等,3：主动，默认：1	|
+|mode		|告警模式	|CHAR(1)		|NO	|告警模式，1、单台，2、汇总			|
+|stat_type	|统计方式	|CHAR(1)		|NO	|1:avg，2:count，3:sum，4:min，5:max，默认：1			|
+|symbol		|符号		|CHAR(1)		|NO	|1:>，2:<，3:=，4:equals，5:include，6:exclude，默认：1			|
+|threshold	|阈值		|VARCHAR(128)		|NO	|阈值			|
+|tips		|告警提示信息	|VARCHAR(255)		|NO	|告警提示信息			|
+|level		|告警级别	|CHAR(1)		|NO	|告警级别，1:normal，2:info，3:warning，4:error，默认：3			|
+|callback_type	|回调方式	|CHAR(1)		|NO	|回调方式，0:无，1：shell，2：http，默认：0			|
+|callback_content	|回调内容	|VARCHAR(255)		|NO	|回调内容			|
+|view_level	|查看权限	|CHAR(1)		|NO	|1:用户组，2：系统内全部人员，3：无限制，默认2			|
+|remark		|备注	|VARCHAR(255)		|NO	|备注			|
+|del_flag	|是否删除	|CHAR(1)		|NO	|是否删除，1：删除，0：未删除，默认：0			|
+|operator	|操作人	|BIGINT(19)		|NO	|			|
+|op_time	|操作时间	|DATETIME		|NO	|操作时间			|
+
+#  DETE_WARN_REL
+
+|表名|监测告警设置关系表|
+|---|---- |
+|功能||
+|说明||
+
+|字段名|中文说明|数据类型|是否可空|备注|
+|----|----|----|----|----|
+|id			|主键	|BIGINT(19)		|NO	|			|
+|warn_id	|告警id	|BIGINT(19)		|NO	|告警id			|
+|rel_type	|关联方式	|CHAR(1)		|NO	|关联方式，1、type，2、set			|
+|rel_id		|关联id	|BIGINT(19)		|NO	|关联id			|
+|del_flag	|是否删除	|CHAR(1)		|NO	|是否删除，1：删除，0：未删除，默认：0			|
+|operator	|操作人	|BIGINT(19)		|NO	|			|
+|op_time	|操作时间	|DATETIME		|NO	|操作时间			|
+
+#  MISSION_INFO
+
+|表名|任务信息表|
+|---|---- |
+|功能||
+|说明||
+
+|字段名|中文说明|数据类型|是否可空|备注|
+|----|----|----|----|----|
+|id			|主键	|BIGINT(19)		|NO	|			|
+|name		|	|VARCHAR(255)		|NO	|			|
+|type		|任务类型	|CHAR(1)		|NO	|任务类型，1、文件推送，2、命令执行，3、升级部署			|
+|state		|任务状态	|CHAR(1)		|NO	|任务状态，周期任务有效，0、非周期任务，1、运行，2、暂停，3、终止			|
+|view_level	|查看权限	|CHAR(1)		|NO	|1:用户组，2：系统内全部人员，3：无限制，默认2			|
+|is_loop	|是否周期任务	|CHAR(1)		|NO	|是否周期任务，0：不是，1：是			|
+|loop_interval	|周期间隔	|INT(10)		|NO	|周期间隔，单位分钟			|
+|param		|任务参数	|VARCHAR(4096)		|YES	|任务参数，json方式保存			|
+|remark		|备注	|VARCHAR(255)		|NO	|备注			|
+|del_flag	|是否删除	|CHAR(1)		|NO	|是否删除，1：删除，0：未删除，默认：0			|
+|operator	|操作人	|BIGINT(19)		|NO	|			|
+|op_time	|操作时间	|DATETIME		|NO	|操作时间			|
+
+#  MISSION_NODE_REL
+
+|表名|任务节点关系表|
+|---|---- |
+|功能||
+|说明||
+
+|字段名|中文说明|数据类型|是否可空|备注|
+|----|----|----|----|----|
+|id			|主键	|BIGINT(19)		|NO	|			|
+|mission_id	|任务id	|BIGINT(19)		|NO	|任务id			|
+|type		|关联类型	|CHAR(1)		|NO	|关联类型，1：节点组，2：节点			|
+|rel_id		|关联id	|BIGINT(19)		|NO	|关联id			|
+|del_flag	|是否删除	|CHAR(1)		|NO	|是否删除，1：删除，0：未删除，默认：0			|
+|op_time	|操作时间	|DATETIME		|NO	|操作时间			|
+
+#  MISSION_RESULT
+
+|表名|任务结果表|
+|---|---- |
+|功能||
+|说明||
+
+|字段名|中文说明|数据类型|是否可空|备注|
+|----|----|----|----|----|
+|id			|主键	|BIGINT(19)		|NO	|			|
+|mission_id	|	|BIGINT(19)		|NO	|			|
+|uuid		|	|BIGINT(19)		|NO	|			|
+|desc		|任务结果描述信息	|VARCHAR(1024)		|NO	|任务结果描述信息			|
+|state		|任务执行状态	|CHAR(1)		|NO	|任务执行状态			|
+|cycle		|第几周期	|INT(10)		|NO	|第几周期			|
+|file		|回传文件路径	|VARCHAR(512)		|NO	|回传文件路径			|
+|op_time	|操作时间	|DATETIME		|NO	|操作时间			|
+
+#  NODE_CABINET
+
+|表名|机柜信息表|
+|---|---- |
+|功能||
+|说明||
+
+|字段名|中文说明|数据类型|是否可空|备注|
+|----|----|----|----|----|
+|id			|主键	|BIGINT(19)		|NO	|主键			|
+|name		|机柜名称	|VARCHAR(255)		|NO	|机柜名称			|
+|room_id	|机房id	|BIGINT(19)		|NO	|机房id			|
+|row		|行号	|INT(10)		|NO	|行号			|
+|col		|列号	|INT(10)		|NO	|列号			|
+|ubit		|u位数量	|INT(10)		|YES	|u位数量			|
+|remarks	|备注	|VARCHAR(255)		|NO	|备注			|
+|operator	|操作人	|BIGINT(19)		|NO	|操作人			|
+|op_time	|操作时间	|DATETIME		|NO	|操作时间			|
+
+#  NODE_GROUP_REL
+
+|表名|节点节点组关系表|
+|---|---- |
+|功能||
+|说明||
+
+|字段名|中文说明|数据类型|是否可空|备注|
+|----|----|----|----|----|
+|id		|主键	|BIGINT(19)		|NO	|			|
+|group_id	|节点组id	|BIGINT(19)		|NO	|节点组id			|
+|uuid		|节点uuid	|BIGINT(19)		|NO	|节点uuid			|
+|desc		|描述信息	|VARCHAR(128)		|NO	|描述信息			|
+|operator	|操作人	|BIGINT(19)		|NO	|操作人			|
+|del_flag	|是否删除	|CHAR(1)		|NO	|是否删除，1：删除，0：未删除，默认：0			|
+|op_time	|操作时间	|DATETIME		|NO	|操作时间			|
+
+#  NODE_INFO
+
+|表名|节点信息表|
+|---|---- |
+|功能||
+|说明||
+
+|字段名|中文说明|数据类型|是否可空|备注|
+|----|----|----|----|----|
+|id			|主键	|BIGINT(19)		|NO	|			|
+|name		|名称	|VARCHAR(255)		|NO	|			|
+|host_name	|主机名	|VARCHAR(255)		|NO	|主机名			|
+|ip			|ip		|VARCHAR(255)		|NO	|主机名			|
+|ip_long	|ip整形	|BIGINT(19)		|NO	|ip整形			|
+|uuid		|全局唯一	|BIGINT(19)		|NO	|全局唯一			|
+|type		|设备类型	|CHAR(1)		|NO	|设备类型，1、server,2、net			|
+|tag		|设备标签	|varchar(32)	|YES|设备标签，sys_dict code 值			|
+|user_name	|snmpv3 用户名	|VARCHAR(128)		|NO	|snmpv3 用户名			|
+|password	|snmpv3 密码	|VARCHAR(128)		|NO	|snmpv3 密码			|
+|state		|设备状态	|CHAR(1)		|NO	|设备状态，1：在线，2：下线，3：删除			|
+|cabinet_id	|机柜id	|BIGINT(19)		|NO	|机柜id			|
+|u_size		|u位大小	|INT(10)		|NO	|u位大小			|
+|cabinet_start	|机柜起始位置	|INT(10)		|NO	|机柜起始位置			|
+|snmp_port	|snmp默认端口号	|INT(10)		|NO	|snmp默认端口号			|
+|snmp_community	|snmp团体字	|VARCHAR(32)		|NO	|snmp团体字			|
+|remark		|备注	|VARCHAR(255)		|NO	|备注			|
+|operator	|操作人	|BIGINT(19)		|NO	|			|
+|op_time	|操作时间	|DATETIME		|NO	|操作时间			|
+
+#  NODE_ROOM
+
+|表名|机房信息表|
+|---|---- |
+|功能||
+|说明||
+
+|字段名|中文说明|数据类型|是否可空|备注|
+|----|----|----|----|----|
+|id			|主键	|BIGINT(19)		|NO	|主键			|
+|name		|机房名称	|VARCHAR(255)		|NO	|机房名称			|
+|rows		|行数	|INT(10)		|NO	|行数			|
+|cols		|列数	|INT(10)		|NO	|列数			|
+|addr		|地区	|BIGINT(19)		|YES	|地区			|
+|remarks	|备注	|VARCHAR(255)		|NO	|备注			|
+|operator	|操作人	|BIGINT(19)		|NO	|操作人			|
+|op_time	|操作时间	|DATETIME		|NO	|操作时间			|
+
+#  NODEGROUP_INFO
+
+|表名|节点组信息表|
+|---|---- |
+|功能||
+|说明||
+
+|字段名|中文说明|数据类型|是否可空|备注|
+|----|----|----|----|----|
+|id			|主键	|BIGINT(19)		|NO	|			|
+|name		|	|VARCHAR(255)		|NO	|			|
+|system_id	|	|BIGINT(19)		|NO	|			|
+|pid		|父id	|BIGINT(19)		|NO	|默认0			|
+|pids		|所有父id	|VARCHAR(1024)		|NO	|默认0，逗号分隔		|
+|remark		|备注	|VARCHAR(255)		|NO	|备注			|
+|del_flag	|是否删除	|CHAR(1)		|NO	|是否删除，1：删除，0：未删除，默认：0			|
+|operator	|操作人id	|BIGINT(19)		|NO	|操作人id			|
+|op_time	|操作时间	|DATETIME		|NO	|操作时间			|
+
+#  PERMISSION_INFO
+
+|表名|数据权限表|
+|---|---- |
+|功能||
+|说明||
+
+|字段名|中文说明|数据类型|是否可空|备注|
+|----|----|----|----|----|
+|id		|主键	|BIGINT(19)		|NO	|			|
+|type		|类型	|CHAR(1)		|NO	|1、dete_type,2、dete_set,3、dete_warn,4、mission			|
+|type_id	|类型id	|BIGINT(19)		|NO	|类型id			|
+|view_level	|查看权限	|CHAR(1)		|NO	|1:用户组，2：系统内全部人员，3：无限制，默认2			|
+|rel_id		|关联id	|BIGINT(19)		|NO	|关联id			|
+|del_flag	|是否删除	|CHAR(1)		|NO	|是否删除，1：删除，0：未删除，默认：0			|
+|operator	|操作人	|BIGINT(19)		|NO	|操作人			|
+|op_time	|操作时间	|DATETIME		|NO	|操作时间			|
+
+#  SYS_CONFIG
+
+|表名|系统配置表|
+|---|---- |
+|功能||
+|说明||
+
+|字段名|中文说明|数据类型|是否可空|备注|
+|----|----|----|----|----|
+|id		|主键	|BIGINT(19)		|NO	|			|
+|param_key	|key	|VARCHAR(50)		|YES	|key			|
+|param_value	|value	|VARCHAR(2000)		|YES	|value			|
+|status		|状态	|TINYINT(3)		|YES	|状态   0：隐藏   1：显示			|
+|remark		|备注	|VARCHAR(500)		|YES	|备注			|
+
+#  SYS_DICT
+
+|表名|系统字典表|
+|---|---- |
+|功能||
+|说明||
+
+|字段名|中文说明|数据类型|是否可空|备注|
+|----|----|----|----|----|
+|id		|主键	|BIGINT(19)		|NO	|			|
+|name		|字典名称	|VARCHAR(100)		|NO	|字典名称			|
+|type		|字典类型	|VARCHAR(100)		|NO	|字典类型			|
+|code		|字典码	|VARCHAR(100)		|NO	|字典码			|
+|value		|字典值	|VARCHAR(1000)		|NO	|字典值			|
+|i18n_code	|i18n code	|VARCHAR(255)		|NO	|i18n code			|
+|order_num	|排序	|INT(10)		|NO	|排序			|
+|remark		|备注	|VARCHAR(255)		|NO	|备注			|
+|del_flag	|删除标记	|TINYINT(3)		|NO	|删除标记  1：删除，0：未删除			|
+|operator	|操作人	|BIGINT(19)		|NO	|操作人			|
+|op_time	|操作时间	|DATETIME		|NO	|操作时间			|
+
+#  SYS_I18N
+
+|表名|i18n信息表|
+|---|---- |
+|功能||
+|说明||
+
+|字段名|中文说明|数据类型|是否可空|备注|
+|----|----|----|----|----|
+|id		|主键	|BIGINT(19)		|NO	|主键			|
+|code		|i18n code	|VARCHAR(255)		|NO	|i18n code			|
+|lang		|语言	|VARCHAR(16)		|NO	|语言			|
+|value		|翻译值	|VARCHAR(1024)		|NO	|翻译值			|
+|remark		|备注信息	|VARCHAR(255)		|NO	|备注信息			|
+|operator	|操作人	|BIGINT(19)		|NO	|操作人			|
+|op_time	|操作时间	|DATETIME		|NO	|操作时间			|
+
+#  SYS_LOG
+
+|表名|系统日志表|
+|---|---- |
+|功能||
+|说明||
+
+|字段名|中文说明|数据类型|是否可空|备注|
+|----|----|----|----|----|
+|id		|主键	|BIGINT(19)		|NO	|			|
+|username	|用户名	|VARCHAR(50)		|YES	|用户名			|
+|operation	|用户操作	|VARCHAR(50)		|YES	|用户操作			|
+|method		|请求方法	|VARCHAR(200)		|YES	|请求方法			|
+|params		|请求参数	|VARCHAR(5000)		|YES	|请求参数			|
+|time		|执行时长(毫秒)	|BIGINT(19)		|NO	|执行时长(毫秒)			|
+|ip		|IP地址	|VARCHAR(64)		|YES	|IP地址			|
+|message	|响应内容	|VARCHAR(4096)		|YES	|响应内容			|
+|create_date	|创建时间	|DATETIME		|YES	|创建时间			|
+
+#  SYS_MENU
+
+|表名|系统菜单表|
+|---|---- |
+|功能||
+|说明||
+
+|字段名|中文说明|数据类型|是否可空|备注|
+|----|----|----|----|----|
+|menu_id	|	|BIGINT(19)		|NO	|			|
+|parent_id	|父菜单ID，一级菜单为0	|BIGINT(19)		|NO	|父菜单ID，一级菜单为0			|
+|parent_ids	|所有父id	|VARCHAR(1024)		|NO	|所有父id			|
+|name		|菜单名称	|VARCHAR(50)		|NO	|菜单名称			|
+|url		|菜单URL	|VARCHAR(200)		|YES	|菜单URL			|
+|perms		|授权	|VARCHAR(500)		|YES	|授权(多个用逗号分隔，如：user:list,user:create)			|
+|type		|类型	|NO	|类型   0：目录   1：菜单   2：按钮			|
+|icon		|菜单图标	|VARCHAR(50)		|YES	|菜单图标			|
+|order_num	|排序	|INT(10)		|NO	|排序			|
+|i18n_code	|name 国际化 code	|VARCHAR(255)		|NO	|name 国际化 code			|
+
+#  SYS_ROLE
+
+|表名|系统角色表|
+|---|---- |
+|功能||
+|说明||
+
+|字段名|中文说明|数据类型|是否可空|备注|
+|----|----|----|----|----|
+|role_id	|	|BIGINT(19)		|NO	|			|
+|role_name	|角色名称	|VARCHAR(100)		|YES	|角色名称			|
+|remark		|备注	|VARCHAR(100)		|YES	|备注			|
+|create_time	|创建时间	|DATETIME		|YES	|创建时间			|
+|i18n_code	|国际化code	|VARCHAR(255)		|NO	|国际化code			|
+
+#  SYS_ROLE_MENU
+
+|表名|系统角色菜单关系表|
+|---|---- |
+|功能||
+|说明||
+
+|字段名|中文说明|数据类型|是否可空|备注|
+|----|----|----|----|----|
+|id		|主键	|BIGINT(19)		|NO	|			|
+|role_id	|角色ID	|BIGINT(19)		|YES	|角色ID			|
+|menu_id	|菜单ID	|BIGINT(19)		|YES	|菜单ID			|
+
+#  SYS_SEQUENCE
+
+|表名|sequence表|
+|---|---- |
+|功能||
+|说明||
+
+|字段名|中文说明|数据类型|是否可空|备注|
+|----|----|----|----|----|
+|NAME		|序号名称	|VARCHAR(50)		|NO	|序号名称			|
+|CURRENT_VALUE	|值	|BIGINT(19)		|NO	|值			|
+|INCREMENT	|每次递增数	|INT(10)		|NO	|每次递增数			|
+
+#  SYS_USER
+
+|表名|系统用户表|
+|---|---- |
+|功能||
+|说明||
+
+|字段名|中文说明|数据类型|是否可空|备注|
+|----|----|----|----|----|
+|user_id	|	|BIGINT(19)		|NO	|			|
+|username	|用户名	|VARCHAR(50)		|NO	|用户名			|
+|password	|密码	|VARCHAR(100)		|YES	|密码			|
+|salt		|盐	|VARCHAR(20)		|YES	|盐			|
+|email		|邮箱	|VARCHAR(100)		|YES	|邮箱			|
+|status		|状态	|TINYINT(3)		|YES	|状态  0：禁用   1：正常			|
+|create_time	|创建时间	|DATETIME		|YES	|创建时间			|
+|lang		|默认语言	|BIGINT(19)		|YES	|默认语言			|
+
+#  SYS_USER_ROLE
+
+|表名|系统用户角色关系表|
+|---|---- |
+|功能||
+|说明||
+
+|字段名|中文说明|数据类型|是否可空|备注|
+|----|----|----|----|----|
+|id		|主键	|BIGINT(19)		|NO	|			|
+|user_id	|用户ID	|BIGINT(19)		|YES	|用户ID			|
+|role_id	|角色ID	|BIGINT(19)		|YES	|角色ID			|
+
+#  SYSTEM_INFO
+
+|表名|业务系统信息表|
+|---|---- |
+|功能||
+|说明||
+
+|字段名|中文说明|数据类型|是否可空|备注|
+|----|----|----|----|----|
+|id		|编号	|BIGINT(19)		|NO	|编号			|
+|name		|系统名称	|VARCHAR(255)		|NO	|系统名称			|
+|built_in	|是否内置	|INT(10)		|NO	|是否内置，内置不可删除，1：内置，0：非内置			|
+|create_by	|创建者	|BIGINT(19)		|NO	|创建者			|
+|create_date	|创建时间	|DATETIME		|NO	|创建时间			|
+|update_by	|更新者	|BIGINT(19)		|NO	|更新者			|
+|update_date	|更新时间	|DATETIME		|NO	|更新时间			|
+|remarks	|备注信息	|VARCHAR(255)		|YES	|备注信息			|
+|del_flag	|删除标记	|INT(10)		|NO	|删除标记			|
+
+#  SYSTEM_NODE_REL
+
+|表名|业务系统节点关系表|
+|---|---- |
+|功能||
+|说明||
+
+|字段名|中文说明|数据类型|是否可空|备注|
+|----|----|----|----|----|
+|id		|主键	|BIGINT(19)		|NO	|			|
+|system_id	|业务系统id	|BIGINT(19)		|NO	|业务系统id			|
+|uuid		|节点uuid	|BIGINT(19)		|NO	|节点uuid			|
+|operator	|操作人	|BIGINT(19)		|NO	|操作人			|
+|del_flag	|是否删除	|CHAR(1)		|NO	|是否删除，1：删除，0：未删除，默认：0			|
+|op_time	|操作时间	|DATETIME		|NO	|操作时间			|
+
+#  SYSTEM_USERGROUP_REL
+
+|表名|业务系统用户组关系表|
+|---|---- |
+|功能||
+|说明||
+
+|字段名|中文说明|数据类型|是否可空|备注|
+|----|----|----|----|----|
+|id		|主键	|BIGINT(19)		|NO	|主键			|
+|system_id	|业务系统id	|BIGINT(19)		|NO	|业务系统id			|
+|usergroup_id	|用户组id	|BIGINT(19)		|NO	|用户组id			|
+|del_flag	|删除标识	|CHAR(1)		|NO	|删除标识，1：删除，0：未删除			|
+|operator	|操作人	|BIGINT(19)		|NO	|操作人			|
+|op_time	|操作时间	|DATETIME		|NO	|操作时间			|
+
+#  TOPO_INFO
+
+|表名|topo信息表|
+|---|---- |
+|功能||
+|说明||
+
+|字段名|中文说明|数据类型|是否可空|备注|
+|----|----|----|----|----|
+|id		|主键	|BIGINT(19)		|NO	|主键			|
+|name		|拓扑图名称	|VARCHAR(255)		|NO	|拓扑图名称			|
+|system_id	|业务系统ID	|BIGINT(19)		|YES	|业务系统ID			|
+|width		|图片宽度	|INT(10)		|NO	|图片宽度			|
+|height		|图片高度	|INT(10)		|NO	|图片高度			|
+|class		|样式	|VARCHAR(255)		|NO	|样式			|
+|op_time	|创建时间	|DATETIME		|NO	|创建时间			|
+|operator	|创建人	|BIGINT(19)		|NO	|创建人			|
+|remarks	|备注	|VARCHAR(255)		|YES	|备注			|
+|del_flag	|删除标识	|CHAR(1)		|NO	|0：未删除，1：删除，默认：0			|
+
+#  TOPO_LINE_INFO
+
+|表名|topo线|
+|---|---- |
+|功能||
+|说明||
+
+|字段名|中文说明|数据类型|是否可空|备注|
+|----|----|----|----|----|
+|id		|主键	|INT(10)		|NO	|主键			|
+|src		|线起点 TOPO_NODE_INFO 表的ID	|INT(10)		|YES	|线起点 TOPO_NODE_INFO 表的ID			|
+|dest		|线终点 TOPO_NODE_INFO 表的ID	|INT(10)		|YES	|线终点 TOPO_NODE_INFO 表的ID			|
+|class		|线的样式	|VARCHAR(256)		|YES	|线的样式			|
+|text		|线条文本内容	|VARCHAR(64)		|YES	|线条文本内容			|
+|topo_id	|TOPO图ID	|INT(10)		|YES	|TOPO图ID 与TOPO_INFO关联			|
+|operator	|创建人	|BIGINT(19)		|NO	|创建人			|
+|op_time	|创建时间	|DATETIME		|NO	|创建时间			|
+|del_flag	|删除标识	|CHAR(1)		|NO	|0：未删除，1：删除，默认：0			|
+
+#  TOPO_NODE_INFO
+
+|表名|topo节点|
+|---|---- |
+|功能||
+|说明||
+
+|字段名|中文说明|数据类型|是否可空|备注|
+|----|----|----|----|----|
+|id		|主键	|BIGINT(19)		|NO	|主键			|
+|img		|图片	|VARCHAR(32)		|YES	|字典表code值，code,sys_dict 表关联，字典type=topo-img			|
+|topo_id	|topo图ID	|BIGINT(19)		|YES	|topo图ID 与TOPO_INFO关联			|
+|type		|NODE类型	|INT(10)		|YES	|NODE类型 1：节点组，2：节点，3：其它 4:topo			|
+|type_id	|关联id	|INT(10)		|YES	|NODE对应的节点组或节点ID 当：TYPE = 1时，为节点组ID，TYPE = 2时，为节点ID，TYPE =3 时，无意义 type=4时 topo			|
+|x			|x轴	|INT(10)		|YES	|			|
+|y			|y轴	|INT(10)		|YES	|			|
+|width		|图片宽度	|INT(10)		|YES	|图片宽度			|
+|height		|图片高度	|INT(10)		|YES	|图片高度			|
+|text		|NODE提示文本信息	|VARCHAR(256)		|YES	|NODE提示文本信息			|
+|class		|样式	|VARCHAR(512)		|YES	|样式			|
+|threshold	|阀值	|DOUBLE(4)		|YES	|阀值			|
+|operator	|创建人	|BIGINT(19)		|NO	|创建人			|
+|op_time	|创建时间	|DATETIME		|NO	|创建时间			|
+|del_flag	|删除标识	|CHAR(1)		|NO	|0：未删除，1：删除，默认：0			|
+
+#  USER_GROUP
+
+|表名|用户组信息表|
+|---|---- |
+|功能||
+|说明||
+
+|字段名|中文说明|数据类型|是否可空|备注|
+|----|----|----|----|----|
+|id		|主键	|BIGINT(19)		|NO	|主键			|
+|name		|用户组名称	|VARCHAR(255)		|NO	|用户组名称			|
+|remark		|备注信息	|VARCHAR(255)		|NO	|备注信息			|
+|operator	|操作人	|BIGINT(19)		|NO	|操作人			|
+|op_time	|操作时间	|DATETIME		|NO	|操作时间			|
+
+#  USER_USERGROUP
+
+|表名|用户--用户组关系表|
+|---|---- |
+|功能||
+|说明||
+
+|字段名|中文说明|数据类型|是否可空|备注|
+|----|----|----|----|----|
+|id		|主键	|BIGINT(19)		|NO	|主键			|
+|user_id		|用户ID |BIGINT(19)		|NO	|用户ID			|
+|group_id		|用户组ID	|BIGINT(19)		|NO	|用户组ID			|
+|del_flag	|删除标识	|CHAR(1)		|NO	|删除标识，1：删除，0：未删除			|
+|operator	|操作人	|BIGINT(19)		|NO	|操作人			|
+|op_time	|操作时间	|DATETIME		|NO	|操作时间			|
