@@ -3236,7 +3236,6 @@ id					|Integer		|R			|id
 name				|String			|R			|设置名称，唯一索引
 typeId				|Integer		|R			|类别id
 params				|String			|R			|类别定义的参数，多个逗号分隔，参数内逗号需要转义
-viewLevel			|String			|R			|1:用户组，2：系统内全部人员，3：无限制，默认2
 remark				|String			|R			|备注
 i18nCode			|String			|R			| name i18n code值
 nodeGroupIds		|Integer[]		|R			|节点组id
@@ -3250,7 +3249,6 @@ nodeIds				|Integer[]		|R			|节点id
     "name": "eeee",
     "typeId": 1,
     "params": "1,'a',3",
-    "viewLevel": "1",
     "remark": "",
     "i18nCode": "",
     "nodeGroupIds": [1,2,3],
@@ -4160,6 +4158,464 @@ data						|Object		|R			|&nbsp;
             "cycle": 1,
             "file": "",
             "opTime": "2019-07-10 10:10:10"
+        }]
+    }
+}
+```
+
+
+### 2.5 拓扑
+
+#### 2.5.1 拓扑图配置
+
+##### 2.5.1.1 拓扑图列表查询
+
+- **接口说明：** 拓扑图列表查询
+- **接口地址：** /topo/list
+- **请求方式：** GET
+
+###### 请求参数
+  
+参数名称			|类型			|出现要求	|描述  
+:----				|:---			|:------	|:---	
+id					|Integer		|O			|拓扑图id
+systemId			|Integer		|O			|业务系统id
+
+示例：
+
+```
+GET /topo/list?systemId=3
+```
+
+###### 返回结果
+
+参数名称					|类型		|出现要求	|描述  
+:----						|:---		|:------	|:---	
+code						|int		|R			|响应码，详见 附录A
+msg							|string		|R			|&nbsp;
+data						|Object		|R			|&nbsp;
+&emsp;list					|Object[]	|R			|&nbsp;
+&emsp;&emsp;id				|Integer	|R			|主键
+&emsp;&emsp;name			|String		|R			|拓扑图名称
+&emsp;&emsp;systemId		|Integer	|R			|业务系统ID
+&emsp;&emsp;width			|Integer	|R			|图片宽度
+&emsp;&emsp;height			|Integer	|R			|图片高度
+&emsp;&emsp;class			|String		|R			|样式
+&emsp;&emsp;opTime			|Date		|R			|创建时间
+&emsp;&emsp;operator		|Integer	|R			|创建人
+&emsp;&emsp;remarks			|String		|R			|备注
+
+示例：
+
+```
+{
+    "code": 200,
+    "msg": "success",
+    "data": {
+        "list": [{
+            "id": 1,
+            "name": "",
+            "systemId": 1,
+            "width": 1,
+            "height": 1,
+            "class": "",
+            "opTime": "2019-07-10 10:10:10",
+            "operator": 1,
+            "remarks": "",
+            "delFlag": ""
+        }]
+    }
+}
+```
+
+##### 2.4.1.2 拓扑图详情查询
+
+- **接口说明：** 拓扑图详情查询，查出所有点、线
+- **接口地址：** /mission/detail
+- **请求方式：** GET
+
+###### 请求参数
+  
+参数名称			|类型			|出现要求	|描述  
+:----				|:---			|:------	|:---	
+id					|Integer		|O			|拓扑图id
+
+示例：
+
+```
+GET /usergroup/detail?id=2
+```
+
+###### 返回结果
+
+参数名称					|类型		|出现要求	|描述  
+:----						|:---		|:------	|:---	
+code						|int		|R			|响应码，详见 附录A
+msg							|string		|R			|&nbsp;
+data						|Object		|R			|&nbsp;
+&emsp;id					|Integer	|R			|主键
+&emsp;name					|String		|R			|拓扑图名称
+&emsp;systemId				|Integer	|R			|业务系统ID
+&emsp;width					|Integer	|R			|图片宽度
+&emsp;height				|Integer	|R			|图片高度
+&emsp;class					|String		|R			|样式
+&emsp;opTime				|Date		|R			|创建时间
+&emsp;operator				|Integer	|R			|创建人
+&emsp;remarks				|String		|R			|备注
+&emsp;topoNodes				|Object[]	|R			|拓扑节点
+&emsp;&emsp;id				|Integer	|R			|拓扑节点id
+&emsp;&emsp;img				|String		|R			|字典表code值，code,sys_dict 表关联，字典type=topo-img
+&emsp;&emsp;type			|Integer	|R			|NODE类型 1：节点组，2：节点，3：其它 4:topo
+&emsp;&emsp;typeId			|Integer	|R			|NODE对应的节点组或节点ID 当：TYPE = 1时，为节点组ID，TYPE = 2时，为节点ID，TYPE =3 时，无意义 type=4时 topo
+&emsp;&emsp;x				|Integer	|R			|横坐标
+&emsp;&emsp;y				|Integer	|R			|纵坐标
+&emsp;&emsp;width			|Integer	|R			|图片宽度
+&emsp;&emsp;height			|Integer	|R			|图片高度
+&emsp;&emsp;text			|String		|R			|NODE提示文本信息
+&emsp;&emsp;class			|String		|R			|样式
+&emsp;&emsp;threshold		|String		|R			|阀值
+&emsp;topoLines				|Object[]	|R			|拓扑连线
+&emsp;&emsp;id				|Integer	|R			|主键
+&emsp;&emsp;src				|Integer	|R			|线起点 TOPO_NODE_INFO 表的ID
+&emsp;&emsp;dest			|Integer	|R			|线终点 TOPO_NODE_INFO 表的ID
+&emsp;&emsp;class			|String		|R			|线的样式
+&emsp;&emsp;text			|String		|R			|线条文本内容
+&emsp;&emsp;topoId			|Integer	|R			|TOPO图ID 与TOPO_INFO关联
+
+示例：
+
+```
+{
+    "code": 200,
+    "msg": "success",
+    "data": {
+        "id": 1,
+        "name": "",
+        "systemId": 1,
+        "width": 1,
+        "height": 1,
+        "class": "",
+        "opTime": "2019-07-10 10:10:10",
+        "operator": 1,
+        "remarks": "",
+        "topoNodes": [{
+            "id": 1,
+            "img": "",
+            "topoId": 1,
+            "type": 1,
+            "typeId": 1,
+            "x": 1,
+            "y": 1,
+            "width": 1,
+            "height": 1,
+            "text": "",
+            "class": "",
+            "threshold": ""
+        }],
+        "topoLines": [{
+            "id": 1,
+            "src": 1,
+            "dest": 1,
+            "class": "",
+            "text": "",
+            "topoId": 1
+        }]
+    }
+}
+```
+
+##### 2.4.1.3 拓扑图节点新增
+
+- **接口说明：** 拓扑图节点新增
+- **接口地址：** /topo/saveNode
+- **请求方式：** POST
+
+###### 请求参数
+  
+参数名称			|类型			|出现要求	|描述  
+:----				|:---			|:------	|:---	
+img					|String			|R			|字典表code值，code,sys_dict 表关联，字典type=topo-img
+topoId				|Integer		|R			|topo图ID 与TOPO_INFO关联
+type				|Integer		|R			|NODE类型 1：节点组，2：节点，3：其它 4:topo
+typeId				|Integer		|R			|NODE对应的节点组或节点ID 当：TYPE = 1时，为节点组ID，TYPE = 2时，为节点ID，TYPE =3 时，无意义 type=4时 topo
+x					|Integer		|R			|横坐标
+y					|Integer		|R			|纵坐标
+width				|Integer		|R			|图片宽度
+height				|Integer		|R			|图片高度
+text				|String			|R			|NODE提示文本信息
+class				|String			|R			|样式
+threshold			|String			|R			|阀值
+
+示例：
+
+```
+{
+    "img": "",
+    "topoId": 1,
+    "type": 1,
+    "typeId": 1,
+    "x": 1,
+    "y": 1,
+    "width": 1,
+    "height": 1,
+    "text": "",
+    "class": "",
+    "threshold": ""
+}
+```
+
+###### 返回结果
+
+参数名称					|类型		|出现要求	|描述  
+:----						|:---		|:------	|:---	
+code						|int		|R			|响应码，详见 附录A
+msg							|string		|R			|&nbsp;
+
+示例：
+
+```
+{
+    "code": 200/xxx,
+    "msg": "success"
+}
+```
+
+##### 2.4.1.4 拓扑图节点修改
+
+- **接口说明：** 拓扑图节点修改
+- **接口地址：** /topo/updateNode
+- **请求方式：** PUT
+
+###### 请求参数
+  
+参数名称			|类型			|出现要求	|描述  
+:----				|:---			|:------	|:---	
+id					|Integer		|R			|id
+type				|Integer		|R			|NODE类型 1：节点组，2：节点，3：其它 4:topo
+typeId				|Integer		|R			|NODE对应的节点组或节点ID 当：TYPE = 1时，为节点组ID，TYPE = 2时，为节点ID，TYPE =3 时，无意义 type=4时 topo
+x					|Integer		|R			|横坐标
+y					|Integer		|R			|纵坐标
+width				|Integer		|R			|图片宽度
+height				|Integer		|R			|图片高度
+text				|String			|R			|NODE提示文本信息
+class				|String			|R			|样式
+threshold			|String			|R			|阀值
+
+示例：
+
+```
+{
+    "id": 1,
+    "type": 1,
+    "typeId": 1,
+    "x": 1,
+    "y": 1,
+    "width": 1,
+    "height": 1,
+    "text": "",
+    "class": "",
+    "threshold": ""
+}
+```
+
+##### 2.4.1.5 拓扑图节点删除
+
+- **接口说明：** 拓扑图节点删除
+- **接口地址：** /topo/deleteNode
+- **请求方式：** DELETE
+
+###### 请求参数
+  
+参数名称			|类型			|出现要求	|描述  
+:----				|:---			|:------	|:---	
+id					|Integer		|R			|id
+
+示例：
+
+```
+{
+	"id": 35
+}
+```
+
+###### 返回结果
+
+参数名称					|类型		|出现要求	|描述  
+:----						|:---		|:------	|:---	
+code						|int		|R			|响应码，详见 附录A
+msg							|string		|R			|&nbsp;
+
+示例：
+
+```
+{
+    "code": 200,
+    "msg": "success"
+}
+```
+
+##### 2.4.1.6 拓扑图连线新增
+
+- **接口说明：** 拓扑图连线新增
+- **接口地址：** /topo/saveLine
+- **请求方式：** POST
+
+###### 请求参数
+  
+参数名称			|类型			|出现要求	|描述  
+:----				|:---			|:------	|:---	
+src					|Integer		|R			|线起点 TOPO_NODE_INFO 表的ID
+dest				|Integer		|R			|线终点 TOPO_NODE_INFO 表的ID
+class				|String			|R			|线的样式
+text				|String			|R			|线条文本内容
+topoId				|Integer		|R			|TOPO图ID 与TOPO_INFO关联
+
+示例：
+
+```
+{
+    "src": 1,
+    "dest": 1,
+    "class": "",
+    "text": "",
+    "topoId": 1
+}
+```
+
+###### 返回结果
+
+参数名称					|类型		|出现要求	|描述  
+:----						|:---		|:------	|:---	
+code						|int		|R			|响应码，详见 附录A
+msg							|string		|R			|&nbsp;
+
+示例：
+
+```
+{
+    "code": 200/xxx,
+    "msg": "success"
+}
+```
+
+##### 2.4.1.7 拓扑图连线修改
+
+- **接口说明：** 拓扑图节点修改
+- **接口地址：** /topo/updateLine
+- **请求方式：** PUT
+
+###### 请求参数
+  
+参数名称			|类型			|出现要求	|描述  
+:----				|:---			|:------	|:---	
+id					|Integer		|R			|id
+src					|Integer		|R			|线起点 TOPO_NODE_INFO 表的ID
+dest				|Integer		|R			|线终点 TOPO_NODE_INFO 表的ID
+class				|String			|R			|线的样式
+text				|String			|R			|线条文本内容
+
+示例：
+
+```
+{
+    "id": 1,
+    "src": 1,
+    "dest": 1,
+    "class": "",
+    "text": ""
+}
+```
+
+###### 返回结果
+
+参数名称					|类型		|出现要求	|描述  
+:----						|:---		|:------	|:---	
+code						|int		|R			|响应码，详见 附录A
+msg							|string		|R			|&nbsp;
+
+示例：
+
+```
+{
+    "code": 200/xxx,
+    "msg": "success"
+}
+```
+
+##### 2.4.1.8 拓扑图连线删除
+
+- **接口说明：** 拓扑图节点删除
+- **接口地址：** /topo/deleteLine
+- **请求方式：** DELETE
+
+###### 请求参数
+  
+参数名称			|类型			|出现要求	|描述  
+:----				|:---			|:------	|:---	
+id					|Integer		|R			|id
+
+示例：
+
+```
+{
+	"id": 35
+}
+```
+
+###### 返回结果
+
+参数名称					|类型		|出现要求	|描述  
+:----						|:---		|:------	|:---	
+code						|int		|R			|响应码，详见 附录A
+msg							|string		|R			|&nbsp;
+
+示例：
+
+```
+{
+    "code": 200,
+    "msg": "success"
+}
+```
+
+##### 2.4.1.8 拓扑节点静态图片列表查询
+
+- **接口说明：** 拓扑节点静态图片列表查询
+- **接口地址：** /topo/imgList
+- **请求方式：** GET
+
+###### 请求参数
+  
+参数名称			|类型			|出现要求	|描述  
+:----				|:---			|:------	|:---	
+
+示例：
+
+```
+GET /topo/imgList
+```
+
+###### 返回结果
+
+参数名称					|类型		|出现要求	|描述  
+:----						|:---		|:------	|:---	
+code						|int		|R			|响应码，详见 附录A
+msg							|string		|R			|&nbsp;
+data						|Object		|R			|&nbsp;
+&emsp;list					|Object[]	|R			|&nbsp;
+&emsp;&emsp;code			|String		|R			|字典表的code
+&emsp;&emsp;code			|String		|R			|字典表的value，图片地址
+
+示例：
+
+```
+{
+    "code": 200,
+    "msg": "success",
+    "data": {
+        "list": [{
+            "code": "img1",
+            "value": "/static/img/xxx"
         }]
     }
 }
