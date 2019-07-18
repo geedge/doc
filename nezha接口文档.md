@@ -2661,7 +2661,7 @@ data						|Object		|R			|&nbsp;
 &emsp;&emsp;id				|Integer	|R			|
 &emsp;&emsp;name			|String		|R			|参数名称
 &emsp;&emsp;typeId			|Integer	|R			|类别id
-&emsp;&emsp;index			|Integer	|R			|参数索引
+&emsp;&emsp;param_index			|Integer	|R			|参数索引
 &emsp;&emsp;def_val			|String		|R			|参数默认值
 &emsp;&emsp;remark			|String		|R			|备注
 
@@ -2698,7 +2698,7 @@ data						|Object		|R			|&nbsp;
             "id": 1,
             "name": "cc",
             "typeId": 1,
-            "index": 1,
+            "param_index": 1,
             "def_val": "",
             "remark": ""
         }]
@@ -2740,7 +2740,7 @@ deteTypeParams		|Object[]		|R			|类别参数数组
 &emsp;id			|Integer		|R			|
 &emsp;name			|String			|R			|参数名称
 &emsp;typeId		|Integer		|R			|类别id
-&emsp;index			|Integer		|R			|参数索引
+&emsp;param_index			|Integer		|R			|参数索引
 &emsp;def_val		|String			|R			|参数默认值
 &emsp;remark		|String			|R			|备注
 
@@ -2778,7 +2778,7 @@ deteTypeParams		|Object[]		|R			|类别参数数组
             "id": 1,
             "name": "cc",
             "typeId": 1,
-            "index": 1,
+            "param_index": 1,
             "def_val": "",
             "remark": ""
         }]
@@ -2836,7 +2836,7 @@ deteTypeParams		|Object[]		|R			|类别参数数组
 &emsp;id			|Integer		|R			|
 &emsp;name			|String			|R			|参数名称
 &emsp;typeId		|Integer		|R			|类别id
-&emsp;index			|Integer		|R			|参数索引
+&emsp;param_index	|Integer		|R			|参数索引
 &emsp;def_val		|String			|R			|参数默认值
 &emsp;remark		|String			|R			|备注
 
@@ -2875,7 +2875,7 @@ deteTypeParams		|Object[]		|R			|类别参数数组
             "id": 1,
             "name": "cc",
             "typeId": 1,
-            "index": 1,
+            "param_index": 1,
             "def_val": "",
             "remark": ""
         }]
