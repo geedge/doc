@@ -110,7 +110,7 @@
 |name		|类别名称	|VARCHAR(255)		|NO	|唯一索引			|
 |view_level	|查看权限	|CHAR(1)		|NO	|1:用户组，2：系统内全部人员，3：无限制，默认2			|
 |method		|监控方式	|CHAR(1)		|NO	|1、脚本，2、snmp，3、内置，默认：1			|
-|interval	|监控间隔	|INT(10)		|NO	|监控间隔，单位：s，默认：60			|
+|dete_interval	|监控间隔	|INT(10)		|NO	|监控间隔，单位：s，默认：60			|
 |content	|内容		|VARCHAR(512)		|NO	|1、脚本储存路径，2、oid，可以为空，3、类全路径			|
 |build_in	|是否内置	|CHAR(1)		|NO	|1、隐藏界面不显示，2、内置，不允许修改，3、用户自定义，默认3			|
 |table_name	|表名		|VARCHAR(255)		|NO	|di_name,用户不在填写			|
