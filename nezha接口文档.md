@@ -163,7 +163,7 @@ data						|object		|R			|每个接口特有的参数，详见每个接口定义
 
 ```
 {
-    "code": 200,
+    "code": "200",
     "msg": "success",
     "data": {
         "totalCount": 1,
@@ -252,7 +252,7 @@ data						|object		|R			|&nbsp;
 
 ```
 {
-    "code": 200,
+    "code": "200",
     "msg": "success",
     "data": {
         "totalCount": 1,
@@ -341,7 +341,7 @@ data						|object		|R			|&nbsp;
 
 ```
 {
-    "code": 200,
+    "code": "200",
     "msg": "success",
     "data": {
         "name": "node1",
@@ -428,12 +428,12 @@ msg							|string		|R			|&nbsp;
 ```
 成功
 {
-    "code": 200,
+    "code": "200",
     "msg": "success"
 }
 失败
 {
-    "code": xxx,
+    "code": "xxx",
     "msg": "机柜该位置无法使用"
 }
 ```
@@ -494,12 +494,12 @@ msg							|string		|R			|&nbsp;
 ```
 成功
 {
-    "code": 200,
+    "code": "200",
     "msg": "success"
 }
 失败
 {
-    "code": xxx,
+    "code": "xxx",
     "msg": "机柜该位置无法使用"
 }
 ```
@@ -537,7 +537,7 @@ msg							|String		|R			|&nbsp;
 
 ```
 {
-    "code": 200,
+    "code": "200",
     "msg": "success"
 }
 ```
@@ -580,7 +580,7 @@ data						|Object		|R			|&nbsp;
 
 ```
 {
-    "code": 200,
+    "code": "200",
     "msg": "success",
     "data": {
         "list": [{
@@ -627,12 +627,12 @@ msg							|String		|R			|&nbsp;
 ```
 成功
 {
-	"code": 200,
+	"code": "200",
     "msg": "success"
 }
 失败
 {
-	"code": xxx,
+	"code": "xxx",
     "msg": "IP已被占用"
 }
 ```
@@ -668,12 +668,12 @@ msg							|String		|R			|&nbsp;
 ```
 成功
 {
-	"code": 200,
+	"code": "200",
     "msg": "success"
 }
 失败
 {
-	"code": xxx,
+	"code": "xxx",
     "msg": "名称已被占用"
 }
 ```
@@ -719,7 +719,7 @@ data						|Object		|R			|&nbsp;
 
 ```
 {
-    "code": 200,
+    "code": "200",
     "msg": "success",
     "data": {
         "list": [{
@@ -770,7 +770,7 @@ data						|Object		|R			|&nbsp;
 
 ```
 {
-    "code": 200,
+    "code": "200",
     "msg": "success",
     "data": {
         "id": 8,
@@ -823,12 +823,12 @@ msg							|string		|R			|&nbsp;
 
 ```
 {
-    "code": 200,
+    "code": "200",
     "msg": "success"
 }
 失败
 {
-    "code": xxx,
+    "code": "xxx",
     "msg": "原因"
 }
 ```
@@ -868,12 +868,12 @@ msg							|string		|R			|&nbsp;
 
 ```
 {
-    "code": 200,
+    "code": "200",
     "msg": "success"
 }
 失败
 {
-    "code": xxx,
+    "code": "xxx",
     "msg": "原因"
 }
 ```
@@ -909,7 +909,7 @@ msg							|string		|R			|&nbsp;
 
 ```
 {
-    "code": 200,
+    "code": "200",
     "msg": "success"
 }
 ```
@@ -959,7 +959,7 @@ data						|object		|R			|&nbsp;
 
 ```
 {
-    "code": 200,
+    "code": "200",
     "msg": "success",
     "data": {
         "totalCount": 1,
@@ -1010,7 +1010,7 @@ msg							|string		|R			|&nbsp;
 
 ```
 {
-    "code": 200,
+    "code": "200",
     "msg": "success"
 }
 ```
@@ -1048,7 +1048,7 @@ msg							|string		|R			|&nbsp;
 
 ```
 {
-    "code": 200,
+    "code": "200",
     "msg": "success"
 }
 ```
@@ -1084,12 +1084,12 @@ msg							|string		|R			|&nbsp;
 
 ```
 {
-    "code": 200,
+    "code": "200",
     "msg": "success"
 }
 失败
 {
-    "code": xxx,
+    "code": "xxx",
     "msg": "原因"
 }
 ```
@@ -1141,7 +1141,7 @@ data						|Object		|R			|&nbsp;
 
 ```
 {
-    "code": 200,
+    "code": "200",
     "msg": "success",
     "data": {
         "totalCount": 1,
@@ -1195,7 +1195,7 @@ data						|Object		|R			|&nbsp;
 
 ```
 {
-    "code": 200,
+    "code": "200",
     "msg": "success",
     "data": {
         "id": 1,
@@ -1247,12 +1247,12 @@ msg							|string		|R			|&nbsp;
 
 ```
 {
-    "code": 200,
+    "code": "200",
     "msg": "success"
 }
 失败
 {
-    "code": xxx,
+    "code": "xxx",
     "msg": "原因"
 }
 ```
@@ -1299,12 +1299,12 @@ msg							|string		|R			|&nbsp;
 
 ```
 {
-    "code": 200,
+    "code": "200",
     "msg": "success"
 }
 失败
 {
-    "code": xxx,
+    "code": "xxx",
     "msg": "原因"
 }
 ```
@@ -1340,12 +1340,12 @@ msg							|string		|R			|&nbsp;
 
 ```
 {
-    "code": 200,
+    "code": "200",
     "msg": "success"
 }
 失败
 {
-    "code": xxx,
+    "code": "xxx",
     "msg": "存在关联的机柜"
 }
 ```
@@ -1380,12 +1380,12 @@ msg							|string		|R			|&nbsp;
 
 ```
 {
-    "code": 200,
+    "code": "200",
     "msg": "success"
 }
 失败
 {
-    "code": xxx,
+    "code": "xxx",
     "msg": "原因"
 }
 ```
@@ -1421,12 +1421,12 @@ msg							|string		|R			|&nbsp;
 
 ```
 {
-    "code": 200,
+    "code": "200",
     "msg": "success"
 }
 失败
 {
-    "code": xxx,
+    "code": "xxx",
     "msg": "原因"
 }
 ```
@@ -1482,7 +1482,7 @@ data						|Object		|R			|&nbsp;
 
 ```
 {
-    "code": 200,
+    "code": "200",
     "msg": "success",
     "data": [{
         "totalCount": 1,
@@ -1544,7 +1544,7 @@ data						|Object		|R			|&nbsp;
 
 ```
 {
-    "code": 200,
+    "code": "200",
     "msg": "success",
     "data": {
         "id": 1,
@@ -1606,7 +1606,7 @@ msg							|string		|R			|&nbsp;
 
 ```
 {
-    "code": 200/xxx
+    "code": "200/xxx"
     "msg": "xxx"
 }
 ```
@@ -1652,7 +1652,7 @@ msg							|string		|R			|&nbsp;
 
 ```
 {
-    "code": 200/xxx
+    "code": "200/xxx"
     "msg": "xxx"
 }
 ```
@@ -1688,7 +1688,7 @@ msg							|string		|R			|&nbsp;
 
 ```
 {
-    "code": 200/xxx
+    "code": "200/xxx"
     "msg": "success/存在关联的节点"
 }
 ```
@@ -1724,7 +1724,7 @@ msg							|string		|R			|&nbsp;
 
 ```
 {
-    "code": 200/xxx
+    "code": "200/xxx"
     "msg": "xxx"
 }
 ```
@@ -1759,7 +1759,7 @@ msg							|string		|R			|&nbsp;
 
 ```
 {
-    "code": 200/xxx
+    "code": "200/xxx"
     "msg": "xxx"
 }
 ```
@@ -1800,7 +1800,7 @@ data						|Object		|R			|&nbsp;
 
 ```
 {
-    "code": 200,
+    "code": "200",
     "msg": "success",
     "data": {
         "list": [{
@@ -1868,7 +1868,7 @@ data						|Object		|R			|&nbsp;
 
 ```
 {
-    "code": 200,
+    "code": "200",
     "msg": "success",
     "data": {
         "totalCount": 1,
@@ -1929,7 +1929,7 @@ data						|Object		|R			|&nbsp;
 
 ```
 {
-    "code": 200,
+    "code": "200",
     "msg": "success",
     "data": {
         "id": 1,
@@ -1989,7 +1989,7 @@ msg							|string		|R			|&nbsp;
 
 ```
 {
-    "code": 200/xxx
+    "code": "200/xxx"
     "msg": "xxx"
 }
 ```
@@ -2031,7 +2031,7 @@ msg							|string		|R			|&nbsp;
 
 ```
 {
-    "code": 200/xxx
+    "code": "200/xxx"
     "msg": "xxx"
 }
 ```
@@ -2067,7 +2067,7 @@ msg							|string		|R			|&nbsp;
 
 ```
 {
-    "code": 200
+    "code": "200"
     "msg": "xxx"
 }
 ```
@@ -2116,7 +2116,7 @@ data						|Object		|R			|&nbsp;
 
 ```
 {
-    "code": 200,
+    "code": "200",
     "msg": "success",
     "data": {
         "totalCount": 1,
@@ -2168,7 +2168,7 @@ msg							|string		|R			|&nbsp;
 
 ```
 {
-    "code": 200,
+    "code": "200",
     "msg": "success"
 }
 ```
@@ -2203,7 +2203,7 @@ msg							|string		|R			|&nbsp;
 
 ```
 {
-    "code": 200,
+    "code": "200",
     "msg": "success"
 }
 ```
@@ -2238,7 +2238,7 @@ msg							|string		|R			|&nbsp;
 
 ```
 {
-    "code": 200,
+    "code": "200",
     "msg": "success"
 }
 ```
@@ -2296,7 +2296,7 @@ data						|Object		|R			|&nbsp;
 
 ```
 {
-    "code": 200,
+    "code": "200",
     "msg": "success",
     "data": {
         "totalCount": 1,
@@ -2358,7 +2358,7 @@ data						|Object		|R			|&nbsp;
 
 ```
 {
-    "code": 200,
+    "code": "200",
     "msg": "success",
     "data": {
         "id": 1,
@@ -2413,7 +2413,7 @@ msg							|string		|R			|&nbsp;
 
 ```
 {
-    "code": 200/xxx,
+    "code": "200/xxx",
     "msg": "success"
 }
 ```
@@ -2457,7 +2457,7 @@ msg							|string		|R			|&nbsp;
 
 ```
 {
-    "code": 200/xxx,
+    "code": "200/xxx",
     "msg": "success"
 }
 ```
@@ -2493,7 +2493,7 @@ msg							|string		|R			|&nbsp;
 
 ```
 {
-    "code": 200,
+    "code": "200",
     "msg": "success"
 }
 ```
@@ -2532,7 +2532,7 @@ msg							|string		|R			|&nbsp;
 
 ```
 {
-    "code": 200/xxx,
+    "code": "200/xxx",
     "msg": "success"
 }
 ```
@@ -2588,7 +2588,7 @@ data						|Object		|R			|&nbsp;
 
 ```
 {
-    "code": 200,
+    "code": "200",
     "msg": "success",
     "data": {
         "totalCount": 1,
@@ -2662,14 +2662,14 @@ data						|Object		|R			|&nbsp;
 &emsp;&emsp;name			|String		|R			|参数名称
 &emsp;&emsp;typeId			|Integer	|R			|类别id
 &emsp;&emsp;index			|Integer	|R			|参数索引
-&emsp;&emsp;default			|String		|R			|参数默认值
+&emsp;&emsp;def_val			|String		|R			|参数默认值
 &emsp;&emsp;remark			|String		|R			|备注
 
 示例：
 
 ```
 {
-    "code": 200,
+    "code": "200",
     "msg": "success",
     "data": {
         "id": 1,
@@ -2699,7 +2699,7 @@ data						|Object		|R			|&nbsp;
             "name": "cc",
             "typeId": 1,
             "index": 1,
-            "default": "",
+            "def_val": "",
             "remark": ""
         }]
     }
@@ -2741,7 +2741,7 @@ deteTypeParams		|Object[]		|R			|类别参数数组
 &emsp;name			|String			|R			|参数名称
 &emsp;typeId		|Integer		|R			|类别id
 &emsp;index			|Integer		|R			|参数索引
-&emsp;default		|String			|R			|参数默认值
+&emsp;def_val		|String			|R			|参数默认值
 &emsp;remark		|String			|R			|备注
 
 示例：
@@ -2779,7 +2779,7 @@ deteTypeParams		|Object[]		|R			|类别参数数组
             "name": "cc",
             "typeId": 1,
             "index": 1,
-            "default": "",
+            "def_val": "",
             "remark": ""
         }]
     }
@@ -2796,7 +2796,7 @@ msg							|string		|R			|&nbsp;
 
 ```
 {
-    "code": 200/xxx,
+    "code": "200/xxx",
     "msg": "success"
 }
 ```
@@ -2837,7 +2837,7 @@ deteTypeParams		|Object[]		|R			|类别参数数组
 &emsp;name			|String			|R			|参数名称
 &emsp;typeId		|Integer		|R			|类别id
 &emsp;index			|Integer		|R			|参数索引
-&emsp;default		|String			|R			|参数默认值
+&emsp;def_val		|String			|R			|参数默认值
 &emsp;remark		|String			|R			|备注
 
 示例：
@@ -2876,7 +2876,7 @@ deteTypeParams		|Object[]		|R			|类别参数数组
             "name": "cc",
             "typeId": 1,
             "index": 1,
-            "default": "",
+            "def_val": "",
             "remark": ""
         }]
     }
@@ -2893,7 +2893,7 @@ msg							|string		|R			|&nbsp;
 
 ```
 {
-    "code": 200/xxx,
+    "code": "200/xxx",
     "msg": "success"
 }
 ```
@@ -2929,7 +2929,7 @@ msg							|string		|R			|&nbsp;
 
 ```
 {
-    "code": 200,
+    "code": "200",
     "msg": "success"
 }
 ```
@@ -2969,7 +2969,7 @@ data						|Object		|R			|&nbsp;
 
 ```
 {
-    "code": 200,
+    "code": "200",
     "msg": "success",
     "data": {
         "list": [{
@@ -3014,7 +3014,7 @@ msg							|string		|R			|&nbsp;
 
 ```
 {
-    "code": 200/xxx,
+    "code": "200/xxx",
     "msg": "true/false"
 }
 ```
@@ -3073,7 +3073,7 @@ data						|Object		|R			|&nbsp;
 
 ```
 {
-    "code": 200,
+    "code": "200",
     "msg": "success",
     "data": {
         "totalCount": 1,
@@ -3130,7 +3130,7 @@ data						|Object		|R			|&nbsp;
 &emsp;&emsp;params			|Object[]	|R			|类别参数
 &emsp;&emsp;&emsp;id		|Integer	|R			|参数id
 &emsp;&emsp;&emsp;name		|String		|R			|参数名称
-&emsp;&emsp;&emsp;default	|String		|R			|参数默认值
+&emsp;&emsp;&emsp;def_val	|String		|R			|参数默认值
 &emsp;buildIn				|String		|R			|1:内置，2：用户自定义，默认2
 &emsp;params				|String		|R			|类别定义的参数，多个逗号分隔，参数内逗号需要转义
 &emsp;viewLevel				|String		|R			|1:用户组，2：系统内全部人员，3：无限制，默认2
@@ -3150,7 +3150,7 @@ data						|Object		|R			|&nbsp;
 
 ```
 {
-    "code": 200,
+    "code": "200",
     "msg": "success",
     "data": {
         "id": 1,
@@ -3161,7 +3161,7 @@ data						|Object		|R			|&nbsp;
             "params": [{
                 "id": 2,
                 "name": "a",
-                "default": "12"
+                "def_val": "12"
             }]
         },
         "buildIn": "1",
@@ -3200,7 +3200,7 @@ viewLevel			|String			|R			|1:用户组，2：系统内全部人员，3：无限
 remark				|String			|R			|备注
 i18nCode			|String			|R			| name i18n code值
 nodeGroupIds		|Integer[]		|R			|节点组id
-nodeIds				|Integer[]		|R			|节点id
+nodeIds				|String[]		|R			|节点id
 
 示例：
 
@@ -3213,7 +3213,7 @@ nodeIds				|Integer[]		|R			|节点id
     "remark": "",
     "i18nCode": "",
     "nodeGroupIds": [1,2,3],
-    "nodeIds": [4,44,144]
+    "nodeIds": ["awe5r4a3w1fa6w8e54rw","hrdshs4tj4aw4e5Q4EQ","rqwerwat5wa5et75ew456"]
 }
 ```
 
@@ -3228,7 +3228,7 @@ msg							|string		|R			|&nbsp;
 
 ```
 {
-    "code": 200/xxx,
+    "code": "200/xxx",
     "msg": "success"
 }
 ```
@@ -3278,7 +3278,7 @@ msg							|string		|R			|&nbsp;
 
 ```
 {
-    "code": 200/xxx,
+    "code": "200/xxx",
     "msg": "success"
 }
 ```
@@ -3314,7 +3314,7 @@ msg							|string		|R			|&nbsp;
 
 ```
 {
-    "code": 200,
+    "code": "200",
     "msg": "success"
 }
 ```
@@ -3349,7 +3349,7 @@ msg							|string		|R			|&nbsp;
 
 ```
 {
-    "code": 200/xxx,
+    "code": "200/xxx",
     "msg": "true/false"
 }
 ```
@@ -3416,7 +3416,7 @@ data						|Object		|R			|&nbsp;
 
 ```
 {
-    "code": 200,
+    "code": "200",
     "msg": "success",
     "data": {
         "totalCount": 1,
@@ -3504,7 +3504,7 @@ data						|Object		|R			|&nbsp;
 
 ```
 {
-    "code": 200,
+    "code": "200",
     "msg": "success",
     "data": {
         "id": 1,
@@ -3594,7 +3594,7 @@ msg							|string		|R			|&nbsp;
 
 ```
 {
-    "code": 200/xxx,
+    "code": "200/xxx",
     "msg": "success"
 }
 ```
@@ -3656,7 +3656,7 @@ msg							|string		|R			|&nbsp;
 
 ```
 {
-    "code": 200/xxx,
+    "code": "200/xxx",
     "msg": "success"
 }
 ```
@@ -3692,7 +3692,7 @@ msg							|string		|R			|&nbsp;
 
 ```
 {
-    "code": 200,
+    "code": "200",
     "msg": "success"
 }
 ```
@@ -3726,7 +3726,7 @@ code						|int		|R			|响应码，详见 附录A
 
 ```
 {
-    "code": 200/xxx,
+    "code": "200/xxx",
     "msg": "true/false"
 }
 ```
@@ -3789,7 +3789,7 @@ data						|Object		|R			|&nbsp;
 
 ```
 {
-    "code": 200,
+    "code": "200",
     "msg": "success",
     "data": {
         "totalCount": 1,
@@ -3864,7 +3864,7 @@ data						|Object		|R			|&nbsp;
 
 ```
 {
-    "code": 200,
+    "code": "200",
     "msg": "success",
     "data": {
         "id": 1,
@@ -3877,15 +3877,15 @@ data						|Object		|R			|&nbsp;
         "isLoop": "0",
         "loopInterval": 1,
         "param": "",
-		"nodeGroups": [{
-			"id": 1,
-			"name": "hehe"
-		}],
+        "nodeGroups": [{
+            "id": 1,
+            "name": "hehe"
+        }],
 		"nodes": [{
-			"uuid": 2,
-			"name": "haha",
-			"ip": "10.20.20.10"
-		}]
+            "uuid": 2,
+            "name": "haha",
+            "ip": "10.20.20.10"
+        }]
         "remark": "",
         "operator": "admin",
         "opTime": "2007-07-07 07:07:07"
@@ -3942,14 +3942,14 @@ msg							|string		|R			|&nbsp;
 
 ```
 {
-    "code": 200/xxx,
+    "code": "200/xxx",
     "msg": "success"
 }
 ```
 
 ##### 2.4.1.4 任务修改
 
-- **接口说明：** 任务修改，只支持改名称、权限、备注
+- **接口说明：** 任务修改，只支持改名称、备注
 - **接口地址：** /mission/update
 - **请求方式：** PUT
 
@@ -3960,7 +3960,6 @@ msg							|string		|R			|&nbsp;
 id					|Integer		|R			|id
 name				|String			|R			|名称
 remark				|String			|O			|备注
-viewLevel			|String			|R			|查看权限 1:用户组，2：系统内全部人员，3：无限制，默认2
 
 示例：
 
@@ -3968,8 +3967,7 @@ viewLevel			|String			|R			|查看权限 1:用户组，2：系统内全部人员
 {
     "id": 9,
     "name": "cab9",
-    "remark": "en",
-    "viewLevel": "1"
+    "remark": "en"
 }
 ```
 
@@ -3984,7 +3982,7 @@ msg							|string		|R			|&nbsp;
 
 ```
 {
-    "code": 200/xxx,
+    "code": "200/xxx",
     "msg": "success"
 }
 ```
@@ -4021,7 +4019,7 @@ msg							|string		|R			|&nbsp;
 
 ```
 {
-    "code": 200/?,
+    "code": "200"/?,
     "msg": "success"
 }
 ```
@@ -4076,7 +4074,7 @@ data						|Object		|R			|&nbsp;
 
 ```
 {
-    "code": 200,
+    "code": "200",
     "msg": "success",
     "data": [{
         "id": 1,
@@ -4150,7 +4148,7 @@ data						|Object		|R			|&nbsp;
 
 ```
 {
-    "code": 200,
+    "code": "200",
     "msg": "success",
     "data": {
         "totalCount": 1,
@@ -4220,7 +4218,7 @@ data						|Object		|R			|&nbsp;
 
 ```
 {
-    "code": 200,
+    "code": "200",
     "msg": "success",
     "data": {
         "list": [{
@@ -4297,7 +4295,7 @@ data						|Object		|R			|&nbsp;
 
 ```
 {
-    "code": 200,
+    "code": "200",
     "msg": "success",
     "data": {
         "id": 1,
@@ -4386,7 +4384,7 @@ msg							|string		|R			|&nbsp;
 
 ```
 {
-    "code": 200/xxx,
+    "code": "200/xxx",
     "msg": "success"
 }
 ```
@@ -4460,7 +4458,7 @@ msg							|string		|R			|&nbsp;
 
 ```
 {
-    "code": 200,
+    "code": "200",
     "msg": "success"
 }
 ```
@@ -4504,7 +4502,7 @@ msg							|string		|R			|&nbsp;
 
 ```
 {
-    "code": 200/xxx,
+    "code": "200/xxx",
     "msg": "success"
 }
 ```
@@ -4548,7 +4546,7 @@ msg							|string		|R			|&nbsp;
 
 ```
 {
-    "code": 200/xxx,
+    "code": "200/xxx",
     "msg": "success"
 }
 ```
@@ -4584,7 +4582,7 @@ msg							|string		|R			|&nbsp;
 
 ```
 {
-    "code": 200,
+    "code": "200",
     "msg": "success"
 }
 ```
@@ -4621,7 +4619,7 @@ data						|Object		|R			|&nbsp;
 
 ```
 {
-    "code": 200,
+    "code": "200",
     "msg": "success",
     "data": {
         "list": [{
