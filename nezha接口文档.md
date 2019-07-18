@@ -2577,7 +2577,7 @@ data						|Object		|R			|&nbsp;
 &emsp;&emsp;id				|Integer	|R			|&nbsp;
 &emsp;&emsp;name			|String		|R			|名称，唯一索引
 &emsp;&emsp;method			|String		|R			|1、脚本，2、snmp，3、内置，默认：1，页面显示翻译后内容
-&emsp;&emsp;interval		|Integer	|R			|监控间隔，单位：s，默认：60
+&emsp;&emsp;dete_interval	|Integer	|R			|监控间隔，单位：s，默认：60
 &emsp;&emsp;content			|String		|R			|1、脚本储存路径，2、oid，可以为空，3、类全路径
 &emsp;&emsp;buildIn			|String		|R			|1、隐藏界面不显示，2、内置，不允许修改，3、用户自定义，默认3
 &emsp;&emsp;version			|Integer	|R			|更新version加1，默认：1
@@ -2599,7 +2599,7 @@ data						|Object		|R			|&nbsp;
            "name": "",
            "viewLevel": "",
            "method": "",
-           "interval": 1,
+           "dete_interval": 1,
            "content": "",
            "buildIn": "",
            "tableName": "",
@@ -2639,7 +2639,7 @@ data						|Object		|R			|&nbsp;
 &emsp;id					|Integer	|R			|&nbsp;
 &emsp;name					|String		|R			|名称，唯一索引
 &emsp;method				|String		|R			|1、脚本，2、snmp，3、内置，默认：1，显示翻译后的内容
-&emsp;interval				|Integer	|R			|监控间隔，单位：s，默认：60
+&emsp;dete_interval			|Integer	|R			|监控间隔，单位：s，默认：60
 &emsp;content				|String		|R			|1、脚本储存路径，2、oid，可以为空，3、类全路径
 &emsp;i18nCode				|String		|R			|name 的国际化 code，不为空时name显示翻译后的内容，为空直接显示
 &emsp;remark				|String		|R			|备注
@@ -2675,7 +2675,7 @@ data						|Object		|R			|&nbsp;
         "id": 1,
         "name": "enc",
         "method": "脚本",
-        "interval": 60,
+        "dete_interval": 60,
         "content": "",
         "i18nCode": "cpu监测",
         "remark": "",
@@ -2719,7 +2719,7 @@ data						|Object		|R			|&nbsp;
 name				|String			|R			|唯一索引
 viewLevel			|String			|R			|1:用户组，2：系统内全部人员，3：无限制，默认2
 method				|String			|R			|1、脚本，2、snmp，3、内置，默认：1
-interval			|Integer		|R			|监控间隔，单位：s，默认：60
+dete_interval		|Integer		|R			|监控间隔，单位：s，默认：60
 content				|String			|R			|1、脚本储存路径，2、oid，可以为空，3、类全路径
 i18nCode			|String			|R			|name 的国际化 code，不为空时name显示翻译后的内容，为空直接显示
 remark				|String			|R			|备注
@@ -2815,7 +2815,7 @@ id					|Integer		|R			|id
 name				|String			|R			|唯一索引
 viewLevel			|String			|R			|1:用户组，2：系统内全部人员，3：无限制，默认2
 method				|String			|R			|1、脚本，2、snmp，3、内置，默认：1
-interval			|Integer		|R			|监控间隔，单位：s，默认：60
+dete_interval		|Integer		|R			|监控间隔，单位：s，默认：60
 content				|String			|R			|1、脚本储存路径，2、oid，可以为空，3、类全路径
 i18nCode			|String			|R			|name 的国际化 code，不为空时name显示翻译后的内容，为空直接显示
 remark				|String			|R			|备注
