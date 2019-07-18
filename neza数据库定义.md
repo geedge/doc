@@ -176,7 +176,7 @@
 |id		|主键	|BIGINT(19)		|NO	|			|
 |name		|参数名称	|VARCHAR(32)		|NO	|参数名称			|
 |type_id	|类别id	|BIGINT(19)		|NO	|类别id			|
-|index		|参数索引	|INT(10)		|NO	|参数索引			|
+|param_index|参数索引	|INT(10)		|NO	|参数索引			|
 |def_val	|参数默认值	|VARCHAR(256)		|NO	|参数默认值			|
 |remark		|备注	|VARCHAR(255)		|NO	|备注			|
 |del_flag	|是否删除	|CHAR(1)		|NO	|是否删除，1：删除，0：未删除，默认：0			|
