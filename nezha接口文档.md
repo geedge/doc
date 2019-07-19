@@ -113,6 +113,12 @@
 - &emsp;&emsp;&emsp;[2.5.1.7 拓扑图连线修改](#2516-拓扑图连线修改)
 - &emsp;&emsp;&emsp;[2.5.1.8 拓扑图连线删除](#2517-拓扑图连线删除)
 - &emsp;&emsp;&emsp;[2.5.1.9 拓扑节点静态图片列表查询](#2518-拓扑节点静态图片列表查询)
+- &emsp;[2.6 仪表盘](#26-仪表盘)
+- &emsp;&emsp;[2.6.1 仪表盘管理](#261-仪表盘管理)
+- &emsp;&emsp;&emsp;[2.6.1.1 仪表盘列表查询](#2611-仪表盘列表查询)
+- &emsp;&emsp;&emsp;[2.6.1.2 仪表盘新增](#2612-仪表盘新增)
+- &emsp;&emsp;&emsp;[2.6.1.3 仪表盘修改](#2613-仪表盘修改)
+- &emsp;&emsp;&emsp;[2.6.1.4 仪表盘删除](#2614-仪表盘删除)
 - [3 附录A 响应码说明](#3-附录a-响应码说明)
 
 
@@ -163,7 +169,7 @@ data						|object		|R			|每个接口特有的参数，详见每个接口定义
 
 ```
 {
-    "code": "200",
+    "code": 200,
     "msg": "success",
     "data": {
         "totalCount": 1,
@@ -196,7 +202,8 @@ data						|object		|R			|每个接口特有的参数，详见每个接口定义
 :----				|:---			|:------	|:---	
 page				|Integer		|O			|页码，为空时默认为1
 limit				|Integer		|O			|每页记录数，为空时默认为10
-order	 			|String 		|O			|排序
+sidx				|String			|O			|排序字段
+order	 			|String 		|O			|排序方式(asc/desc)
 ip       			|String 		|O			|查询ip
 state 		    	|String			|O			|设备状态，1：在线，2：下线
 type      			|String 		|O			|设备类型 数字1|2, 1：server,2：net
@@ -209,7 +216,7 @@ name				|String			|O			|名称
 示例：
 
 ```
-GET /node/list?pageSize=20&currPage=1&ip=192.168.1.1&state=1&tag=1&type=1&cabinetId=12&order=asc
+GET /node/list?limit=20&page=1&ip=192.168.1.1&state=1&tag=1&type=1&cabinetId=12&sidx=id&order=asc
 
 ```
 
@@ -252,7 +259,7 @@ data						|object		|R			|&nbsp;
 
 ```
 {
-    "code": "200",
+    "code": 200,
     "msg": "success",
     "data": {
         "totalCount": 1,
@@ -341,7 +348,7 @@ data						|object		|R			|&nbsp;
 
 ```
 {
-    "code": "200",
+    "code": 200,
     "msg": "success",
     "data": {
         "name": "node1",
@@ -428,12 +435,12 @@ msg							|string		|R			|&nbsp;
 ```
 成功
 {
-    "code": "200",
+    "code": 200,
     "msg": "success"
 }
 失败
 {
-    "code": "xxx",
+    "code": xxx,
     "msg": "机柜该位置无法使用"
 }
 ```
@@ -494,12 +501,12 @@ msg							|string		|R			|&nbsp;
 ```
 成功
 {
-    "code": "200",
+    "code": 200,
     "msg": "success"
 }
 失败
 {
-    "code": "xxx",
+    "code": xxx,
     "msg": "机柜该位置无法使用"
 }
 ```
@@ -537,7 +544,7 @@ msg							|String		|R			|&nbsp;
 
 ```
 {
-    "code": "200",
+    "code": 200,
     "msg": "success"
 }
 ```
@@ -580,7 +587,7 @@ data						|Object		|R			|&nbsp;
 
 ```
 {
-    "code": "200",
+    "code": 200,
     "msg": "success",
     "data": {
         "list": [{
@@ -627,12 +634,12 @@ msg							|String		|R			|&nbsp;
 ```
 成功
 {
-	"code": "200",
+	"code": 200,
     "msg": "success"
 }
 失败
 {
-	"code": "xxx",
+	"code": xxx,
     "msg": "IP已被占用"
 }
 ```
@@ -668,12 +675,12 @@ msg							|String		|R			|&nbsp;
 ```
 成功
 {
-	"code": "200",
+	"code": 200,
     "msg": "success"
 }
 失败
 {
-	"code": "xxx",
+	"code": xxx,
     "msg": "名称已被占用"
 }
 ```
@@ -719,7 +726,7 @@ data						|Object		|R			|&nbsp;
 
 ```
 {
-    "code": "200",
+    "code": 200,
     "msg": "success",
     "data": {
         "list": [{
@@ -770,7 +777,7 @@ data						|Object		|R			|&nbsp;
 
 ```
 {
-    "code": "200",
+    "code": 200,
     "msg": "success",
     "data": {
         "id": 8,
@@ -823,12 +830,12 @@ msg							|string		|R			|&nbsp;
 
 ```
 {
-    "code": "200",
+    "code": 200,
     "msg": "success"
 }
 失败
 {
-    "code": "xxx",
+    "code": xxx,
     "msg": "原因"
 }
 ```
@@ -868,12 +875,12 @@ msg							|string		|R			|&nbsp;
 
 ```
 {
-    "code": "200",
+    "code": 200,
     "msg": "success"
 }
 失败
 {
-    "code": "xxx",
+    "code": xxx,
     "msg": "原因"
 }
 ```
@@ -909,7 +916,7 @@ msg							|string		|R			|&nbsp;
 
 ```
 {
-    "code": "200",
+    "code": 200,
     "msg": "success"
 }
 ```
@@ -926,7 +933,8 @@ msg							|string		|R			|&nbsp;
 :----				|:---			|:------	|:---	
 page				|Integer		|O			|页码，为空时默认为1
 limit				|Integer		|O			|每页记录数，为空时默认为10
-order	 			|String 		|O			|排序
+sidx				|String			|O			|排序字段
+order	 			|String 		|O			|排序方式(asc/desc)
 groupId				|Integer		|R			|节点组id
 systemId			|Integer		|R			|业务系统id
 ip					|String			|O			|ip查询条件,支持模糊查询
@@ -959,7 +967,7 @@ data						|object		|R			|&nbsp;
 
 ```
 {
-    "code": "200",
+    "code": 200,
     "msg": "success",
     "data": {
         "totalCount": 1,
@@ -1010,7 +1018,7 @@ msg							|string		|R			|&nbsp;
 
 ```
 {
-    "code": "200",
+    "code": 200,
     "msg": "success"
 }
 ```
@@ -1048,7 +1056,7 @@ msg							|string		|R			|&nbsp;
 
 ```
 {
-    "code": "200",
+    "code": 200,
     "msg": "success"
 }
 ```
@@ -1084,12 +1092,12 @@ msg							|string		|R			|&nbsp;
 
 ```
 {
-    "code": "200",
+    "code": 200,
     "msg": "success"
 }
 失败
 {
-    "code": "xxx",
+    "code": xxx,
     "msg": "原因"
 }
 ```
@@ -1109,14 +1117,15 @@ msg							|string		|R			|&nbsp;
 :----				|:---			|:------	|:---	
 page				|Integer		|O			|页码，为空时默认为1
 limit				|Integer		|O			|每页记录数，为空时默认为10
-order	 			|String 		|O			|排序
+sidx				|String			|O			|排序字段
+order	 			|String 		|O			|排序方式(asc/desc)
 name				|String			|O			|机房名称
 area				|Integer		|O			|所属区域
 
 示例：
 
 ```
-GET /room/list?pageSize=10&currPage=2&name=room2&area=43
+GET /room/list?limit=10&page=2&name=room2&area=43
 ```
 
 ###### 返回结果
@@ -1141,7 +1150,7 @@ data						|Object		|R			|&nbsp;
 
 ```
 {
-    "code": "200",
+    "code": 200,
     "msg": "success",
     "data": {
         "totalCount": 1,
@@ -1195,7 +1204,7 @@ data						|Object		|R			|&nbsp;
 
 ```
 {
-    "code": "200",
+    "code": 200,
     "msg": "success",
     "data": {
         "id": 1,
@@ -1247,12 +1256,12 @@ msg							|string		|R			|&nbsp;
 
 ```
 {
-    "code": "200",
+    "code": 200,
     "msg": "success"
 }
 失败
 {
-    "code": "xxx",
+    "code": xxx,
     "msg": "原因"
 }
 ```
@@ -1299,12 +1308,12 @@ msg							|string		|R			|&nbsp;
 
 ```
 {
-    "code": "200",
+    "code": 200,
     "msg": "success"
 }
 失败
 {
-    "code": "xxx",
+    "code": xxx,
     "msg": "原因"
 }
 ```
@@ -1340,12 +1349,12 @@ msg							|string		|R			|&nbsp;
 
 ```
 {
-    "code": "200",
+    "code": 200,
     "msg": "success"
 }
 失败
 {
-    "code": "xxx",
+    "code": xxx,
     "msg": "存在关联的机柜"
 }
 ```
@@ -1380,12 +1389,12 @@ msg							|string		|R			|&nbsp;
 
 ```
 {
-    "code": "200",
+    "code": 200,
     "msg": "success"
 }
 失败
 {
-    "code": "xxx",
+    "code": xxx,
     "msg": "原因"
 }
 ```
@@ -1421,12 +1430,12 @@ msg							|string		|R			|&nbsp;
 
 ```
 {
-    "code": "200",
+    "code": 200,
     "msg": "success"
 }
 失败
 {
-    "code": "xxx",
+    "code": xxx,
     "msg": "原因"
 }
 ```
@@ -1449,14 +1458,15 @@ msg							|string		|R			|&nbsp;
 :----				|:---			|:------	|:---	
 page				|Integer		|O			|页码，为空时默认为1
 limit				|Integer		|O			|每页记录数，为空时默认为10
-order	 			|String 		|O			|排序
+sidx				|String			|O			|排序字段
+order	 			|String 		|O			|排序方式(asc/desc)
 name				|String			|O			|机柜名称
 roomId				|Integer		|O			|所属机房id
 
 示例：
 
 ```
-GET /cab/list?pageSize=10&currPage=2&name=cab3&roomId=2
+GET /cab/list?limit=10&page=2&name=cab3&roomId=2
 ```
 
 ###### 返回结果
@@ -1482,7 +1492,7 @@ data						|Object		|R			|&nbsp;
 
 ```
 {
-    "code": "200",
+    "code": 200,
     "msg": "success",
     "data": [{
         "totalCount": 1,
@@ -1544,7 +1554,7 @@ data						|Object		|R			|&nbsp;
 
 ```
 {
-    "code": "200",
+    "code": 200,
     "msg": "success",
     "data": {
         "id": 1,
@@ -1606,7 +1616,7 @@ msg							|string		|R			|&nbsp;
 
 ```
 {
-    "code": "200/xxx"
+    "code": 200/xxx,
     "msg": "xxx"
 }
 ```
@@ -1652,7 +1662,7 @@ msg							|string		|R			|&nbsp;
 
 ```
 {
-    "code": "200/xxx"
+    "code": 200/xxx,
     "msg": "xxx"
 }
 ```
@@ -1688,7 +1698,7 @@ msg							|string		|R			|&nbsp;
 
 ```
 {
-    "code": "200/xxx"
+    "code": 200/xxx,
     "msg": "success/存在关联的节点"
 }
 ```
@@ -1724,7 +1734,7 @@ msg							|string		|R			|&nbsp;
 
 ```
 {
-    "code": "200/xxx"
+    "code": 200/xxx,
     "msg": "xxx"
 }
 ```
@@ -1759,7 +1769,7 @@ msg							|string		|R			|&nbsp;
 
 ```
 {
-    "code": "200/xxx"
+    "code": 200/xxx,
     "msg": "xxx"
 }
 ```
@@ -1800,7 +1810,7 @@ data						|Object		|R			|&nbsp;
 
 ```
 {
-    "code": "200",
+    "code": 200,
     "msg": "success",
     "data": {
         "list": [{
@@ -1836,13 +1846,14 @@ data						|Object		|R			|&nbsp;
 :----				|:---			|:------	|:---	
 page				|Integer		|O			|页码，为空时默认为1
 limit				|Integer		|O			|每页记录数，为空时默认为10
-order	 			|String 		|O			|排序
+sidx				|String			|O			|排序字段
+order	 			|String 		|O			|排序方式(asc/desc)
 usergroupId			|Integer		|C			|用户组id
 
 示例：
 
 ```
-GET /system/list?pageSize=10&currPage=2
+GET /system/list?limit=10&page=2
 ```
 
 ###### 返回结果
@@ -1868,7 +1879,7 @@ data						|Object		|R			|&nbsp;
 
 ```
 {
-    "code": "200",
+    "code": 200,
     "msg": "success",
     "data": {
         "totalCount": 1,
@@ -1929,7 +1940,7 @@ data						|Object		|R			|&nbsp;
 
 ```
 {
-    "code": "200",
+    "code": 200,
     "msg": "success",
     "data": {
         "id": 1,
@@ -1989,7 +2000,7 @@ msg							|string		|R			|&nbsp;
 
 ```
 {
-    "code": "200/xxx"
+    "code": 200/xxx,
     "msg": "xxx"
 }
 ```
@@ -2031,7 +2042,7 @@ msg							|string		|R			|&nbsp;
 
 ```
 {
-    "code": "200/xxx"
+    "code": 200/xxx,
     "msg": "xxx"
 }
 ```
@@ -2067,7 +2078,7 @@ msg							|string		|R			|&nbsp;
 
 ```
 {
-    "code": "200"
+    "code": 200
     "msg": "xxx"
 }
 ```
@@ -2116,7 +2127,7 @@ data						|Object		|R			|&nbsp;
 
 ```
 {
-    "code": "200",
+    "code": 200,
     "msg": "success",
     "data": {
         "totalCount": 1,
@@ -2168,7 +2179,7 @@ msg							|string		|R			|&nbsp;
 
 ```
 {
-    "code": "200",
+    "code": 200,
     "msg": "success"
 }
 ```
@@ -2203,7 +2214,7 @@ msg							|string		|R			|&nbsp;
 
 ```
 {
-    "code": "200",
+    "code": 200,
     "msg": "success"
 }
 ```
@@ -2238,7 +2249,7 @@ msg							|string		|R			|&nbsp;
 
 ```
 {
-    "code": "200",
+    "code": 200,
     "msg": "success"
 }
 ```
@@ -2262,13 +2273,14 @@ msg							|string		|R			|&nbsp;
 :----				|:---			|:------	|:---	
 page				|Integer		|O			|页码，为空时默认为1
 limit				|Integer		|O			|每页记录数，为空时默认为10
-order	 			|String 		|O			|排序
+sidx				|String			|O			|排序字段
+order	 			|String 		|O			|排序方式(asc/desc)
 systemId			|Integer		|C			|业务系统id
 
 示例：
 
 ```
-GET /usergroup/list?pageSize=10&currPage=2&systemId=4
+GET /usergroup/list?limit=10&page=2&systemId=4
 ```
 
 ###### 返回结果
@@ -2296,7 +2308,7 @@ data						|Object		|R			|&nbsp;
 
 ```
 {
-    "code": "200",
+    "code": 200,
     "msg": "success",
     "data": {
         "totalCount": 1,
@@ -2358,7 +2370,7 @@ data						|Object		|R			|&nbsp;
 
 ```
 {
-    "code": "200",
+    "code": 200,
     "msg": "success",
     "data": {
         "id": 1,
@@ -2413,7 +2425,7 @@ msg							|string		|R			|&nbsp;
 
 ```
 {
-    "code": "200/xxx",
+    "code": 200/xxx,
     "msg": "success"
 }
 ```
@@ -2457,7 +2469,7 @@ msg							|string		|R			|&nbsp;
 
 ```
 {
-    "code": "200/xxx",
+    "code": 200/xxx,
     "msg": "success"
 }
 ```
@@ -2493,7 +2505,7 @@ msg							|string		|R			|&nbsp;
 
 ```
 {
-    "code": "200",
+    "code": 200,
     "msg": "success"
 }
 ```
@@ -2532,7 +2544,7 @@ msg							|string		|R			|&nbsp;
 
 ```
 {
-    "code": "200/xxx",
+    "code": 200/xxx,
     "msg": "success"
 }
 ```
@@ -2554,13 +2566,14 @@ msg							|string		|R			|&nbsp;
 :----				|:---			|:------	|:---	
 page				|Integer		|O			|页码，为空时默认为1
 limit				|Integer		|O			|每页记录数，为空时默认为10
-order	 			|String 		|O			|排序
+sidx				|String			|O			|排序字段
+order	 			|String 		|O			|排序方式(asc/desc)
 name				|String			|O			|监测类别
 
 示例：
 
 ```
-GET /deteType/list?pageSize=10&currPage=2&name=cpu
+GET /deteType/list?limit=10&page=2&name=cpu
 ```
 
 ###### 返回结果
@@ -2588,7 +2601,7 @@ data						|Object		|R			|&nbsp;
 
 ```
 {
-    "code": "200",
+    "code": 200,
     "msg": "success",
     "data": {
         "totalCount": 1,
@@ -2669,7 +2682,7 @@ data						|Object		|R			|&nbsp;
 
 ```
 {
-    "code": "200",
+    "code": 200,
     "msg": "success",
     "data": {
         "id": 1,
@@ -2796,7 +2809,7 @@ msg							|string		|R			|&nbsp;
 
 ```
 {
-    "code": "200/xxx",
+    "code": 200/xxx,
     "msg": "success"
 }
 ```
@@ -2893,7 +2906,7 @@ msg							|string		|R			|&nbsp;
 
 ```
 {
-    "code": "200/xxx",
+    "code": 200/xxx,
     "msg": "success"
 }
 ```
@@ -2929,27 +2942,31 @@ msg							|string		|R			|&nbsp;
 
 ```
 {
-    "code": "200",
+    "code": 200,
     "msg": "success"
 }
 ```
 
 ##### 2.3.1.6 元数据字典查询
 
-- **接口说明：** 监测类别字典查询
-- **接口地址：** /deteType/dic
+- **接口说明：** 元数据字典查询，用于元数据选择字典或者字典管理
+- **接口地址：** /deteType/dicList
 - **请求方式：** GET
 
 ###### 请求参数
   
 参数名称			|类型			|出现要求	|描述  
 :----				|:---			|:------	|:---	
-type				|Integer		|C			|类型，字典管理页用
+type				|Integer		|C			|类型，字典管理用
+page				|Integer		|C			|页码，为空时默认为1，字典管理用
+limit				|Integer		|C			|每页记录数，为空时默认为10，字典管理用
+sidx				|String			|C			|排序字段，字典管理用
+order	 			|String 		|C			|排序方式(asc/desc)，字典管理用
 
 示例：
 
 ```
-GET /deteType/dic
+GET /deteType/dicList
 ```
 
 ###### 返回结果
@@ -2959,21 +2976,28 @@ GET /deteType/dic
 code						|int		|R			|响应码，详见 附录A
 msg							|string		|R			|&nbsp;
 data						|Object		|R			|&nbsp;
-&emsp;type					|Integer	|R			|映射类型
-&emsp;mappings				|Object[]	|R			|映射内容
-&emsp;&emsp;id				|String		|R			|mapping表主键
-&emsp;&emsp;val				|String		|R			|原值
-&emsp;&emsp;mapping			|String		|R			|映射后值
+&emsp;totalCount			|int		|C			|字典管理用
+&emsp;totalPage				|int		|C			|字典管理用
+&emsp;currPage				|int		|C			|字典管理用
+&emsp;list					|Object[]	|R			|&nbsp;
+&emsp;&emsp;type			|String		|R			|映射类型
+&emsp;&emsp;mappings		|Object[]	|R			|映射内容
+&emsp;&emsp;&emsp;id		|String		|R			|mapping表主键
+&emsp;&emsp;&emsp;val		|String		|R			|原值
+&emsp;&emsp;&emsp;mapping	|String		|R			|映射后值
 
 示例：
 
 ```
 {
-    "code": "200",
+    "code": 200,
     "msg": "success",
     "data": {
+        "totalCount": 1,
+        "totalPage": 1,
+        "currPage": 1,
         "list": [{
-            "type": 18,
+            "type": "name",
             "mappings": [{
                 "id": 11,
                 "val": "1",
@@ -2984,7 +3008,138 @@ data						|Object		|R			|&nbsp;
 }
 ```
 
-##### 2.3.1.7 监测类别名称校验
+##### 2.3.1.7 元数据字典新增
+
+- **接口说明：** 元数据字典新增
+- **接口地址：** /deteType/saveDic
+- **请求方式：** POST
+
+###### 请求参数
+  
+参数名称			|类型			|出现要求	|描述  
+:----				|:---			|:------	|:---	
+type				|String			|R			|映射类型，前端页面上可选择、可新增
+mappings			|Object[]		|R			|映射值
+&emsp;id			|Object			|R			|id
+&emsp;val			|String			|R			|原值
+&emsp;mapping		|String			|R			|映射后值
+
+示例：
+
+```
+{
+    "type": "cpuuu",
+    "mappings": [{
+        "id": 1,
+        "val": "2",
+        "mapping": "不正常"
+	}]
+}
+```
+
+###### 返回结果
+
+参数名称					|类型		|出现要求	|描述  
+:----						|:---		|:------	|:---	
+code						|int		|R			|响应码，详见 附录A
+msg							|string		|R			|&nbsp;
+
+示例：
+
+```
+{
+    "code": 200,
+    "msg": "success"
+}
+```
+
+##### 2.3.1.8 元数据字典修改
+
+- **接口说明：** 元数据字典修改
+- **接口地址：** /deteType/updateDic
+- **请求方式：** PUT
+
+###### 请求参数
+  
+参数名称			|类型			|出现要求	|描述  
+:----				|:---			|:------	|:---	
+type				|String			|R			|映射类型，前端页面上可选择、可新增
+mappings			|Object[]		|R			|映射值
+&emsp;id			|Object			|O			|id 为空表示这一条映射是新增的
+&emsp;val			|String			|R			|原值
+&emsp;mapping		|String			|R			|映射后值
+
+示例：
+
+```
+{
+    "type": "cpuuu",
+    "mappings": [{
+        "val": "2",
+        "mapping": "不正常"
+    },
+    {
+        "id": 2,
+        "val": "2",
+        "mapping": "不正常"
+    },
+	]
+}
+```
+
+###### 返回结果
+
+参数名称					|类型		|出现要求	|描述  
+:----						|:---		|:------	|:---	
+code						|int		|R			|响应码，详见 附录A
+msg							|string		|R			|&nbsp;
+
+示例：
+
+```
+{
+    "code": 200,
+    "msg": "success"
+}
+```
+
+##### 2.3.1.9 元数据字典删除
+
+- **接口说明：** 元数据字典删除
+- **接口地址：** /deteType/deleteDic
+- **请求方式：** DELETE
+
+###### 请求参数
+  
+参数名称			|类型			|出现要求	|描述  
+:----				|:---			|:------	|:---	
+type				|String			|R			|类型
+
+示例：
+
+```
+{
+    "id": 35
+}
+```
+
+###### 返回结果
+
+参数名称					|类型		|出现要求	|描述  
+:----						|:---		|:------	|:---	
+code						|int		|R			|响应码，详见 附录A
+msg							|string		|R			|&nbsp;
+
+示例：
+
+```
+{
+    "code": 200,
+    "msg": "success"
+}
+```
+
+##### 2.3.1.10 监测类别名称校验
 
 - **接口说明：** 监测类别名称校验，不能重复
 - **接口地址：** /deteType/nameCheck
@@ -3014,7 +3169,7 @@ msg							|string		|R			|&nbsp;
 
 ```
 {
-    "code": "200/xxx",
+    "code": 200/xxx,
     "msg": "true/false"
 }
 ```
@@ -3034,14 +3189,15 @@ msg							|string		|R			|&nbsp;
 :----				|:---			|:------	|:---	
 page				|Integer		|O			|页码，为空时默认为1
 limit				|Integer		|O			|每页记录数，为空时默认为10
-order	 			|String 		|O			|排序
+sidx				|String			|O			|排序字段
+order	 			|String 		|O			|排序方式(asc/desc)
 name				|String			|O			|监测设置
 typeId				|Integer		|O			|监测类别ID
 
 示例：
 
 ```
-GET /deteSet/list?pageSize=10&currPage=2&name=cpu
+GET /deteSet/list?limit=10&page=2&name=cpu
 ```
 
 ###### 返回结果
@@ -3073,7 +3229,7 @@ data						|Object		|R			|&nbsp;
 
 ```
 {
-    "code": "200",
+    "code": 200,
     "msg": "success",
     "data": {
         "totalCount": 1,
@@ -3150,7 +3306,7 @@ data						|Object		|R			|&nbsp;
 
 ```
 {
-    "code": "200",
+    "code": 200,
     "msg": "success",
     "data": {
         "id": 1,
@@ -3228,7 +3384,7 @@ msg							|string		|R			|&nbsp;
 
 ```
 {
-    "code": "200/xxx",
+    "code": 200/xxx,
     "msg": "success"
 }
 ```
@@ -3278,7 +3434,7 @@ msg							|string		|R			|&nbsp;
 
 ```
 {
-    "code": "200/xxx",
+    "code": 200/xxx,
     "msg": "success"
 }
 ```
@@ -3314,7 +3470,7 @@ msg							|string		|R			|&nbsp;
 
 ```
 {
-    "code": "200",
+    "code": 200,
     "msg": "success"
 }
 ```
@@ -3349,7 +3505,7 @@ msg							|string		|R			|&nbsp;
 
 ```
 {
-    "code": "200/xxx",
+    "code": 200/xxx,
     "msg": "true/false"
 }
 ```
@@ -3369,14 +3525,15 @@ msg							|string		|R			|&nbsp;
 :----				|:---			|:------	|:---	
 page				|Integer		|O			|页码，为空时默认为1
 limit				|Integer		|O			|每页记录数，为空时默认为10
-order	 			|String 		|O			|排序
+sidx				|String			|O			|排序字段
+order	 			|String 		|O			|排序方式(asc/desc)
 setId				|Integer		|O			|监测设置ID
 typeId				|Integer		|O			|监测类别ID
 
 示例：
 
 ```
-GET /deteWarn/list?pageSize=10&currPage=2&setId=12
+GET /deteWarn/list?limit=10&page=2&setId=12
 ```
 
 ###### 返回结果
@@ -3416,7 +3573,7 @@ data						|Object		|R			|&nbsp;
 
 ```
 {
-    "code": "200",
+    "code": 200,
     "msg": "success",
     "data": {
         "totalCount": 1,
@@ -3504,7 +3661,7 @@ data						|Object		|R			|&nbsp;
 
 ```
 {
-    "code": "200",
+    "code": 200,
     "msg": "success",
     "data": {
         "id": 1,
@@ -3594,7 +3751,7 @@ msg							|string		|R			|&nbsp;
 
 ```
 {
-    "code": "200/xxx",
+    "code": 200/xxx,
     "msg": "success"
 }
 ```
@@ -3656,7 +3813,7 @@ msg							|string		|R			|&nbsp;
 
 ```
 {
-    "code": "200/xxx",
+    "code": 200/xxx,
     "msg": "success"
 }
 ```
@@ -3692,7 +3849,7 @@ msg							|string		|R			|&nbsp;
 
 ```
 {
-    "code": "200",
+    "code": 200,
     "msg": "success"
 }
 ```
@@ -3726,7 +3883,7 @@ code						|int		|R			|响应码，详见 附录A
 
 ```
 {
-    "code": "200/xxx",
+    "code": 200/xxx,
     "msg": "true/false"
 }
 ```
@@ -3748,7 +3905,8 @@ code						|int		|R			|响应码，详见 附录A
 :----				|:---			|:------	|:---	
 page				|Integer		|O			|页码，为空时默认为1
 limit				|Integer		|O			|每页记录数，为空时默认为10
-order	 			|String 		|O			|排序
+sidx				|String			|O			|排序字段
+order	 			|String 		|O			|排序方式(asc/desc)
 isLoop				|String			|O			|是否周期任务 0：不是，1：是
 type				|String			|O			|任务类型 1：文件推送，2：命令执行，3：升级部署
 isLoop				|String			|O			|是否周期任务 0：不是，1：是
@@ -3757,7 +3915,7 @@ name				|String			|O			|任务名称
 示例：
 
 ```
-GET /usergroup/list?pageSize=10&currPage=2&name=file&isLoop=0
+GET /usergroup/list?limit=10&page=2&name=file&isLoop=0
 ```
 
 ###### 返回结果
@@ -3789,7 +3947,7 @@ data						|Object		|R			|&nbsp;
 
 ```
 {
-    "code": "200",
+    "code": 200,
     "msg": "success",
     "data": {
         "totalCount": 1,
@@ -3864,7 +4022,7 @@ data						|Object		|R			|&nbsp;
 
 ```
 {
-    "code": "200",
+    "code": 200,
     "msg": "success",
     "data": {
         "id": 1,
@@ -3942,7 +4100,7 @@ msg							|string		|R			|&nbsp;
 
 ```
 {
-    "code": "200/xxx",
+    "code": 200/xxx,
     "msg": "success"
 }
 ```
@@ -3982,7 +4140,7 @@ msg							|string		|R			|&nbsp;
 
 ```
 {
-    "code": "200/xxx",
+    "code": 200/xxx,
     "msg": "success"
 }
 ```
@@ -4019,7 +4177,7 @@ msg							|string		|R			|&nbsp;
 
 ```
 {
-    "code": "200"/?,
+    "code": 200/?,
     "msg": "success"
 }
 ```
@@ -4074,7 +4232,7 @@ data						|Object		|R			|&nbsp;
 
 ```
 {
-    "code": "200",
+    "code": 200,
     "msg": "success",
     "data": [{
         "id": 1,
@@ -4148,7 +4306,7 @@ data						|Object		|R			|&nbsp;
 
 ```
 {
-    "code": "200",
+    "code": 200,
     "msg": "success",
     "data": {
         "totalCount": 1,
@@ -4218,7 +4376,7 @@ data						|Object		|R			|&nbsp;
 
 ```
 {
-    "code": "200",
+    "code": 200,
     "msg": "success",
     "data": {
         "list": [{
@@ -4295,7 +4453,7 @@ data						|Object		|R			|&nbsp;
 
 ```
 {
-    "code": "200",
+    "code": 200,
     "msg": "success",
     "data": {
         "id": 1,
@@ -4384,7 +4542,7 @@ msg							|string		|R			|&nbsp;
 
 ```
 {
-    "code": "200/xxx",
+    "code": 200/xxx,
     "msg": "success"
 }
 ```
@@ -4458,7 +4616,7 @@ msg							|string		|R			|&nbsp;
 
 ```
 {
-    "code": "200",
+    "code": 200,
     "msg": "success"
 }
 ```
@@ -4502,7 +4660,7 @@ msg							|string		|R			|&nbsp;
 
 ```
 {
-    "code": "200/xxx",
+    "code": 200/xxx,
     "msg": "success"
 }
 ```
@@ -4546,7 +4704,7 @@ msg							|string		|R			|&nbsp;
 
 ```
 {
-    "code": "200/xxx",
+    "code": 200/xxx,
     "msg": "success"
 }
 ```
@@ -4582,14 +4740,14 @@ msg							|string		|R			|&nbsp;
 
 ```
 {
-    "code": "200",
+    "code": 200,
     "msg": "success"
 }
 ```
 
 ##### 2.5.1.9 拓扑节点静态图片列表查询
 
-- **接口说明：** 拓扑节点静态图片列表查询
+- **接口说明：** 拓扑节点静态图片列表查询，查询sys_dict表获取所有节点图片
 - **接口地址：** /topo/imgList
 - **请求方式：** GET
 
@@ -4619,7 +4777,7 @@ data						|Object		|R			|&nbsp;
 
 ```
 {
-    "code": "200",
+    "code": 200,
     "msg": "success",
     "data": {
         "list": [{
@@ -4627,6 +4785,227 @@ data						|Object		|R			|&nbsp;
             "value": "/static/img/xxx"
         }]
     }
+}
+```
+
+
+### 2.6 仪表盘
+
+#### 2.6.1 仪表盘管理
+
+##### 2.6.1.1 仪表盘列表查询
+
+- **接口说明：** 仪表盘列表查询
+- **接口地址：** /dashboard/list
+- **请求方式：** GET
+
+###### 请求参数
+  
+参数名称			|类型			|出现要求	|描述  
+:----				|:---			|:------	|:---	
+page				|Integer		|O			|页码，为空时默认为1
+limit				|Integer		|O			|每页记录数，为空时默认为10
+sidx				|String			|O			|排序字段
+order	 			|String 		|O			|排序方式(asc/desc)
+id       			|String 		|O			|id
+systemId			|Integer		|C			|业务系统id，当操作人在global下时，传这个参数可以查看其他业务系统
+
+示例：
+
+```
+GET /dashboard/list?limit=20&page=1&systemId
+
+```
+
+
+###### 返回结果
+
+参数名称					|类型		|出现要求	|描述  
+:----						|:---		|:------	|:---	
+code						|int		|R			|响应码，详见 附录A
+msg							|string		|R			|&nbsp;
+data						|object		|R			|&nbsp;
+&emsp;totalCount			|int		|R			|&nbsp;
+&emsp;totalPage				|int		|R			|&nbsp;
+&emsp;currPage				|int		|R			|&nbsp;
+&emsp;list					|Object[]	|R			|&nbsp;
+&emsp;&emsp;id				|Integer	|R			|主键
+&emsp;&emsp;name			|String		|R			|图表标题
+&emsp;&emsp;chartType		|Integer	|R			|图表类型
+&emsp;&emsp;x				|Integer	|R			|x轴起点
+&emsp;&emsp;y				|Integer	|R			|y轴起点
+&emsp;&emsp;width			|Integer	|R			|宽
+&emsp;&emsp;height			|Integer	|R			|高
+&emsp;&emsp;data			|String		|R			|图表参数信息
+
+示例：
+
+```
+{
+    "code": 200,
+    "msg": "success",
+    "data": {
+        "totalCount": 1,
+        "totalPage": 1,
+        "currPage": 1,
+        "list": [{
+            "id": 1,
+            "name": "",
+            "chartType": 1,
+            "x": 1,
+            "y": 1,
+            "width": 1,
+            "height": 1,
+            "data": ""
+        }]
+    }
+}
+```
+
+
+##### 2.6.1.2 仪表盘新增
+
+- **接口说明：** 仪表盘新增
+- **接口地址：** /dashboard/save
+- **请求方式：** POST
+
+###### 请求参数
+  
+参数名称			|类型			|出现要求	|描述  
+:----				|:---			|:------	|:---	
+name				|String			|R			|图表标题
+systemId			|Integer		|C			|业务系统id，global操作时传参
+chartType			|Integer		|R			|图表类型
+x					|Integer		|R			|x轴起点
+y					|Integer		|R			|y轴起点
+width				|Integer		|R			|宽
+height				|Integer		|R			|高
+data				|String			|R			|图表参数信息，json格式
+
+
+示例：
+
+```
+{
+    "name": "",
+    "systemId": 1,
+    "chartType": 1,
+    "x": 1,
+    "y": 1,
+    "width": 1,
+    "height": 1,
+    "data": "{}"
+}
+```
+
+
+###### 返回结果
+
+参数名称					|类型		|出现要求	|描述  
+:----						|:---		|:------	|:---	
+code						|int		|R			|响应码，详见 附录A
+msg							|string		|R			|&nbsp;
+
+示例：
+
+```
+成功
+{
+    "code": 200,
+    "msg": "success"
+}
+```
+
+##### 2.6.1.3 仪表盘修改
+
+- **接口说明：** 仪表盘修改
+- **接口地址：** /dashboard/update
+- **请求方式：** PUT
+
+###### 请求参数
+  
+参数名称			|类型			|出现要求	|描述  
+:----				|:---			|:------	|:---	
+id					|String			|R			|id
+name				|String			|R			|图表标题
+chartType			|Integer		|R			|图表类型
+x					|Integer		|R			|x轴起点
+y					|Integer		|R			|y轴起点
+width				|Integer		|R			|宽
+height				|Integer		|R			|高
+data				|String			|R			|图表参数信息，json格式
+
+示例：
+
+```
+{
+    "id": 232,
+    "name": "",
+    "systemId": 1,
+    "chartType": 1,
+    "x": 1,
+    "y": 1,
+    "width": 1,
+    "height": 1,
+    "data": "{}"
+}
+```
+
+###### 返回结果
+
+参数名称					|类型		|出现要求	|描述  
+:----						|:---		|:------	|:---	
+code						|int		|R			|响应码，详见 附录A
+msg							|string		|R			|&nbsp;
+
+示例：
+
+```
+成功
+{
+    "code": 200,
+    "msg": "success"
+}
+失败
+{
+    "code": xxx,
+    "msg": "机柜该位置无法使用"
+}
+```
+
+##### 2.6.1.4 仪表盘删除
+
+- **接口说明：** 仪表盘删除
+- **接口地址：** /dashboard/delete
+- **请求方式：** DELETE
+
+###### 请求参数
+  
+参数名称			|类型			|出现要求	|描述  
+:----				|:---			|:------	|:---	
+id					|Integer		|R			|id
+
+示例：
+
+```
+{
+	"id": 35
+}
+```
+
+###### 返回结果
+
+参数名称					|类型		|出现要求	|描述  
+:----						|:---		|:------	|:---	
+code						|int		|R			|响应码，详见 附录A
+msg							|string		|R			|&nbsp;
+
+示例：
+
+```
+{
+    "code": 200,
+    "msg": "success"
 }
 ```
 
