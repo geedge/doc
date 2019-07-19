@@ -139,7 +139,7 @@
 |sort		|排序		|INT(10)		|NO	|排序			|
 |oid		|snmp oid	|VARCHAR(128)		|NO	|snmp oid			|
 |unit		|单位		|VARCHAR(32)		|NO	|单位			|
-|dic_type   |字典类型   |BIGINT(19)     |YES|与DETE_TYPE_META_MAPPING表的type关联|
+|dic_type   |字典类型   |VARCHAR(64)     |YES|与DETE_TYPE_META_MAPPING表的type关联|
 |field_name	|数据库字段名称	|VARCHAR(64)		|NO	|数据库字段名称，不需要用户填写，使用name值去除特殊字符			|
 |i18n_code	|国际化code	|VARCHAR(255)		|NO	|name 的国际化 code，不为空时name显示翻译后的内容，为空直接显示name			|
 |remark		|备注		|VARCHAR(255)		|NO	|备注			|
@@ -157,7 +157,7 @@
 |字段名|中文说明|数据类型|是否可空|备注|
 |----|----|----|----|----|
 |id		|主键	|BIGINT(19)		|NO	|			|
-|type		|映射类型	|BIGINT(19)		|NO	|映射类型			|
+|type		|映射类型	|VARCHAR(64)		|NO	|映射类型			|
 |val		|原值	|VARCHAR(256)		|NO	|原值			|
 |mapping	|映射后值	|VARCHAR(255)		|NO	|映射后值			|
 |del_flag	|是否删除	|CHAR(1)		|NO	|是否删除，1：删除，0：未删除，默认：0			|
