@@ -4920,7 +4920,7 @@ msg							|string		|R			|&nbsp;
 
 ##### 2.6.1.3 仪表盘修改
 
-- **接口说明：** 仪表盘修改
+- **接口说明：** 仪表盘修改，data格式见附录B
 - **接口地址：** /dashboard/update
 - **请求方式：** PUT
 
@@ -4935,7 +4935,7 @@ x					|Integer		|R			|x轴起点
 y					|Integer		|R			|y轴起点
 width				|Integer		|R			|宽
 height				|Integer		|R			|高
-data				|String			|R			|图表参数信息，json格式
+data				|String			|R			|图表参数信息，data格式见附录B
 
 示例：
 
@@ -5029,7 +5029,7 @@ msg							|string		|R			|&nbsp;
 
 ### B 仪表盘data格式说明
 
-chartType=3
+chartType=3：
 ```
 {
     'color_suffix':#000000,
@@ -5056,7 +5056,7 @@ chartType=3
 }
 ```
 
-chartType=2
+chartType=2：
 ```
 {
     'bars':0,
@@ -5093,47 +5093,47 @@ chartType=2
 }
 ```
 
-chartType=4
+chartType=4：
 ```
 {
-				'font_size':15,
-				'title':'title',
-				'describe':'describe',
-				'value_name':'value name',
-				'time_name':'time name',
-				'decimal':1,
-				'time_format':'yyyy-MM-dd hh:mm:ss.SSS',
-				'page_size':10,
-				'series':[ {
-                        "value": 93,
-                        "time": 1547433810000,
-                        "formatTime": "19/01/14 12:00:00 上午"
-                    },
-                    {
-                        "value": 31,
-                        "time": 1547785766000,
-                        "formatTime": "19/01/18 12:00:00 上午"
-                    },
-                    {
-                        "value": 92,
-                        "time": 1547788853000,
-                        "formatTime": "19/01/18 12:00:00 上午"
-                    },
-                    {
-                        "value": 40,
-                        "time": 1547884173000,
-                        "formatTime": "19/01/19 12:00:00 上午"
-                    },
-                    {
-                        "value": 1,
-                        "time": 1549858348000,
-                        "formatTime": "19/02/11 12:00:00 上午"
-                    },
-                    {
-                        "value": 33,
-                        "time": 1549860694000,
-                        "formatTime": "19/02/11 12:00:00 上午"
-                    }],
-				'user_sql':'sql'
-			}
+    'font_size':15,
+    'title':'title',
+    'describe':'describe',
+    'value_name':'value name',
+    'time_name':'time name',
+    'decimal':1,
+    'time_format':'yyyy-MM-dd hh:mm:ss.SSS',
+    'page_size':10,
+    'series':[ {
+        "value": 93,
+        "time": 1547433810000,
+        "formatTime": "19/01/14 12:00:00 上午"
+    },
+    {
+        "value": 31,
+        "time": 1547785766000,
+        "formatTime": "19/01/18 12:00:00 上午"
+    },
+    {
+        "value": 92,
+        "time": 1547788853000,
+        "formatTime": "19/01/18 12:00:00 上午"
+    },
+    {
+        "value": 40,
+        "time": 1547884173000,
+        "formatTime": "19/01/19 12:00:00 上午"
+    },
+    {
+        "value": 1,
+        "time": 1549858348000,
+        "formatTime": "19/02/11 12:00:00 上午"
+    },
+    {
+        "value": 33,
+        "time": 1549860694000,
+        "formatTime": "19/02/11 12:00:00 上午"
+    }],
+    'user_sql':'sql'
+}
 ```
