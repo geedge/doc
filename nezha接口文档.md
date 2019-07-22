@@ -4797,7 +4797,7 @@ data						|Object		|R			|&nbsp;
 
 ##### 2.6.1.1 仪表盘列表查询
 
-- **接口说明：** 仪表盘列表查询
+- **接口说明：** 仪表盘列表查询，data格式见附录B
 - **接口地址：** /dashboard/list
 - **请求方式：** GET
 
@@ -4838,7 +4838,7 @@ data						|object		|R			|&nbsp;
 &emsp;&emsp;y				|Integer	|R			|y轴起点
 &emsp;&emsp;width			|Integer	|R			|宽
 &emsp;&emsp;height			|Integer	|R			|高
-&emsp;&emsp;data			|String		|R			|图表参数信息
+&emsp;&emsp;data			|String		|R			|图表参数信息，data格式见附录B
 
 示例：
 
@@ -4867,7 +4867,7 @@ data						|object		|R			|&nbsp;
 
 ##### 2.6.1.2 仪表盘新增
 
-- **接口说明：** 仪表盘新增
+- **接口说明：** 仪表盘新增，data格式见附录B
 - **接口地址：** /dashboard/save
 - **请求方式：** POST
 
@@ -4882,7 +4882,7 @@ x					|Integer		|R			|x轴起点
 y					|Integer		|R			|y轴起点
 width				|Integer		|R			|宽
 height				|Integer		|R			|高
-data				|String			|R			|图表参数信息，json格式
+data				|String			|R			|图表参数信息，data格式见附录B
 
 
 示例：
@@ -5029,4 +5029,111 @@ msg							|string		|R			|&nbsp;
 
 ### B 仪表盘data格式说明
 
+chartType=3
+```
+{
+    'color_suffix':#000000,
+    'color_prefix':#000000,
+    'color_value':#000000,
+    'decimal':1,
+    'suffix':'suffix font',
+    'prefix':'prefix font',
+    'suffix_font_size':0,
+    'prefix_font_size':0,
+    'title':'title',
+    'value_font_size':15,
+    'describe':'describe',
+    'is_gauge':1,
+    'is_threshold':1,
+    'is_scale':1,
+    'max_value':100,
+    'min_value':0,
+    'threshold':'[[0.2,"#cf1d8e"],[0.3,"#2632d4"],[0.6,"#d11b79"],[1,"#e8214f"]]',
+    'series':[
+        {"value": 88}
+    ],
+    'user_sql':'sql'
+}
+```
 
+chartType=2
+```
+{
+    'bars':0,
+    'lines':0,
+    'points':0,
+    'fill':1,
+    'line_width'2,
+    'title':'title',
+    'yaxis':1,
+    'xaxis':1,
+    'yaxis_name':'y_name',
+    'xaxis_name':'x_name',
+    'legend':1,
+    'legend_x_position':'center',
+    'legend_y_position':'top',
+    'describe':'describe',
+    'series':[{
+        "value": 93,
+        "time": 1547433810000
+    },
+    {
+        "value": 31,
+        "time": 1547785766000
+    },
+    {
+        "value": 92,
+        "time": 1547788853000
+    },
+    {
+        "value": 40,
+        "time": 1547884173000
+    }],
+    'user_sql':['sql-1','sql-2','sql-3']
+}
+```
+
+chartType=4
+```
+{
+				'font_size':15,
+				'title':'title',
+				'describe':'describe',
+				'value_name':'value name',
+				'time_name':'time name',
+				'decimal':1,
+				'time_format':'yyyy-MM-dd hh:mm:ss.SSS',
+				'page_size':10,
+				'series':[ {
+                        "value": 93,
+                        "time": 1547433810000,
+                        "formatTime": "19/01/14 12:00:00 上午"
+                    },
+                    {
+                        "value": 31,
+                        "time": 1547785766000,
+                        "formatTime": "19/01/18 12:00:00 上午"
+                    },
+                    {
+                        "value": 92,
+                        "time": 1547788853000,
+                        "formatTime": "19/01/18 12:00:00 上午"
+                    },
+                    {
+                        "value": 40,
+                        "time": 1547884173000,
+                        "formatTime": "19/01/19 12:00:00 上午"
+                    },
+                    {
+                        "value": 1,
+                        "time": 1549858348000,
+                        "formatTime": "19/02/11 12:00:00 上午"
+                    },
+                    {
+                        "value": 33,
+                        "time": 1549860694000,
+                        "formatTime": "19/02/11 12:00:00 上午"
+                    }],
+				'user_sql':'sql'
+			}
+```
