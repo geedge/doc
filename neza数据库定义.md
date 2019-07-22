@@ -277,7 +277,7 @@
 |id			|主键	|BIGINT(19)		|NO	|			|
 |mission_id	|	|BIGINT(19)		|NO	|			|
 |uuid		|	|BIGINT(19)		|NO	|			|
-|desc		|任务结果描述信息	|VARCHAR(1024)		|NO	|任务结果描述信息			|
+|describes		|任务结果描述信息	|VARCHAR(1024)		|NO	|任务结果描述信息			|
 |state		|任务执行状态	|CHAR(1)		|NO	|任务执行状态 1成功，2失败，3超时			|
 |cycle		|第几周期	|INT(10)		|NO	|第几周期			|
 |file		|回传文件路径	|VARCHAR(512)		|NO	|回传文件路径			|
