@@ -4298,7 +4298,7 @@ data						|Object		|R			|&nbsp;
 &emsp;&emsp;&emsp;uuid		|Integer	|R			|节点标识
 &emsp;&emsp;&emsp;ip		|String		|R			|节点ip
 &emsp;&emsp;&emsp;name		|String		|R			|节点名称
-&emsp;&emsp;desc			|String		|R			|任务结果描述信息
+&emsp;&emsp;describe		|String		|R			|任务结果描述信息
 &emsp;&emsp;state			|String		|R			|任务执行状态
 &emsp;&emsp;cycle			|Integer	|R			|第几周期
 &emsp;&emsp;file			|String		|R			|回传文件路径
@@ -4322,7 +4322,7 @@ data						|Object		|R			|&nbsp;
                 "ip": "10.20.30.40",
                 "name": "node1"
             },
-            "desc": "",
+            "describe": "",
             "state": "",
             "cycle": 1,
             "file": "",
