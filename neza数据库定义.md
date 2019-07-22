@@ -277,7 +277,7 @@
 |id			|主键	|BIGINT(19)		|NO	|			|
 |mission_id	|	|BIGINT(19)		|NO	|			|
 |uuid		|	|BIGINT(19)		|NO	|			|
-|describes		|任务结果描述信息	|VARCHAR(1024)		|NO	|任务结果描述信息			|
+|descr		|任务结果描述信息	|VARCHAR(1024)		|NO	|任务结果描述信息			|
 |state		|任务执行状态	|CHAR(1)		|NO	|任务执行状态 1成功，2失败，3超时			|
 |cycle		|第几周期	|INT(10)		|NO	|第几周期			|
 |file		|回传文件路径	|VARCHAR(512)		|NO	|回传文件路径			|
@@ -314,7 +314,7 @@
 |id		|主键	|BIGINT(19)		|NO	|			|
 |group_id	|节点组id	|BIGINT(19)		|NO	|节点组id			|
 |uuid		|节点uuid	|BIGINT(19)		|NO	|节点uuid			|
-|desc		|描述信息	|VARCHAR(128)		|NO	|描述信息			|
+|descr		|描述信息	|VARCHAR(128)		|NO	|描述信息			|
 |operator	|操作人	|BIGINT(19)		|NO	|操作人			|
 |del_flag	|是否删除	|CHAR(1)		|NO	|是否删除，1：删除，0：未删除，默认：0			|
 |op_time	|操作时间	|DATETIME		|NO	|操作时间			|
