@@ -4298,7 +4298,7 @@ data						|Object		|R			|&nbsp;
 &emsp;&emsp;&emsp;uuid		|Integer	|R			|节点标识
 &emsp;&emsp;&emsp;ip		|String		|R			|节点ip
 &emsp;&emsp;&emsp;name		|String		|R			|节点名称
-&emsp;&emsp;describe		|String		|R			|任务结果描述信息
+&emsp;&emsp;descr   		|String		|R			|任务结果描述信息
 &emsp;&emsp;state			|String		|R			|任务执行状态
 &emsp;&emsp;cycle			|Integer	|R			|第几周期
 &emsp;&emsp;file			|String		|R			|回传文件路径
@@ -4322,7 +4322,7 @@ data						|Object		|R			|&nbsp;
                 "ip": "10.20.30.40",
                 "name": "node1"
             },
-            "describe": "",
+            "descr": "",
             "state": "",
             "cycle": 1,
             "file": "",
@@ -5042,7 +5042,7 @@ chartType=3：
     'prefix_font_size':0,
     'title':'title',
     'value_font_size':15,
-    'describe':'describe',
+    'descr':'descr',
     'is_gauge':1,
     'is_threshold':1,
     'is_scale':1,
@@ -5072,7 +5072,7 @@ chartType=2：
     'legend':1,
     'legend_x_position':'center',
     'legend_y_position':'top',
-    'describe':'describe',
+    'descr':'descr',
     'series':[{
         "value": 93,
         "time": 1547433810000
@@ -5098,7 +5098,7 @@ chartType=4：
 {
     'font_size':15,
     'title':'title',
-    'describe':'describe',
+    'descr':'descr',
     'value_name':'value name',
     'time_name':'time name',
     'decimal':1,
