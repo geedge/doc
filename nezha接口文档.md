@@ -3935,7 +3935,7 @@ data						|Object		|R			|&nbsp;
 &emsp;&emsp;name			|String		|R			|任务名称
 &emsp;&emsp;type			|String		|R			|任务类型，1、文件推送，2、命令执行，3、升级部署
 &emsp;&emsp;state			|String		|R			|任务状态，周期任务有效，0、非周期任务，1、运行，2、暂停，3、终止
-&emsp;&emsp;stateDesc		|String		|R			|任务状态描述，成功几个失败几个等
+&emsp;&emsp;stateDesc		|Integer[]	|R			|任务状态描述，成功几个失败几个等
 &emsp;&emsp;viewLevel		|String		|R			|查看权限 1:用户组，2：系统内全部人员，3：无限制，默认2
 &emsp;&emsp;viewer			|String		|R			|查看人，组名或业务系统名
 &emsp;&emsp;isLoop			|String		|R			|是否周期任务，0：不是，1：是
@@ -3960,7 +3960,7 @@ data						|Object		|R			|&nbsp;
             "name": "task1",
             "type": "2",
             "state": "",
-            "stateDesc": "成功1个，未完成0个，失败5个",
+            "stateDesc": [3,0,1],
             "viewLevel": "1",
             "viewer": "group1",
             "isLoop": "0",
@@ -4003,7 +4003,7 @@ data						|Object		|R			|&nbsp;
 &emsp;name					|String		|R			|任务名称
 &emsp;type					|String		|R			|任务类型，1、文件推送，2、命令执行，3、升级部署
 &emsp;state					|String		|R			|任务状态，周期任务有效，0、非周期任务，1、运行，2、暂停，3、终止
-&emsp;stateDesc				|String		|R			|任务状态描述，成功几个失败几个等
+&emsp;stateDesc				|Integer[]	|R			|任务状态描述，成功几个失败几个等
 &emsp;viewLevel				|String		|R			|查看权限 1:用户组，2：系统内全部人员，3：无限制，默认2
 &emsp;viewer				|String		|R			|查看人，组名或业务系统名
 &emsp;isLoop				|String		|R			|是否周期任务，0：不是，1：是
@@ -4031,7 +4031,7 @@ data						|Object		|R			|&nbsp;
         "name": "task1",
         "type": "2",
         "state": "",
-        "stateDesc": "成功1个，未完成0个，失败5个",
+        "stateDesc": [3,0,1],
         "viewLevel": "1",
         "viewer": "group1",
         "isLoop": "0",
@@ -4213,7 +4213,7 @@ data						|Object		|R			|&nbsp;
 &emsp;name					|String		|R			|任务名称
 &emsp;type					|String		|R			|任务类型，1、文件推送，2、命令执行，3、升级部署
 &emsp;state					|String		|R			|任务状态，周期任务有效，0、非周期任务，1、运行，2、暂停，3、终止
-&emsp;stateDesc				|String		|R			|任务状态描述，成功几个失败几个等
+&emsp;stateDesc				|Integer[]	|R			|任务状态描述，成功几个失败几个等
 &emsp;viewLevel				|String		|R			|查看权限 1:用户组，2：系统内全部人员，3：无限制，默认2
 &emsp;viewer				|String		|R			|查看人，组名或业务系统名
 &emsp;isLoop				|String		|R			|是否周期任务，0：不是，1：是
@@ -4241,7 +4241,7 @@ data						|Object		|R			|&nbsp;
         "name": "task1",
         "type": "2",
         "state": "",
-        "stateDesc": "成功1个，未完成0个，失败5个",
+        "stateDesc": [3,0,1],
         "viewLevel": "1",
         "viewer": "group1",
         "isLoop": "0",
