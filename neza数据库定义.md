@@ -140,7 +140,7 @@
 |oid		|snmp oid	|VARCHAR(128)		|NO	|snmp oid			|
 |unit		|单位		|VARCHAR(32)		|NO	|单位			|
 |dic_type   |字典类型   |VARCHAR(64)     |YES|与DETE_TYPE_META_MAPPING表的type关联|
-|field_name	|数据库字段名称	|VARCHAR(64)		|NO	|数据库字段名称，不需要用户填写，使用name值去除特殊字符			|
+|field_name	|数据库字段名称	|VARCHAR(64)		|NO	|数据库字段名称，不需要用户填写，fn_name，name去掉特殊字符和空格			|
 |i18n_code	|国际化code	|VARCHAR(255)		|NO	|name 的国际化 code，不为空时name显示翻译后的内容，为空直接显示name			|
 |remark		|备注		|VARCHAR(255)		|NO	|备注			|
 |del_flag	|是否删除	|CHAR(1)		|NO	|是否删除，1：删除，0：未删除，默认：0			|
