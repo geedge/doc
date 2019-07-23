@@ -1928,9 +1928,7 @@ data						|Object		|R			|&nbsp;
 &emsp;id					|Integer	|R			|编号
 &emsp;name					|String		|R			|系统名称
 &emsp;builtIn				|Integer	|R			|是否内置，内置不可删除，1：内置，0：非内置
-&emsp;createBy				|Integer	|R			|创建者
 &emsp;createDate			|Date		|R			|创建时间
-&emsp;updateBy				|Integer	|R			|更新者
 &emsp;updateDate			|Date		|R			|更新时间
 &emsp;remarks				|String		|R			|备注信息
 &emsp;delFlag				|Integer	|R			|删除标记 1：删除，0：未删除，默认：0
@@ -1948,9 +1946,7 @@ data						|Object		|R			|&nbsp;
         "id": 1,
         "name": "system2",
         "builtIn": 1,
-        "createBy": 1,
         "createDate": "2019-07-10 10:10:10",
-        "updateBy": 1,
         "updateDate": "2019-07-10 10:10:10",
         "remarks": "",
         "delFlag": 1,
