@@ -295,8 +295,8 @@
 |id			|主键	|BIGINT(19)		|NO	|主键			|
 |name		|机柜名称	|VARCHAR(255)		|NO	|机柜名称			|
 |room_id	|机房id	|BIGINT(19)		|NO	|机房id			|
-|row		|行号	|INT(10)		|NO	|行号			|
-|col		|列号	|INT(10)		|NO	|列号			|
+|room_row	|行号	|INT(10)		|NO	|行号			|
+|room_col	|列号	|INT(10)		|NO	|列号			|
 |ubit		|u位数量	|INT(10)		|YES	|u位数量			|
 |remarks	|备注	|VARCHAR(255)		|NO	|备注			|
 |operator	|操作人	|BIGINT(19)		|NO	|操作人			|
@@ -359,8 +359,8 @@
 |----|----|----|----|----|
 |id			|主键	|BIGINT(19)		|NO	|主键			|
 |name		|机房名称	|VARCHAR(255)		|NO	|机房名称			|
-|rows		|行数	|INT(10)		|NO	|行数			|
-|cols		|列数	|INT(10)		|NO	|列数			|
+|room_rows	|行数	|INT(10)		|NO	|行数			|
+|room_cols	|列数	|INT(10)		|NO	|列数			|
 |addr		|地区	|BIGINT(19)		|YES	|地区			|
 |remarks	|备注	|VARCHAR(255)		|NO	|备注			|
 |operator	|操作人	|BIGINT(19)		|NO	|操作人			|
