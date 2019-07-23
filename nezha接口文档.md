@@ -1143,8 +1143,8 @@ data						|Object		|R			|&nbsp;
 &emsp;list					|Object[]	|R			|&nbsp;
 &emsp;&emsp;id				|Integer	|R			|主键
 &emsp;&emsp;name			|String		|R			|机房名称
-&emsp;&emsp;rows			|Integer	|R			|行数
-&emsp;&emsp;cols			|Integer	|R			|列数
+&emsp;&emsp;roomRows		|Integer	|R			|行数
+&emsp;&emsp;roomCols		|Integer	|R			|列数
 &emsp;&emsp;addr			|Integer	|R			|地区
 &emsp;&emsp;remarks			|String		|R			|备注
 
@@ -1161,8 +1161,8 @@ data						|Object		|R			|&nbsp;
         "list": [{
             "id": 1,
             "name": "room2",
-            "rows": 4,
-            "cols": 6,
+            "roomRows": 4,
+            "roomCols": 6,
             "addr": 1,
             "remarks": ""
         }]
@@ -1197,8 +1197,8 @@ msg							|string		|R			|&nbsp;
 data						|Object		|R			|&nbsp;
 &emsp;id					|Integer	|R			|主键
 &emsp;name					|String		|R			|机房名称
-&emsp;rows					|Integer	|R			|行数
-&emsp;cols					|Integer	|R			|列数
+&emsp;roomRows				|Integer	|R			|行数
+&emsp;roomCols				|Integer	|R			|列数
 &emsp;addr					|Integer	|R			|地区
 &emsp;remarks				|String		|R			|备注
 
@@ -1211,8 +1211,8 @@ data						|Object		|R			|&nbsp;
     "data": {
         "id": 1,
         "name": "room2",
-        "rows": 4,
-        "cols": 6,
+        "roomRows": 4,
+        "roomCols": 6,
         "addr": 1,
         "remarks": ""
     }
@@ -1230,8 +1230,8 @@ data						|Object		|R			|&nbsp;
 参数名称			|类型			|出现要求	|描述  
 :----				|:---			|:------	|:---	
 name				|String			|R			|名称
-rows				|Integer		|R			|行数
-cols				|Integer		|R			|列数
+roomRows			|Integer		|R			|行数
+roomCols			|Integer		|R			|列数
 addr				|Integer		|R			|地区
 remark				|String			|O			|备注
 
@@ -1240,8 +1240,8 @@ remark				|String			|O			|备注
 ```
 {
     "name": "room9",
-    "rows": 2,
-    "cols": 4,
+    "roomRows": 2,
+    "roomCols": 4,
     "addr": 54,
     "remark": "en"
 }
@@ -1280,8 +1280,8 @@ msg							|string		|R			|&nbsp;
 :----				|:---			|:------	|:---	
 id					|Integer		|R			|id
 name				|String			|R			|名称
-rows				|Integer		|R			|行数
-cols				|Integer		|R			|列数
+roomRows			|Integer		|R			|行数
+roomCols			|Integer		|R			|列数
 addr				|Integer		|R			|地区
 remark				|String			|O			|备注
 
@@ -1292,8 +1292,8 @@ remark				|String			|O			|备注
 {
     "id": 9,
     "name": "room9",
-    "rows": 2,
-    "cols": 4,
+    "roomRows": 2,
+    "roomCols": 4,
     "addr": 54,
     "remark": "en"
 }
@@ -1412,13 +1412,13 @@ msg							|string		|R			|&nbsp;
 参数名称			|类型			|出现要求	|描述  
 :----				|:---			|:------	|:---	
 id       			|String 		|R			|唯一标识
-cols				|Integer		|R			|列数
-rows				|Integer		|R			|行数
+roomCols			|Integer		|R			|列数
+roomRows			|Integer		|R			|行数
 
 示例：
 
 ```
-GET /room/roomSizeCheck?id=15&cols=5&rows=3
+GET /room/roomSizeCheck?id=15&roomCols=5&roomRows=3
 ```
 
 ###### 返回结果
@@ -1485,8 +1485,8 @@ data						|Object		|R			|&nbsp;
 &emsp;&emsp;id				|Integer	|R			|主键
 &emsp;&emsp;name			|String		|R			|机柜名称
 &emsp;&emsp;roomName		|String		|R			|机房名称
-&emsp;&emsp;row				|Integer	|R			|行号
-&emsp;&emsp;col				|Integer	|R			|列号
+&emsp;&emsp;roomRow				|Integer	|R			|行号
+&emsp;&emsp;roomCol				|Integer	|R			|列号
 &emsp;&emsp;ubit			|Integer	|R			|u位数量
 &emsp;&emsp;remarks			|String		|R			|备注
 
@@ -1504,8 +1504,8 @@ data						|Object		|R			|&nbsp;
             "id": 1,
             "name": "cab2",
             "roomName": "room2",
-            "rows": 4,
-            "cols": 6,
+            "roomRows": 4,
+            "roomCols": 6,
             "ubit": 1,
             "remarks": ""
         }]
@@ -1541,8 +1541,8 @@ data						|Object		|R			|&nbsp;
 &emsp;id					|Integer	|R			|主键
 &emsp;name					|String		|R			|机柜名称
 &emsp;roomName				|String		|R			|机房名称
-&emsp;row					|Integer	|R			|行号
-&emsp;col					|Integer	|R			|列号
+&emsp;roomRow				|Integer	|R			|行号
+&emsp;roomCol				|Integer	|R			|列号
 &emsp;ubit					|Integer	|R			|u位数量
 &emsp;nodes					|Object[]	|R			|包含的节点
 &emsp;&emsp;uuid			|Integer	|R			|uuid
@@ -1562,8 +1562,8 @@ data						|Object		|R			|&nbsp;
         "id": 1,
         "name": "cab2",
         "roomName": "room2",
-        "rows": 4,
-        "cols": 6,
+        "rooRrows": 4,
+        "roomCols": 6,
         "nodes": [{
             "uuid": 5,
             "ip": "1.2.3.4",
@@ -1589,8 +1589,8 @@ data						|Object		|R			|&nbsp;
 :----				|:---			|:------	|:---	
 name				|String			|R			|名称
 roomId				|Integer		|R			|机房id
-row					|Integer		|R			|行号
-col					|Integer		|R			|列号
+roomRow				|Integer		|R			|行号
+rooCcol				|Integer		|R			|列号
 ubit				|Integer		|R			|U位数量
 remark				|String			|O			|备注
 
@@ -1600,8 +1600,8 @@ remark				|String			|O			|备注
 {
     "name": "cab9",
 	"roomId": 1,
-    "row": 2,
-    "col": 4,
+    "rooRrow": 2,
+    "roomCol": 4,
     "ubit": 12,
 	"remark": "en"
 }
@@ -1635,8 +1635,8 @@ msg							|string		|R			|&nbsp;
 :----				|:---			|:------	|:---	
 id					|Integer		|R			|id
 name				|String			|R			|名称
-row					|Integer		|R			|行号
-col					|Integer		|R			|列号
+rooRrow				|Integer		|R			|行号
+roomRol				|Integer		|R			|列号
 ubit				|Integer		|R			|U位数量
 remark				|String			|O			|备注
 
@@ -1646,8 +1646,8 @@ remark				|String			|O			|备注
 {
     "id": 9,
     "name": "cab9",
-    "row": 2,
-    "col": 4,
+    "roomRow": 2,
+    "roomCol": 4,
     "ubit": 12,
     "remark": "en"
 }
@@ -1804,9 +1804,9 @@ data						|Object		|R			|&nbsp;
 &emsp;list					|Object[]	|R			|&nbsp;
 &emsp;&emsp;roomId			|Integer	|R			|房间id
 &emsp;&emsp;roomName		|String		|R			|房间名称
-&emsp;&emsp;rows			|Object[]	|R			|可用行
-&emsp;&emsp;&emsp;row		|Integer	|R			|可用行号
-&emsp;&emsp;&emsp;cols		|Integer[]	|R			|可用列号
+&emsp;&emsp;roomRows		|Object[]	|R			|可用行
+&emsp;&emsp;&emsp;roomRow	|Integer	|R			|可用行号
+&emsp;&emsp;&emsp;roomCols	|Integer[]	|R			|可用列号
 
 示例：
 
@@ -1818,13 +1818,13 @@ data						|Object		|R			|&nbsp;
         "list": [{
             "roomId": 1,
             "roomName": "room88",
-            "rows": [{
-                "row": 1,
-                "cols": [1,3,4]
+            "roomRows": [{
+                "roomRow": 1,
+                "roomCols": [1,3,4]
             },
             {
-                "row": 2,
-                "cols": [1,2,3,4,7,8,9]
+                "roomRow": 2,
+                "roomCols": [1,2,3,4,7,8,9]
             }]
         }]
     }
