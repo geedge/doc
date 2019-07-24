@@ -633,7 +633,7 @@
 |system_id	|业务系统ID	|BIGINT(19)		|YES	|业务系统ID			|
 |width		|图片宽度	|INT(10)		|NO	|图片宽度			|
 |height		|图片高度	|INT(10)		|NO	|图片高度			|
-|class		|样式	|VARCHAR(255)		|NO	|样式			|
+|style		|样式	|VARCHAR(255)		|NO	|样式			|
 |op_time	|创建时间	|DATETIME		|NO	|创建时间			|
 |operator	|创建人	|BIGINT(19)		|NO	|创建人			|
 |remarks	|备注	|VARCHAR(255)		|YES	|备注			|
@@ -651,7 +651,7 @@
 |id		|主键	|INT(10)		|NO	|主键			|
 |src		|线起点 TOPO_NODE_INFO 表的ID	|INT(10)		|YES	|线起点 TOPO_NODE_INFO 表的ID			|
 |dest		|线终点 TOPO_NODE_INFO 表的ID	|INT(10)		|YES	|线终点 TOPO_NODE_INFO 表的ID			|
-|class		|线的样式	|VARCHAR(256)		|YES	|线的样式			|
+|style		|线的样式	|VARCHAR(256)		|YES	|线的样式			|
 |text		|线条文本内容	|VARCHAR(64)		|YES	|线条文本内容			|
 |topo_id	|TOPO图ID	|INT(10)		|YES	|TOPO图ID 与TOPO_INFO关联			|
 |operator	|创建人	|BIGINT(19)		|NO	|创建人			|
@@ -677,7 +677,7 @@
 |width		|图片宽度	|INT(10)		|YES	|图片宽度			|
 |height		|图片高度	|INT(10)		|YES	|图片高度			|
 |text		|NODE提示文本信息	|VARCHAR(256)		|YES	|NODE提示文本信息			|
-|class		|样式	|VARCHAR(512)		|YES	|样式			|
+|style		|样式	|VARCHAR(512)		|YES	|样式			|
 |threshold	|阀值	|DOUBLE(4)		|YES	|阀值			|
 |operator	|创建人	|BIGINT(19)		|NO	|创建人			|
 |op_time	|创建时间	|DATETIME		|NO	|创建时间			|
