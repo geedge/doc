@@ -648,12 +648,12 @@
 
 |字段名|中文说明|数据类型|是否可空|备注|
 |----|----|----|----|----|
-|id		|主键	|INT(10)		|NO	|主键			|
+|id		|主键	|BIGINT(19)		|NO	|主键			|
 |src		|线起点 TOPO_NODE_INFO 表的ID	|INT(10)		|YES	|线起点 TOPO_NODE_INFO 表的ID			|
 |dest		|线终点 TOPO_NODE_INFO 表的ID	|INT(10)		|YES	|线终点 TOPO_NODE_INFO 表的ID			|
 |style		|线的样式	|VARCHAR(256)		|YES	|线的样式			|
 |text		|线条文本内容	|VARCHAR(64)		|YES	|线条文本内容			|
-|topo_id	|TOPO图ID	|INT(10)		|YES	|TOPO图ID 与TOPO_INFO关联			|
+|topo_id	|TOPO图ID	|BIGINT(19)		|YES	|TOPO图ID 与TOPO_INFO关联			|
 |operator	|创建人	|BIGINT(19)		|NO	|创建人			|
 |op_time	|创建时间	|DATETIME		|NO	|创建时间			|
 |del_flag	|删除标识	|CHAR(1)		|NO	|0：未删除，1：删除，默认：0			|
