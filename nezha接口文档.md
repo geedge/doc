@@ -2843,6 +2843,7 @@ deteTypeMetas		|Object[]		|R			|元数据数据
 &emsp;dicType		|Integer		|O			|字典类型
 &emsp;i18nCode		|String			|R			|name 的国际化 code，不为空时name显示翻译后的内容，为空直接显示name
 &emsp;remark		|String			|R			|备注
+&emsp;delFlag       |String         |O          |删除标识
 deteTypeParams		|Object[]		|R			|类别参数数组
 &emsp;id			|Integer		|R			|
 &emsp;name			|String			|R			|参数名称
@@ -2850,6 +2851,7 @@ deteTypeParams		|Object[]		|R			|类别参数数组
 &emsp;param_index	|Integer		|R			|参数索引
 &emsp;def_val		|String			|R			|参数默认值
 &emsp;remark		|String			|R			|备注
+&emsp;delFlag       |String         |O          |删除标识
 
 示例：
 
@@ -2880,7 +2882,8 @@ deteTypeParams		|Object[]		|R			|类别参数数组
             "unit": "",
             "dicType": 2,
             "i18nCode": "",
-            "remark": ""
+            "remark": "",
+            "delFlag": "1"
         }],
         "deteTypeParams": [{
             "id": 1,
@@ -2888,7 +2891,8 @@ deteTypeParams		|Object[]		|R			|类别参数数组
             "typeId": 1,
             "param_index": 1,
             "def_val": "",
-            "remark": ""
+            "remark": "",
+            "delFlag": "1"
         }]
     }
 ```
