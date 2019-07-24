@@ -365,6 +365,7 @@
 |remarks	|备注	|VARCHAR(255)		|NO	|备注			|
 |operator	|操作人	|BIGINT(19)		|NO	|操作人			|
 |op_time	|操作时间	|DATETIME		|NO	|操作时间			|
+|del_flag	|删除标识	|CHAR(1)		|NO	|0正常,1删除			|
 
 #  NODEGROUP_INFO
 
