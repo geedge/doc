@@ -1974,7 +1974,7 @@ data						|Object		|R			|&nbsp;
 :----				|:---			|:------	|:---	
 name				|String			|R			|名称
 remark				|String			|O			|备注
-usergroupIds		|Integer[]		|O			|用户组id,分配现有节点组
+usergroupIds		|Integer[]		|O			|用户组id,分配现有用户组
 
 
 示例：
