@@ -4404,7 +4404,7 @@ data						|Object		|R			|&nbsp;
 ##### 2.5.1.2 拓扑图详情查询
 
 - **接口说明：** 拓扑图详情查询，查出所有点、线
-- **接口地址：** /mission/detail
+- **接口地址：** /topo/detail
 - **请求方式：** GET
 
 ###### 请求参数
@@ -4416,7 +4416,7 @@ id					|Integer		|O			|拓扑图id
 示例：
 
 ```
-GET /usergroup/detail?id=2
+GET /topo/detail?id=2
 ```
 
 ###### 返回结果
