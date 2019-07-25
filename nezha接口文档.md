@@ -4394,8 +4394,7 @@ data						|Object		|R			|&nbsp;
             "class": "",
             "opTime": "2019-07-10 10:10:10",
             "operator": 1,
-            "remarks": "",
-            "delFlag": ""
+            "remarks": ""
         }]
     }
 }
