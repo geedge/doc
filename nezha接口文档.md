@@ -2650,7 +2650,7 @@ data						|Object		|R			|&nbsp;
 &emsp;id					|Integer	|R			|&nbsp;
 &emsp;name					|String		|R			|名称，唯一索引
 &emsp;method				|String		|R			|1、脚本，2、snmp，3、内置，默认：1，显示翻译后的内容
-&emsp;dete_interval			|Integer	|R			|监控间隔，单位：s，默认：60
+&emsp;deteInterval			|Integer	|R			|监控间隔，单位：s，默认：60
 &emsp;content				|String		|R			|1、脚本储存路径，2、oid，可以为空，3、类全路径
 &emsp;i18nCode				|String		|R			|name 的国际化 code，不为空时name显示翻译后的内容，为空直接显示
 &emsp;remark				|String		|R			|备注
@@ -2658,6 +2658,7 @@ data						|Object		|R			|&nbsp;
 &emsp;deteTypeMetas			|Object[]	|R			|元数据列表
 &emsp;&emsp;id				|Integer	|R			|&nbsp;
 &emsp;&emsp;name			|String		|R			|显示名称，唯一索引
+&emsp;&emsp;fieldName		|String		|R			|字段名
 &emsp;&emsp;typeId			|Integer	|R			|类别id
 &emsp;&emsp;fieldType		|String		|R			|字段分类，1:Tag 数据库添加索引 ,2:field 普通字段, 3:temp 临时字段，数据传输不入库, 4:cal 计算字段，根据field，temp计算得出
 &emsp;&emsp;dataType		|String		|R			|数据类型，1:counter，需要根据上一个监测周期的数据差值计算2：gauge瞬时值 3：string 字符类型
@@ -2673,7 +2674,7 @@ data						|Object		|R			|&nbsp;
 &emsp;&emsp;name			|String		|R			|参数名称
 &emsp;&emsp;typeId			|Integer	|R			|类别id
 &emsp;&emsp;param_index			|Integer	|R			|参数索引
-&emsp;&emsp;def_val			|String		|R			|参数默认值
+&emsp;&emsp;defVal			|String		|R			|参数默认值
 &emsp;&emsp;remark			|String		|R			|备注
 
 示例：
@@ -2686,7 +2687,7 @@ data						|Object		|R			|&nbsp;
         "id": 1,
         "name": "enc",
         "method": "脚本",
-        "dete_interval": 60,
+        "deteInterval": 60,
         "content": "",
         "i18nCode": "cpu监测",
         "remark": "",
@@ -2694,6 +2695,7 @@ data						|Object		|R			|&nbsp;
         "deteTypeMetas": [{
             "id": 1,
             "name": "earae",
+            "fieldName": "earae",
             "typeId": 1,
             "fieldType": "",
             "dataType": "",
@@ -2710,7 +2712,7 @@ data						|Object		|R			|&nbsp;
             "name": "cc",
             "typeId": 1,
             "param_index": 1,
-            "def_val": "",
+            "defVal": "",
             "remark": ""
         }]
     }
@@ -2730,7 +2732,7 @@ data						|Object		|R			|&nbsp;
 name				|String			|R			|唯一索引
 viewLevel			|String			|R			|1:用户组，2：系统内全部人员，3：无限制，默认2
 method				|String			|R			|1、脚本，2、snmp，3、内置，默认：1
-dete_interval		|Integer		|R			|监控间隔，单位：s，默认：60
+deteInterval		|Integer		|R			|监控间隔，单位：s，默认：60
 content				|String			|R			|1、脚本储存路径，2、oid，可以为空，3、类全路径
 i18nCode			|String			|R			|name 的国际化 code，不为空时name显示翻译后的内容，为空直接显示
 remark				|String			|R			|备注
@@ -2752,7 +2754,7 @@ deteTypeParams		|Object[]		|R			|类别参数数组
 &emsp;name			|String			|R			|参数名称
 &emsp;typeId		|Integer		|R			|类别id
 &emsp;param_index			|Integer		|R			|参数索引
-&emsp;def_val		|String			|R			|参数默认值
+&emsp;defVal		|String			|R			|参数默认值
 &emsp;remark		|String			|R			|备注
 
 示例：
@@ -2790,7 +2792,7 @@ deteTypeParams		|Object[]		|R			|类别参数数组
             "name": "cc",
             "typeId": 1,
             "param_index": 1,
-            "def_val": "",
+            "defVal": "",
             "remark": ""
         }]
     }
@@ -2826,13 +2828,14 @@ id					|Integer		|R			|id
 name				|String			|R			|唯一索引
 viewLevel			|String			|R			|1:用户组，2：系统内全部人员，3：无限制，默认2
 method				|String			|R			|1、脚本，2、snmp，3、内置，默认：1
-dete_interval		|Integer		|R			|监控间隔，单位：s，默认：60
+deteInterval		|Integer		|R			|监控间隔，单位：s，默认：60
 content				|String			|R			|1、脚本储存路径，2、oid，可以为空，3、类全路径
 i18nCode			|String			|R			|name 的国际化 code，不为空时name显示翻译后的内容，为空直接显示
 remark				|String			|R			|备注
 deteTypeMetas		|Object[]		|R			|元数据数据
 &emsp;id			|Integer		|R			|&nbsp;
 &emsp;name			|String			|R			|显示名称，唯一索引
+&emsp;fieldName		|String		|R			|字段名
 &emsp;typeId		|Integer		|R			|类别id
 &emsp;fieldType		|String			|R			|字段分类，1:Tag 数据库添加索引 ,2:field 普通字段, 3:temp 临时字段，数据传输不入库, 4:cal 计算字段，根据field，temp计算得出
 &emsp;dataType		|String			|R			|数据类型，1:counter，需要根据上一个监测周期的数据差值计算2：gauge瞬时值 3：string 字符类型
@@ -2848,8 +2851,8 @@ deteTypeParams		|Object[]		|R			|类别参数数组
 &emsp;id			|Integer		|R			|
 &emsp;name			|String			|R			|参数名称
 &emsp;typeId		|Integer		|R			|类别id
-&emsp;param_index	|Integer		|R			|参数索引
-&emsp;def_val		|String			|R			|参数默认值
+&emsp;paramIndex	|Integer		|R			|参数索引
+&emsp;defVal		|String			|R			|参数默认值
 &emsp;remark		|String			|R			|备注
 &emsp;delFlag       |String         |O          |删除标识
 
@@ -2873,6 +2876,7 @@ deteTypeParams		|Object[]		|R			|类别参数数组
 		"deteTypeMetas": [{
             "id": 1,
             "name": "earae",
+            "fieldName": "earae",
             "typeId": 1,
             "fieldType": "",
             "dataType": "",
@@ -2889,8 +2893,8 @@ deteTypeParams		|Object[]		|R			|类别参数数组
             "id": 1,
             "name": "cc",
             "typeId": 1,
-            "param_index": 1,
-            "def_val": "",
+            "paramIndex": 1,
+            "defVal": "",
             "remark": "",
             "delFlag": "1"
         }]
