@@ -1,3 +1,4 @@
+
 # 目录
 
 - [仪表盘信息表](#dashboard)
@@ -301,6 +302,7 @@
 |remarks	|备注	|VARCHAR(255)		|NO	|备注			|
 |operator	|操作人	|BIGINT(19)		|NO	|操作人			|
 |op_time	|操作时间	|DATETIME		|NO	|操作时间			|
+|del_flag	|是否删除	|CHAR(1)		|NO	|是否删除，1：删除，0：未删除，默认：0			|
 
 #  NODE_GROUP_REL
 
