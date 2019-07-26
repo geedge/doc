@@ -2093,12 +2093,16 @@ msg							|string		|R			|&nbsp;
   
 参数名称			|类型			|出现要求	|描述  
 :----				|:---			|:------	|:---	
+page				|Integer		|O			|页码，为空时默认为1
+limit				|Integer		|O			|每页记录数，为空时默认为10
+sidx				|String			|O			|排序字段
+order	 			|String 		|O			|排序方式(asc/desc)
 id					|Integer		|R			|业务系统id
 
 示例：
 
 ```
-GET /system/nodes?id=5
+GET /system/nodes?id=5&limit=50&page=3
 ```
 
 ###### 返回结果
