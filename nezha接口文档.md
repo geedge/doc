@@ -78,7 +78,8 @@
 - &emsp;&emsp;&emsp;[2.3.1.4 监测类别修改](#2314-监测类别修改)
 - &emsp;&emsp;&emsp;[2.3.1.5 监测类别删除](#2315-监测类别删除)
 - &emsp;&emsp;&emsp;[2.3.1.6 元数据字典查询](#2316-元数据字典查询)
-- &emsp;&emsp;&emsp;[2.3.1.7 监测类别名称校验](#2317-监测类别名称校验)
+- &emsp;&emsp;&emsp;[2.3.1.7 元数据字典修改](#2317-元数据字典修改)
+- &emsp;&emsp;&emsp;[2.3.1.8 元数据字典删除](#2318-元数据字典删除)
 - &emsp;&emsp;[2.3.2 监测设置](#232-监测设置)
 - &emsp;&emsp;&emsp;[2.3.2.1 监测设置列表查询](#2321-监测设置列表查询)
 - &emsp;&emsp;&emsp;[2.3.2.2 监测设置详情查询](#2322-监测设置详情查询)
@@ -3071,6 +3072,7 @@ type				|String			|R			|映射类型，前端页面上可选择、可新增
 mappings			|Object[]		|R			|映射值
 &emsp;id			|Object			|O			|id 为空表示这一条映射是新增的
 &emsp;val			|String			|R			|原值
+&emsp;delFlag		|String			|R			|删除标识
 &emsp;mapping		|String			|R			|映射后值
 
 示例：
@@ -3080,14 +3082,16 @@ mappings			|Object[]		|R			|映射值
     "type": "cpuuu",
     "mappings": [{
         "val": "2",
-        "mapping": "不正常"
+        "mapping": "不正常",
+        "delFlag": "1"
     },
     {
         "id": 2,
         "val": "2",
-        "mapping": "不正常"
+        "mapping": "不正常",
+        "delFlag": "0"
     },
-	]
+    ]
 }
 ```
 
