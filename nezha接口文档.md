@@ -3026,7 +3026,6 @@ data						|Object		|R			|&nbsp;
 :----				|:---			|:------	|:---	
 type				|String			|R			|映射类型，前端页面上可选择、可新增
 mappings			|Object[]		|R			|映射值
-&emsp;id			|Object			|R			|id
 &emsp;val			|String			|R			|原值
 &emsp;mapping		|String			|R			|映射后值
 
@@ -3036,7 +3035,6 @@ mappings			|Object[]		|R			|映射值
 {
     "type": "cpuuu",
     "mappings": [{
-        "id": 1,
         "val": "2",
         "mapping": "不正常"
 	}]
