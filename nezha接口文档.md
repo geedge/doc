@@ -5020,6 +5020,50 @@ msg							|string		|R			|&nbsp;
 }
 ```
 
+##### 2.6.1.5 仪表盘位置及宽高修改
+
+- **接口说明：** 仪表盘删除
+- **接口地址：** /dashboard/modifyShape
+- **请求方式：** DELETE
+
+###### 请求参数
+  
+参数名称			|类型			|出现要求	|描述  
+:----				|:---			|:------	|:---	
+id					|Integer		|R			|id
+x                   |Integer		|R			|x轴
+y                   |Integer		|R			|y轴
+width               |Integer		|R			|宽度
+height              |Integer		|R			|高度
+
+示例：
+
+```
+{
+	"id": 35,
+	"x": 1,
+	"y": 3,
+	"width": 100,
+	"height":200,
+	
+}
+```
+
+###### 返回结果
+
+参数名称					|类型		|出现要求	|描述  
+:----						|:---		|:------	|:---	
+code						|int		|R			|响应码，详见 附录A
+msg							|string		|R			|&nbsp;
+
+示例：
+
+```
+{
+    "code": 200,
+    "msg": "success"
+}
+```
 
 ## 3 附录
 
