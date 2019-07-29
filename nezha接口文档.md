@@ -2210,7 +2210,7 @@ uuids				|Integer[]		|R			|节点id
 示例：
 
 ```
-GET /system/deleteRel?id=3&uuids=4,42,3
+GET /system/deleteNodeRel?id=3&uuids=4,42,3
 ```
 
 ###### 返回结果
