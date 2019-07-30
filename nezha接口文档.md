@@ -4031,7 +4031,6 @@ data						|Object		|R			|&nbsp;
 &emsp;&emsp;state			|String		|R			|任务状态，周期任务有效，0、非周期任务，1、运行，2、暂停，3、终止
 &emsp;&emsp;stateDesc		|Integer[]	|R			|任务状态描述，成功几个失败几个等
 &emsp;&emsp;viewLevel		|String		|R			|查看权限 1:用户组，2：系统内全部人员，3：无限制，默认2
-&emsp;&emsp;viewer			|String		|R			|查看人，组名或业务系统名
 &emsp;&emsp;isLoop			|String		|R			|是否周期任务，0：不是，1：是
 &emsp;&emsp;loopInterval	|Integer	|R			|周期间隔，单位分钟
 &emsp;&emsp;param			|String		|R			|任务参数，json方式保存
@@ -4056,7 +4055,6 @@ data						|Object		|R			|&nbsp;
             "state": "",
             "stateDesc": [3,0,1],
             "viewLevel": "1",
-            "viewer": "group1",
             "isLoop": "0",
             "loopInterval": 1,
             "param": "",
