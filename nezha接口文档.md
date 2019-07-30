@@ -2384,7 +2384,7 @@ data						|Object		|R			|&nbsp;
 &emsp;&emsp;id				|Integer	|R			|主键
 &emsp;&emsp;name			|String		|R			|用户组名称
 &emsp;&emsp;remark			|String		|R			|备注信息
-&emsp;&emsp;systemInfos		|Object[]	|R			|业务系统
+&emsp;&emsp;systems	    	|Object[]	|R			|业务系统
 &emsp;&emsp;&emsp;id		|Integer	|R			|业务系统id
 &emsp;&emsp;&emsp;name		|String		|R			|业务系统名称
 &emsp;&emsp;users			|Object[]	|R			|用户组内的用户
@@ -2405,7 +2405,7 @@ data						|Object		|R			|&nbsp;
             "id": 1,
             "name": "usergroup1",
             "remarks": "",
-            “systemInfos": [{
+            “systems": [{
                 "id": 1,
                 "name": "system1"
             }],
