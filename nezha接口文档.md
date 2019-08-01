@@ -3452,7 +3452,7 @@ viewLevel			|String			|R			|1:用户组，2：系统内全部人员，3：无限
 remark				|String			|R			|备注
 i18nCode			|String			|R			| name i18n code值
 nodeGroupIds		|Integer[]		|R			|节点组id
-nodeIds				|String[]		|R			|节点id
+nodeIds				|Integer[]		|R			|节点id
 
 示例：
 
@@ -3465,7 +3465,7 @@ nodeIds				|String[]		|R			|节点id
     "remark": "",
     "i18nCode": "",
     "nodeGroupIds": [1,2,3],
-    "nodeIds": ["awe5r4a3w1fa6w8e54rw","hrdshs4tj4aw4e5Q4EQ","rqwerwat5wa5et75ew456"]
+    "nodeIds": [1,2,4]
 }
 ```
 
