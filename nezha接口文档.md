@@ -3379,7 +3379,7 @@ data						|Object		|R			|&nbsp;
 &emsp;type					|Object		|R			|类别
 &emsp;&emsp;id				|Integer	|R			|类别ID
 &emsp;&emsp;name			|String		|R			|类别名称
-&emsp;&emsp;params			|Object[]	|R			|类别参数
+&emsp;&emsp;deteTypeParams	|Object[]	|R			|类别参数
 &emsp;&emsp;&emsp;id		|Integer	|R			|参数id
 &emsp;&emsp;&emsp;name		|String		|R			|参数名称
 &emsp;&emsp;&emsp;def_val	|String		|R			|参数默认值
@@ -3410,7 +3410,7 @@ data						|Object		|R			|&nbsp;
         "type": {
             "id": 2,
             "name": "cpu",
-            "params": [{
+            "deteTypeParams": [{
                 "id": 2,
                 "name": "a",
                 "def_val": "12"
