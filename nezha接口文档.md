@@ -4168,6 +4168,7 @@ nodeGroupIds		|Integer[]		|R			|节点组id
 nodeIds				|Integer[]		|R			|节点uuid
 remark				|String			|R			|备注
 commandName         |String         |O          |当type!=1时 必须有值
+
 示例：
 
 ```
