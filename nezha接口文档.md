@@ -5510,6 +5510,7 @@ chartType=4：
 ### C 任务param格式说明
 文件推送
 ```
+请求：
 [
 	{
 		"fileName":"th.txt",
@@ -5520,9 +5521,24 @@ chartType=4：
 		"isCover":"0"
 	}
 ]
+
+返回：
+[
+    {
+        "destPath":"/home/test",
+        "fileName":"nc.txt",
+        "groupName":"shuqun",
+        "isCover":"0",
+        "md5Value":"ddeff019463ddf0fdebcd38c09693b8b",
+        "permisson":"777",
+        "upFileName":"nc_1564992091855.txt",
+        "username":"admin"
+    }
+]
 ```
 命令执行-停用进程（upgrade_kill_process）
 ```
+请求：
 {
 	"missionLoopEntity":{
         "startTime":1564646481617,
@@ -5535,9 +5551,25 @@ chartType=4：
         ]
     }
 }
+返回：
+{
+    "commandEnname":"upgrade_kill_process",
+    "commandType":1,
+    "missionLoopEntity":{
+        "endTime":1764646481617,
+        "startTime":1564646481617
+    },
+    "paramForExecuteInstruct":{
+        "pidFiles":[
+            "/home/pid1",
+            "/home/pid2"
+        ]
+    }
+}
 ```
 命令执行-备份（upgrade_backup）
 ```
+请求：
 {
     "missionLoopEntity":{
         "endTime":1764646481617,
@@ -5552,9 +5584,27 @@ chartType=4：
         }
     ]
 }
+返回：
+{
+    "commandEnname":"upgrade_backup",
+    "commandType":1,
+    "missionLoopEntity":{
+        "endTime":1764646481617,
+        "startTime":1564646481617
+    },
+    "paramForExecuteInstructs":[
+        {
+            "backup":"/home/aaa",
+            "backupTo":"/home/test",
+            "except":["123","456","789"],
+            "isAbs":"1"
+        }
+    ]
+}
 ```
 命令执行-覆盖更新（upgrade_update）
 ```
+请求：
 {
     "missionLoopEntity":{
         "endTime":1764646481617,
@@ -5573,9 +5623,28 @@ chartType=4：
         }
     ]
 }
+返回：
+{
+    "commandEnname":"upgrade_update",
+    "commandType":1,
+    "missionLoopEntity":{
+        "endTime":1764646481617,
+        "startTime":1564646481617
+    },
+    "paramForExecuteInstructs":[
+        {
+            "cover":"/home/aaa",
+            "delete":["123","456","789"],
+            "isAbs":"1",
+            "isCreateCover":"0",
+            "source":"/home/test"
+        }
+    ]
+}
 ```
 命令执行-可执行命令/启动任务（upgrade_exec/upgrade_start）
 ```
+请求：
 {
     "missionLoopEntity":{
         "endTime":1764646481617,
@@ -5595,9 +5664,32 @@ chartType=4：
         }
     ]
 }
+返回：
+{
+    "commandEnname":"upgrade_start",
+    "commandType":1,
+    "missionLoopEntity":{
+        "endTime":1764646481617,
+        "startTime":1564646481617
+    },
+    "paramForExecuteInstructs":[
+        {
+            "execCmd":"./start",
+            "execParams":["123","456"],
+            "execResult":"result file",
+            "forceExec":"1",
+            "maxWaitTime":"3",
+            "residentFlag":"1",
+            "returnFlag":"1",
+            "returnPath":"result return",
+            "username":"admin"
+        }
+    ]
+}
 ```
 命令执行-恢复（upgrade_recover）
 ```
+请求：
 {
     "missionLoopEntity":{
         "endTime":1764646481617,
@@ -5612,9 +5704,27 @@ chartType=4：
         }
     ]
 }
+返回：
+{
+    "commandEnname":"upgrade_recover",
+    "commandType":1,
+    "missionLoopEntity":{
+        "endTime":1764646481617,
+        "startTime":1564646481617
+    },
+    "paramForExecuteInstructs":[
+        {
+            "cover":"result file",
+            "delete":["123","456"],
+            "isAbs":"1",
+            "source":"./start"
+        }
+    ]
+}
 ```
 命令执行-单次可执行命令（single_exec）
 ```
+请求：
 {
     "missionLoopEntity":{
         "endTime":1764646481617,
@@ -5630,9 +5740,28 @@ chartType=4：
         }
     ]
 }
+返回：
+{
+    "commandEnname":"single_exec",
+    "commandType":2,
+    "missionLoopEntity":{
+        "endTime":1764646481617,
+        "startTime":1564646481617
+    },
+    "paramForExecuteInstructs":[
+        {
+            "execCmd":"./start",
+            "maxWaitTime":"3",
+            "returnFlag":"1",
+            "returnPath":"1",
+            "username":"admin"
+        }
+    ]
+}
 ```
 升级部署-nc升级（upgrade_agent）
 ```
+请求：
 {
     "paramForUpgrade":
         {
@@ -5653,9 +5782,34 @@ chartType=4：
 			}]
         }
 }
+返回：
+{
+    "commandEnname":"upgrade_agent",
+    "paramForUpgrade":{
+        "backups":[
+            {
+                "backup":"/home/beifen",
+                "backupTo":"/home/path",
+                "except":["111","222"],
+                "isAbs":"1"
+            }
+        ],
+        "cover":"/home/test",
+        "delete":["123","456"],
+        "fileName":"nc.txt",
+        "groupName":"shuqun",
+        "isAbs":"1",
+        "isCreateCover":"1",
+        "md5Value":"ddeff019463ddf0fdebcd38c09693b8b",
+        "permisson":"777",
+        "upFileName":"nc_1564995729998.txt",
+        "username":"admin"
+    }
+}
 ```
 升级部署-dc升级/第三方升级（upgrade_server/upgrade_other）
 ```
+请求：
 {
     "paramForUpgrades":
         [{
@@ -5680,5 +5834,35 @@ chartType=4：
 				"exceptTmpStr":"111;222"
 			}]
         }]
+}
+返回：
+{
+    "commandEnname":"upgrade_server",
+    "paramForUpgrades":[
+        {
+            "backups":[
+                {
+                    "backup":"/home/beifen",
+                    "backupTo":"/home/path",
+                    "except":["111","222"],
+                    "isAbs":"1"
+                }
+            ],
+            "cover":"/home/test",
+            "delete":["123","456"],
+            "fileName":"dc.txt",
+            "forceExec":"1",
+            "groupName":"shuqun",
+            "isAbs":"1",
+            "isCreateCover":"1",
+            "maxWaitTime":"3",
+            "md5Value":"f2103bbb3ad1a858c51cd2d735b4611a",
+            "permisson":"777",
+            "pidFile":"test.pid",
+            "startupFile":"./start",
+            "upFileName":"other_1564995903259.txt",
+            "username":"admin"
+        }
+    ]
 }
 ```
