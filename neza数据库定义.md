@@ -196,7 +196,7 @@
 |id			|主键		|BIGINT(19)		|NO	|			|
 |name		|告警名称	|VARCHAR(255)		|NO	|			|
 |meta_id	|告警字段	|BIGINT(19)		|NO	|告警字段			|
-|trigger	|触发方式	|CHAR(1)		|NO	|1:阈值触发,2：变化触发，当本次监测数值与上次不一致时触发，用于配置文件是否修改等,3：主动，默认：1	|
+|trigger_type	|触发方式	|CHAR(1)		|NO	|1:阈值触发,2：变化触发，当本次监测数值与上次不一致时触发，用于配置文件是否修改等,3：主动，默认：1	|
 |mode		|告警模式	|CHAR(1)		|NO	|告警模式，1、单台，2、汇总			|
 |stat_type	|统计方式	|CHAR(1)		|NO	|1:avg，2:count，3:sum，4:min，5:max，默认：1			|
 |symbol		|符号		|CHAR(1)		|NO	|1:>，2:<，3:=，4:equals，5:include，6:exclude，默认：1			|
