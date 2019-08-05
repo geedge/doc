@@ -1,4 +1,3 @@
-
 # 目录
 
 - [仪表盘信息表](#dashboard)
@@ -80,6 +79,7 @@
 |i18n_code	|i18n code值	|VARCHAR(255)		|NO	| name i18n code值			|
 |operator	|操作人	|BIGINT(19)		|NO	|操作人			|
 |op_time	|操作时间	|DATETIME		|NO	|操作时间			|
+|del_flag	|是否删除	|CHAR(1)		|NO	|是否删除，1：删除，0：未删除，默认：0			|
 
 #  DETE_SET_NODE_REL
 
