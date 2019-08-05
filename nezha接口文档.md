@@ -2351,7 +2351,7 @@ msg							|string		|R			|&nbsp;
 ##### 2.2.2.1 用户组列表查询
 
 - **接口说明：** 用户组列表查询
-- **接口地址：** /usergroup/list
+- **接口地址：** /sys/usergroup/list
 - **请求方式：** GET
 
 ###### 请求参数
@@ -2367,7 +2367,7 @@ systemId			|Integer		|C			|业务系统id
 示例：
 
 ```
-GET /usergroup/list?limit=10&page=2&systemId=4
+GET /sys/usergroup/list?limit=10&page=2&systemId=4
 ```
 
 ###### 返回结果
@@ -2421,7 +2421,7 @@ data						|Object		|R			|&nbsp;
 ##### 2.2.2.2 用户组详情查询
 
 - **接口说明：** 用户组详情查询
-- **接口地址：** /usergroup/detail
+- **接口地址：** /sys/usergroup/detail
 - **请求方式：** GET
 
 ###### 请求参数
@@ -2433,7 +2433,7 @@ id					|Integer		|O			|用户组id
 示例：
 
 ```
-GET /usergroup/detail?id=2
+GET /sys/usergroup/detail?id=2
 ```
 
 ###### 返回结果
@@ -2478,7 +2478,7 @@ data						|Object		|R			|&nbsp;
 ##### 2.2.2.3 用户组新增
 
 - **接口说明：** 用户组新增
-- **接口地址：** /usergroup/save
+- **接口地址：** /sys/usergroup/save
 - **请求方式：** POST
 
 ###### 请求参数
@@ -2520,7 +2520,7 @@ msg							|string		|R			|&nbsp;
 ##### 2.2.2.4 用户组修改
 
 - **接口说明：** 用户组修改
-- **接口地址：** /usergroup/update
+- **接口地址：** /sys/usergroup/update
 - **请求方式：** PUT
 
 ###### 请求参数
@@ -2564,7 +2564,7 @@ msg							|string		|R			|&nbsp;
 ##### 2.2.2.5 用户组删除
 
 - **接口说明：** 用户组删除
-- **接口地址：** /usergroup/delete
+- **接口地址：** /sys/usergroup/delete
 - **请求方式：** DELETE
 
 ###### 请求参数
@@ -2604,7 +2604,7 @@ msg							|string		|R			|&nbsp;
 ##### 2.2.2.7 用户组名称校验
 
 - **接口说明：** 用户组名称校验，不能重复
-- **接口地址：** /usergroup/nameCheck
+- **接口地址：** /sys/usergroup/nameCheck
 - **请求方式：** GET
 
 ###### 请求参数
@@ -2617,7 +2617,7 @@ name				|String			|R			|名称
 示例：
 
 ```
-GET /usergroup/nameCheck?id=5&name=ug2
+GET /sys/usergroup/nameCheck?id=5&name=ug2
 ```
 
 ###### 返回结果
@@ -5150,6 +5150,235 @@ msg							|string		|R			|&nbsp;
     "msg": "success"
 }
 ```
+
+
+### 2.7 国际化
+
+#### 2.7.1 国际化内容管理
+
+##### 2.7.1.1 国际化列表查询
+
+- **接口说明：** 仪表盘列表查询，data格式见附录B
+- **接口地址：** /sys/i18n/list
+- **请求方式：** GET
+
+###### 请求参数
+  
+参数名称			|类型			|出现要求	|描述  
+:----				|:---			|:------	|:---	
+page				|Integer		|O			|页码，为空时默认为1
+limit				|Integer		|O			|每页记录数，为空时默认为10
+sidx				|String			|O			|排序字段
+order	 			|String 		|O			|排序方式(asc/desc)
+code				|String			|O			|标识
+value				|String			|O			|国际化值
+
+示例：
+
+```
+GET /sys/i18n/list?limit=20&page=1&code=detail
+
+```
+
+
+###### 返回结果
+
+参数名称					|类型		|出现要求	|描述  
+:----						|:---		|:------	|:---	
+code						|int		|R			|响应码，详见 附录A
+msg							|string		|R			|&nbsp;
+data						|object		|R			|&nbsp;
+&emsp;totalCount			|int		|R			|&nbsp;
+&emsp;totalPage				|int		|R			|&nbsp;
+&emsp;currPage				|int		|R			|&nbsp;
+&emsp;list					|Object[]	|R			|&nbsp;
+&emsp;&emsp;id				|Integer	|R			|主键
+&emsp;&emsp;code			|String		|R			|i18n code
+&emsp;&emsp;lang			|String		|R			|语言
+&emsp;&emsp;value			|String		|R			|翻译值
+&emsp;&emsp;remark			|String		|R			|备注信息
+
+示例：
+
+```
+{
+    "code": 200,
+    "msg": "success",
+    "data": {
+        "totalCount": 1,
+        "totalPage": 1,
+        "currPage": 1,
+        "list": [{
+            "id": 1,
+            "code": "",
+            "lang": "",
+            "value": "",
+            "remark": "",
+        }]
+    }
+}
+```
+
+
+##### 2.7.1.2 国际化新增
+
+- **接口说明：** 国际化新增
+- **接口地址：** /sys/i18n/save
+- **请求方式：** POST
+
+###### 请求参数
+  
+参数名称			|类型			|出现要求	|描述  
+:----				|:---			|:------	|:---	
+code				|String			|R			|i18n code
+lang				|String			|R			|语言
+value				|String			|R			|翻译值
+remark				|String			|R			|备注信息
+
+
+示例：
+
+```
+{
+    "code": "lang",
+    "lang": "en",
+    "value": "language",
+    "remark": ""
+}
+```
+
+
+###### 返回结果
+
+参数名称					|类型		|出现要求	|描述  
+:----						|:---		|:------	|:---	
+code						|int		|R			|响应码，详见 附录A
+msg							|string		|R			|&nbsp;
+
+示例：
+
+```
+{
+    "code": 200,
+    "msg": "success"
+}
+```
+
+##### 2.7.1.3 国际化修改
+
+- **接口说明：** 国际化修改
+- **接口地址：** /sys/i18n/update
+- **请求方式：** PUT
+
+###### 请求参数
+  
+参数名称			|类型			|出现要求	|描述  
+:----				|:---			|:------	|:---	
+id					|Integer		|R			|id
+code				|String			|R			|i18n code
+lang				|String			|R			|语言
+value				|String			|R			|翻译值
+remark				|String			|R			|备注信息
+
+
+示例：
+
+```
+{
+    "id": 2,
+    "code": "lang",
+    "lang": "en",
+    "value": "language",
+    "remark": ""
+}
+```
+
+###### 返回结果
+
+参数名称					|类型		|出现要求	|描述  
+:----						|:---		|:------	|:---	
+code						|int		|R			|响应码，详见 附录A
+msg							|string		|R			|&nbsp;
+
+示例：
+
+```
+{
+    "code": 200,
+    "msg": "success"
+}
+```
+
+##### 2.7.1.4 国际化删除
+
+- **接口说明：** 国际化删除
+- **接口地址：** /sys/i18n/delete
+- **请求方式：** DELETE
+
+###### 请求参数
+  
+参数名称			|类型			|出现要求	|描述  
+:----				|:---			|:------	|:---	
+id					|Integer		|R			|id
+
+示例：
+
+```
+{
+	"id": 35
+}
+```
+
+###### 返回结果
+
+参数名称					|类型		|出现要求	|描述  
+:----						|:---		|:------	|:---	
+code						|int		|R			|响应码，详见 附录A
+msg							|string		|R			|&nbsp;
+
+示例：
+
+```
+{
+    "code": 200,
+    "msg": "success"
+}
+```
+
+##### 2.7.1.5 系统语言切换
+
+- **接口说明：** 系统语言切换
+- **接口地址：** /sys/i18n/changeLang
+- **请求方式：** GET
+
+###### 请求参数
+  
+参数名称			|类型			|出现要求	|描述  
+:----				|:---			|:------	|:---	
+lang				|String			|R			|语言
+
+示例：
+
+```
+/sys/i18n/changeLang?lang=ru
+```
+
+###### 返回结果
+
+参数名称					|类型		|出现要求	|描述  
+:----						|:---		|:------	|:---	
+code						|int		|R			|响应码，详见 附录A
+msg							|string		|R			|&nbsp;
+
+示例：
+
+```
+{
+    "code": 200,
+    "msg": "success"
+}
+```
+
 
 ## 3 附录
 
