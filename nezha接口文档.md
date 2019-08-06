@@ -4370,6 +4370,10 @@ data						|Object		|R			|&nbsp;
 
 参数名称			|类型			|出现要求	|描述  
 :----				|:---			|:------	|:---	
+page				|Integer		|O			|页码，为空时默认为1
+limit				|Integer		|O			|每页记录数，为空时默认为10
+sidx				|String			|O			|排序字段
+order	 			|String 		|O			|排序方式(asc/desc)
 id					|Integer		|R			|任务id
 
 示例：
