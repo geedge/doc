@@ -5615,11 +5615,14 @@ chartType=4：
             "cover":"/home/aaa",
             "deleteTmpStr":"123;456;789",
             "isAbs":"1",
-            "source":"/home/test"
+            "source":"/home/test",
+            "isCreateCover":"1"
         },
         {
             "cover":"/home/bbb",
-            "source":"/home/test"
+            "source":"/home/test",
+            "isAbs":"0",
+            "isCreateCover":"0"
         }
     ]
 }
