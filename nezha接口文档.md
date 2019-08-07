@@ -4254,7 +4254,7 @@ msg							|string		|R			|&nbsp;
   
 参数名称			|类型			|出现要求	|描述  
 :----				|:---			|:------	|:---	
-id					|Integer		|R			|id
+ids					|Integer[]		|R			|ids
 state				|String			|R			|0: 停用，1：启用
 
 示例：
