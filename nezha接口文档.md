@@ -2820,16 +2820,14 @@ data						|Object		|R			|&nbsp;
 参数名称			|类型			|出现要求	|描述  
 :----				|:---			|:------	|:---	
 name				|String			|R			|唯一索引
-viewLevel			|String			|R			|1:用户组，2：系统内全部人员，3：无限制，默认2
+viewLevel			|String			|R			|1:用户组，2：系统内全部人员，3：无限制，默认3（此字段目前不用，预留）
 method				|String			|R			|1、脚本，2、snmp，3、内置，默认：1
 deteInterval		|Integer		|R			|监控间隔，单位：s，默认：60
 content				|String			|R			|1、脚本储存路径，2、oid，可以为空，3、类全路径
 i18nCode			|String			|R			|name 的国际化 code，不为空时name显示翻译后的内容，为空直接显示
 remark				|String			|R			|备注
 deteTypeMetas		|Object[]		|R			|元数据数据
-&emsp;id			|Integer		|R			|
 &emsp;name			|String			|R			|显示名称，唯一索引
-&emsp;typeId		|Integer		|R			|类别id
 &emsp;fieldType		|String			|R			|字段分类，1:Tag 数据库添加索引 ,2:field 普通字段, 3:temp 临时字段，数据传输不入库, 4:cal 计算字段，根据field，temp计算得出
 &emsp;dataType		|String			|R			|数据类型，1:counter，需要根据上一个监测周期的数据差值计算2：gauge瞬时值 3：string 字符类型
 &emsp;dataLenth		|Integer		|R			|数据长度
@@ -2837,13 +2835,10 @@ deteTypeMetas		|Object[]		|R			|元数据数据
 &emsp;oid			|String			|R			|snmp oid
 &emsp;unit			|String			|R			|单位
 &emsp;dicType		|Integer		|O			|字典类型
-&emsp;i18nCode		|String			|R			|name 的国际化 code，不为空时name显示翻译后的内容，为空直接显示name
 &emsp;remark		|String			|R			|备注
 deteTypeParams		|Object[]		|R			|类别参数数组
-&emsp;id			|Integer		|R			|
 &emsp;name			|String			|R			|参数名称
-&emsp;typeId		|Integer		|R			|类别id
-&emsp;param_index			|Integer		|R			|参数索引
+&emsp;paramIndex	|Integer		|R			|参数索引
 &emsp;defVal		|String			|R			|参数默认值
 &emsp;remark		|String			|R			|备注
 
@@ -2852,7 +2847,6 @@ deteTypeParams		|Object[]		|R			|类别参数数组
 ```
     {
         "name": "enc",
-        "typeId": 1,
         "fieldType": "1",
         "dataType": "2",
         "dataLenth": 1,
@@ -2864,9 +2858,7 @@ deteTypeParams		|Object[]		|R			|类别参数数组
         "i18nCode": "",
         "remark": "",
 		"deteTypeMetas": [{
-            "id": 1,
             "name": "earae",
-            "typeId": 1,
             "fieldType": "",
             "dataType": "",
             "dataLenth": 1,
@@ -2874,14 +2866,11 @@ deteTypeParams		|Object[]		|R			|类别参数数组
             "oid": "",
             "unit": "",
             "dicType": 2,
-            "i18nCode": "",
             "remark": ""
         }],
         "deteTypeParams": [{
-            "id": 1,
             "name": "cc",
-            "typeId": 1,
-            "param_index": 1,
+            "paramIndex": 1,
             "defVal": "",
             "remark": ""
         }]
