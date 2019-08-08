@@ -723,7 +723,7 @@ data						|Object		|R			|&nbsp;
 &emsp;list					|Object[]	|R			|&nbsp;
 &emsp;&emsp;systemId		|Integer	|R			|业务系统id
 &emsp;&emsp;systemName		|String		|R			|业务系统名称
-&emsp;&emsp;groups			|Object[]	|R			|接电阻
+&emsp;&emsp;nodegroups		|Object[]	|R			|接电阻
 &emsp;&emsp;&emsp;id		|Integer	|R			|节点组id
 &emsp;&emsp;&emsp;name		|String		|R			|节点组名称
 &emsp;&emsp;&emsp;allowAss	|String		|R			|能否分配节点 0不能，1可以
@@ -740,7 +740,7 @@ data						|Object		|R			|&nbsp;
         "list": [{
             "systemId": 1,
             "systemName": "system1",
-            "groups": [
+            "nodegroups": [
                 {"id": 8, "name": "group1", "pid": 0, "allowAss": "0", "allowSub": "1"},
                 {"id": 9, "name": "group1-1", "pid": 8, "allowAss": "0", "allowSub": "1"},
                 {"id": 28, "name": "group1-1-9", "pid": 9, "allowAss": "1", "allowSub": "0"}
