@@ -3346,6 +3346,9 @@ data						|Object		|R			|&nbsp;
 &emsp;&emsp;buildIn			|String		|R			|1:内置，2：用户自定义，默认2
 &emsp;&emsp;params			|String		|R			|类别定义的参数，多个逗号分隔，参数内逗号需要转义
 &emsp;&emsp;viewLevel		|String		|R			|1:用户组，2：系统内全部人员，3：无限制，默认2
+&emsp;&emsp;viewer			|Object[]	|O			|查看人，viewLevel=1或2时有值
+&emsp;&emsp;&emsp;id		|Integer	|O			|业务系统/用户组id
+&emsp;&emsp;&emsp;name		|String		|O			|业务系统/用户组名称
 &emsp;&emsp;state			|String		|R			|状态，1：删除，2：停止，3：监控中
 &emsp;&emsp;remark			|String		|R			|备注
 &emsp;&emsp;i18nCode		|String		|R			| name i18n code值
@@ -3371,7 +3374,7 @@ data						|Object		|R			|&nbsp;
             },
             "buildIn": "1",
             "params": "",
-            "viewLevel": "",
+            "viewLevel": "3",
             "state": "",
             "remark": "",
             "i18nCode": ""
@@ -3417,6 +3420,9 @@ data						|Object		|R			|&nbsp;
 &emsp;buildIn				|String		|R			|1:内置，2：用户自定义，默认2
 &emsp;params				|String		|R			|类别定义的参数，多个逗号分隔，参数内逗号需要转义
 &emsp;viewLevel				|String		|R			|1:用户组，2：系统内全部人员，3：无限制，默认2
+&emsp;viewer			    |Object[]	|O			|查看人，viewLevel=1或2时有值
+&emsp;&emsp;id		        |Integer	|O			|业务系统/用户组id
+&emsp;&emsp;name		    |String		|O			|业务系统/用户组名称
 &emsp;state					|String		|R			|状态，1：删除，2：停止，3：监控中
 &emsp;remark				|String		|R			|备注
 &emsp;i18nCode				|String		|R			| name i18n code值
@@ -3449,7 +3455,8 @@ data						|Object		|R			|&nbsp;
         },
         "buildIn": "1",
         "params": "",
-        "viewLevel": "",
+        "viewLevel": "2",
+        "viewer": [{"id": 1, "name": "global"}],
         "state": "",
         "remark": "",
         "i18nCode": "",
@@ -3480,6 +3487,7 @@ name				|String			|R			|设置名称，唯一索引
 typeId				|Integer		|R			|类别id
 params				|String			|R			|类别定义的参数，多个逗号分隔，参数内逗号需要转义
 viewLevel			|String			|R			|1:用户组，2：系统内全部人员，3：无限制，默认2
+viewerId            |Integer[]      |O          |查看人，viewLevel=1时有值，表示用户组id；viewLevel=2时，业务系统id从后台取得
 remark				|String			|R			|备注
 i18nCode			|String			|R			| name i18n code值
 nodeGroupIds		|Integer[]		|R			|节点组id
@@ -3492,7 +3500,8 @@ nodeIds				|Integer[]		|R			|节点id
     "name": "",
     "typeId": 1,
     "params": "1,'a',3",
-    "viewLevel": "",
+    "viewLevel": "1",
+    "viewerId": [2,3],
     "remark": "",
     "i18nCode": "",
     "nodeGroupIds": [1,2,3],
