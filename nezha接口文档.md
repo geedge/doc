@@ -3159,16 +3159,21 @@ mappings			|Object[]		|R			|映射值
 {
     "type": "cpuuu",
     "mappings": [{
+        "id": 1,
         "val": "2",
         "mapping": "不正常",
         "delFlag": "1"
     },
     {
         "id": 2,
-        "val": "2",
-        "mapping": "不正常",
+        "val": "1",
+        "mapping": "正常的",
         "delFlag": "0"
     },
+    {
+        "val": "2",
+        "mapping": "不正常的"
+    }
     ]
 }
 ```
