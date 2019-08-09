@@ -3260,8 +3260,42 @@ msg							|string		|R			|&nbsp;
 
 ```
 {
-    "code": 200/xxx,
-    "msg": "true/false"
+    "code": 200,
+    "msg": "success"
+}
+```
+
+##### 2.3.1.11 元数据字典type校验
+
+- **接口说明：** 元数据字典type校验，不能重复，新增字典时使用
+- **接口地址：** /deteType/dicNameCheck
+- **请求方式：** GET
+
+###### 请求参数
+  
+参数名称			|类型			|出现要求	|描述  
+:----				|:---			|:------	|:---	
+type				|String			|R			|名称
+
+示例：
+
+```
+GET /deteType/dicNameCheck?name=testtp
+```
+
+###### 返回结果
+
+参数名称					|类型		|出现要求	|描述  
+:----						|:---		|:------	|:---	
+code						|int		|R			|响应码，详见 附录A
+msg							|string		|R			|&nbsp;
+
+示例：
+
+```
+{
+    "code": 200,
+    "msg": "success"
 }
 ```
 
