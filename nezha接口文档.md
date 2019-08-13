@@ -3140,7 +3140,7 @@ msg							|string		|R			|&nbsp;
 
 ##### 2.3.1.8 元数据字典修改
 
-- **接口说明：** 元数据字典修改
+- **接口说明：** 元数据字典修改，type不允许修改
 - **接口地址：** /deteType/updateDic
 - **请求方式：** PUT
 
@@ -3148,7 +3148,6 @@ msg							|string		|R			|&nbsp;
   
 参数名称			|类型			|出现要求	|描述  
 :----				|:---			|:------	|:---	
-type				|String			|R			|映射类型，前端页面上可选择、可新增
 mappings			|Object[]		|R			|映射值
 &emsp;id			|Object			|O			|id 为空表示这一条映射是新增的
 &emsp;val			|String			|R			|原值
@@ -3159,7 +3158,6 @@ mappings			|Object[]		|R			|映射值
 
 ```
 {
-    "type": "cpuuu",
     "mappings": [{
         "id": 1,
         "val": "2",
