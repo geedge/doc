@@ -3695,12 +3695,12 @@ data						|Object		|R			|&nbsp;
 &emsp;&emsp;&emsp;id		|Integer	|R			|字段id
 &emsp;&emsp;&emsp;name		|String		|R			|字段名称
 &emsp;&emsp;trigger			|String		|R			|1:阈值触发,2：变化触发，当本次监测数值与上次不一致时触发，用于配置文件是否修改等,3：主动，默认：1
-&emsp;&emsp;mode			|String		|R			|告警模式，1、单台，2、汇总
+&emsp;&emsp;warnMode		|String		|R			|告警模式，1、单台，2、汇总
 &emsp;&emsp;statType		|String		|R			|1:avg 2:count 3:sum 4:min 5:max，默认：1
 &emsp;&emsp;symbol			|String		|R			|1:> 2:< 3:= 4:equals 5:include 6:exclude 默认：1
 &emsp;&emsp;threshold		|String		|R			|阈值
 &emsp;&emsp;tips			|String		|R			|告警提示信息
-&emsp;&emsp;level			|String		|R			|告警级别，1:normal，2:info，3:warning，4:error，默认：3
+&emsp;&emsp;warnLevel		|String		|R			|告警级别，1:normal，2:info，3:warning，4:error，默认：3
 &emsp;&emsp;callbackType	|String		|R			|回调方式，0:无，1：shell，2：http，默认：0
 &emsp;&emsp;viewLevel		|String		|R			|1:用户组，2：系统内全部人员，3：无限制，默认2
 &emsp;&emsp;remark			|String		|R			|备注
@@ -3731,12 +3731,12 @@ data						|Object		|R			|&nbsp;
                 "name": "使用率"
             },
             "trigger": "1",
-            "mode": "2",
+            "warnMode": "2",
             "statType": "1",
             "symbol": ">",
             "threshold": "15",
             "tips": "enen",
-            "level": "1",
+            "warnLevel": "1",
             "callbackType": "",
             "viewLevel": "",
             "remark": ""
@@ -3782,12 +3782,12 @@ data						|Object		|R			|&nbsp;
 &emsp;&emsp;id				|Integer	|R			|字段id
 &emsp;&emsp;name			|String		|R			|字段名称
 &emsp;trigger				|String		|R			|1:阈值触发,2：变化触发，当本次监测数值与上次不一致时触发，用于配置文件是否修改等,3：主动，默认：1
-&emsp;mode					|String		|R			|告警模式，1、单台，2、汇总
+&emsp;warnMode				|String		|R			|告警模式，1、单台，2、汇总
 &emsp;statType				|String		|R			|1:avg 2:count 3:sum 4:min 5:max，默认：1
 &emsp;symbol				|String		|R			|1:> 2:< 3:= 4:equals 5:include 6:exclude 默认：1
 &emsp;threshold				|String		|R			|阈值
 &emsp;tips					|String		|R			|告警提示信息
-&emsp;level					|String		|R			|告警级别，1:normal，2:info，3:warning，4:error，默认：3
+&emsp;warnLevel			    |String		|R			|告警级别，1:normal，2:info，3:warning，4:error，默认：3
 &emsp;callbackType			|String		|R			|回调方式，0:无，1：shell，2：http，默认：0
 &emsp;callbackContent		|String		|R			|回调内容
 &emsp;viewLevel				|String		|R			|1:用户组，2：系统内全部人员，3：无限制，默认2
@@ -3815,12 +3815,12 @@ data						|Object		|R			|&nbsp;
             "name": "使用率"
         },
         "trigger": "1",
-        "mode": "2",
+        "warnMode": "2",
         "statType": "1",
         "symbol": ">",
         "threshold": "15",
         "tips": "enen",
-        "level": "1",
+        "warnLevel": "1",
         "callbackType": "",
         "viewLevel": "",
         "remark": ""
@@ -3843,12 +3843,12 @@ deteTypeId			|Integer		|R			|监测类别id
 deteSetIds			|Integer[]		|O			|监测设置id
 metaId				|Integer		|R			|告警字段id
 trigger				|String			|R			|1:阈值触发,2：变化触发，当本次监测数值与上次不一致时触发，用于配置文件是否修改等,3：主动，默认：1
-mode				|String			|R			|告警模式，1、单台，2、汇总
+warnMode			|String			|R			|告警模式，1、单台，2、汇总
 statType			|String			|R			|1:avg 2:count 3:sum 4:min 5:max，默认：1
 symbol				|String			|R			|1:> 2:< 3:= 4:equals 5:include 6:exclude 默认：1
 threshold			|String			|R			|阈值
 tips				|String			|R			|告警提示信息
-level				|String			|R			|告警级别，1:normal，2:info，3:warning，4:error，默认：3
+warnLevel			|String			|R			|告警级别，1:normal，2:info，3:warning，4:error，默认：3
 callbackType		|String			|R			|回调方式，0:无，1：shell，2：http，默认：0
 callbackContent		|String			|R			|回调内容
 viewLevel			|String			|R			|1:用户组，2：系统内全部人员，3：无限制，默认2
@@ -3863,12 +3863,12 @@ remark				|String			|R			|备注
     "deteSetIds": [1,2,3],
     "metaId": 1,
     "trigger": "",
-    "mode": "",
+    "warnMode": "",
     "statType": "",
     "symbol": "",
     "threshold": "",
     "tips": "",
-    "level": "",
+    "warnLevel": "",
     "callbackType": "",
     "callbackContent": "",
     "viewLevel": "",
@@ -3906,12 +3906,12 @@ id					|Integer		|R			|主键
 name				|String			|R			|&nbsp;
 metaId				|Integer		|R			|告警字段id
 trigger				|String			|R			|1:阈值触发,2：变化触发，当本次监测数值与上次不一致时触发，用于配置文件是否修改等,3：主动，默认：1
-mode				|String			|R			|告警模式，1、单台，2、汇总
+warnMode			|String			|R			|告警模式，1、单台，2、汇总
 statType			|String			|R			|1:avg 2:count 3:sum 4:min 5:max，默认：1
 symbol				|String			|R			|1:> 2:< 3:= 4:equals 5:include 6:exclude 默认：1
 threshold			|String			|R			|阈值
 tips				|String			|R			|告警提示信息
-level				|String			|R			|告警级别，1:normal，2:info，3:warning，4:error，默认：3
+warnLevel			|String			|R			|告警级别，1:normal，2:info，3:warning，4:error，默认：3
 callbackType		|String			|R			|回调方式，0:无，1：shell，2：http，默认：0
 callbackContent		|String			|R			|回调内容
 viewLevel			|String			|R			|1:用户组，2：系统内全部人员，3：无限制，默认2
@@ -3930,7 +3930,7 @@ remark				|String			|R			|备注
     "symbol": "",
     "threshold": "",
     "tips": "",
-    "level": "",
+    "warnLevel": "",
     "callbackType": "",
     "callbackContent": "",
     "viewLevel": "",
