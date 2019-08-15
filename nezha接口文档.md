@@ -4213,6 +4213,7 @@ nodeGroupIds		|Integer[]		|R			|节点组id
 nodeIds				|Integer[]		|R			|节点uuid
 remark				|String			|R			|备注
 commandName         |String         |O          |当type!=1时 必须有值
+commandType         |String         |O          |当type!=1时 必须有值
 
 示例：
 
@@ -4228,7 +4229,8 @@ commandName         |String         |O          |当type!=1时 必须有值
     "remark": "",
     "nodeGroupIds": [1,2,3],
     "nodeIds": [7,8],
-    "commandName":""
+    "commandName":"",
+    "commandType":""
 }
 ```
 
