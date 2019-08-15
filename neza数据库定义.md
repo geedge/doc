@@ -197,12 +197,12 @@
 |name		|告警名称	|VARCHAR(255)		|NO	|			|
 |meta_id	|告警字段	|BIGINT(19)		|NO	|告警字段			|
 |trigger_type	|触发方式	|CHAR(1)		|NO	|1:阈值触发,2：变化触发，当本次监测数值与上次不一致时触发，用于配置文件是否修改等,3：主动，默认：1	|
-|mode		|告警模式	|CHAR(1)		|NO	|告警模式，1、单台，2、汇总			|
+|warn_mode		|告警模式	|CHAR(1)		|NO	|告警模式，1、单台，2、汇总			|
 |stat_type	|统计方式	|CHAR(1)		|NO	|1:avg，2:count，3:sum，4:min，5:max，默认：1			|
 |symbol		|符号		|CHAR(1)		|NO	|1:>，2:<，3:=，4:equals，5:include，6:exclude，默认：1			|
 |threshold	|阈值		|VARCHAR(128)		|NO	|阈值			|
 |tips		|告警提示信息	|VARCHAR(255)		|NO	|告警提示信息			|
-|level		|告警级别	|CHAR(1)		|NO	|告警级别，1:normal，2:info，3:warning，4:error，默认：3			|
+|warn_level		|告警级别	|CHAR(1)		|NO	|告警级别，1:normal，2:info，3:warning，4:error，默认：3			|
 |callback_type	|回调方式	|CHAR(1)		|NO	|回调方式，0:无，1：shell，2：http，默认：0			|
 |callback_content	|回调内容	|VARCHAR(255)		|NO	|回调内容			|
 |view_level	|查看权限	|CHAR(1)		|NO	|1:用户组，2：系统内全部人员，3：无限制，默认2			|
