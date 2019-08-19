@@ -261,9 +261,6 @@ data						|object		|R			|&nbsp;
 &emsp;&emsp;snmpPort		|Integer	|R			|snmp默认端口号
 &emsp;&emsp;snmpCommunity	|String		|R			|snmp团体字
 &emsp;&emsp;remark			|String		|R			|备注
-&emsp;&emsp;systemInfo		|Object[]	|R			|所在业务系统
-&emsp;&emsp;&emsp;id      	|Integer 	|R			|业务系统id
-&emsp;&emsp;&emsp;name    	|String 	|R			|业务系统名称
 
 示例：
 
@@ -295,11 +292,7 @@ data						|object		|R			|&nbsp;
             "cabinetStart": 1,
             "snmpPort": 1,
             "snmpCommunity": "",
-            "remark": "",
-            "systemInfo": [{
-                "id": 1,
-                "name": "业务系统1"
-            }]
+            "remark": ""
         }]
     }
 }
@@ -315,7 +308,7 @@ data						|object		|R			|&nbsp;
   
 参数名称			|类型			|出现要求	|描述  
 :----				|:---			|:------	|:---	
-uuid 				|Integer			|R			|唯一标识
+uuid 				|Integer		|R			|唯一标识
 
 示例：
 
