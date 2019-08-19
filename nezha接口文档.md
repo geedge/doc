@@ -2842,17 +2842,13 @@ deteTypeParams		|Object[]		|R			|类别参数数组
 ```
     {
         "name": "enc",
-        "fieldType": "1",
-        "dataType": "2",
-        "dataLenth": 1,
-        "viewLevel": "2",
-        "sort": 1,
-        "oid": "",
-        "unit": "",
-        "fieldName": "",
+        "viewLevel": "3",
+        "method": 1,
+        "deteInterval": "",
+        "content": "",
         "i18nCode": "",
         "remark": "",
-		"deteTypeMetas": [{
+        "deteTypeMetas": [{
             "name": "earae",
             "fieldType": "",
             "dataType": "",
