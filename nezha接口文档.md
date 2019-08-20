@@ -5554,6 +5554,10 @@ chartType=4：
 :----				    |:---			|:------	|:---	
 fileName				|String			|R			|文件
 destPath				|String			|R			|路径
+userName				|String			|			|属主
+groupName				|String			|			|属组
+isCover				    |String			|			|是否覆盖
+permisson			    |String			|			|文件权限
 
 ```
 请求：
@@ -5625,6 +5629,8 @@ pidFiles				|String			|R			|停用进程pid
 :----				    |:---			|:------	|:---	
 cover				    |String			|R			|备份路径
 source      		    |String			|R			|需要备份的文件
+deleteTmpStr     		|String			|			|排除文件
+isAbs    	        	|String			|			|相对/绝对路径
 
 ```
 请求：
@@ -5666,6 +5672,9 @@ source      		    |String			|R			|需要备份的文件
 :----				    |:---			|:------	|:---	
 cover				    |String			|R			|备份路径
 source      		    |String			|R			|需要备份的文件
+deleteTmpStr     		|String			|			|排除文件
+isAbs    	        	|String			|			|相对/绝对路径
+isCreateCover     		|String			|			|是否创建标识
 
 ```
 请求：
@@ -5716,6 +5725,12 @@ source      		    |String			|R			|需要备份的文件
 execCmd				    |String			|R			|启动文件或命令
 execResult      		|String			|R			|执行结果文件
 returnPath              |String			|O			|回传文件
+forceExec               |String			|			|是否强制执行
+residentFlag            |String			|			|是否常驻内存
+returnFlag              |String			|			|回传标识
+execParamsTmpStr        |String			|			|启动参数
+maxWaitTime             |String			|			|最大等待时间
+userName				|String			|			|属主
 
 ```
 请求：
@@ -5731,7 +5746,7 @@ returnPath              |String			|O			|回传文件
             "forceExec":"1",
             "residentFlag":"1",
 			"returnFlag":"1",
-			"ExecParamsTmpStr":"123;456",
+			"execParamsTmpStr":"123;456",
 			"returnPath":"result return",
 			"maxWaitTime":"3",
 			"username":"admin"
@@ -5767,6 +5782,8 @@ returnPath              |String			|O			|回传文件
 :----				    |:---			|:------	|:---	
 cover				    |String			|R			|覆盖目录
 source      		    |String			|R			|源文件或目录
+deleteTmpStr     		|String			|			|排除文件
+isAbs    	        	|String			|			|相对/绝对路径
 
 ```
 请求：
@@ -5808,6 +5825,9 @@ source      		    |String			|R			|源文件或目录
 :----				    |:---			|:------	|:---	
 execCmd				    |String			|R			|执行命令
 returnPath      		|String			|R			|回传文件
+returnFlag              |String			|			|回传标识
+maxWaitTime             |String			|			|最大等待时间
+userName				|String			|			|属主
 
 ```
 请求：
@@ -5853,6 +5873,13 @@ cover				    |String			|R			|覆盖/推送路径
 fileName          		|String			|R			|文件
 backUp                  |String			|O			|需要备份的文件
 backUpTo                |String			|O			|备份路径
+isAbs    	        	|String			|			|相对/绝对路径
+isCreateCover     		|String			|			|是否创建标识
+userName				|String			|			|属主
+groupName				|String			|			|属组
+permisson			    |String			|			|文件权限
+deleteTmpStr     		|String			|			|删除文件
+exceptTmpStr            |String			|			|排除文件
 
 ```
 请求：
@@ -5864,7 +5891,6 @@ backUpTo                |String			|O			|备份路径
             "isCreateCover":"1",
 			"userName":"admin",
 			"deleteTmpStr":"123;456",
-			"username":"admin",
 			"groupName":"shuqun",
 			"permisson":"777",
 			"fileName":"nc.txt",
@@ -5911,7 +5937,16 @@ pidFile                 |String			|R			|PID文件
 startupFile             |String			|R			|启动文件或命令
 backUp                  |String			|O			|需要备份的文件
 backUpTo                |String			|O			|备份路径
-
+isAbs    	        	|String			|			|相对/绝对路径
+isCreateCover     		|String			|			|是否创建标识
+userName				|String			|			|属主
+groupName				|String			|			|属组
+permisson			    |String			|			|文件权限
+deleteTmpStr     		|String			|			|排除文件
+maxWaitTime             |String			|			|最大等待时间
+forceExec               |String			|			|是否强制执行
+execParamsTmpStr        |String			|			|启动参数
+exceptTmpStr            |String			|			|排除文件
 
 ```
 请求：
@@ -5923,7 +5958,6 @@ backUpTo                |String			|O			|备份路径
             "isCreateCover":"1",
 			"userName":"admin",
 			"deleteTmpStr":"123;456",
-			"username":"admin",
 			"groupName":"shuqun",
 			"permisson":"777",
 			"maxWaitTime":"3",
