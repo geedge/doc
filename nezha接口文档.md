@@ -5549,6 +5549,12 @@ chartType=4：
 
 ### C 任务param格式说明
 文件推送
+
+参数名称			    |类型			|出现要求	|描述  
+:----				    |:---			|:------	|:---	
+fileName				|String			|R			|文件
+destPath				|String			|R			|路径
+
 ```
 请求：
 [
@@ -5577,6 +5583,12 @@ chartType=4：
 ]
 ```
 命令执行-停用进程（upgrade_kill_process）
+
+参数名称			    |类型			|出现要求	|描述  
+:----				    |:---			|:------	|:---	
+pidFiles				|String			|R			|停用进程pid
+
+
 ```
 请求：
 {
@@ -5608,6 +5620,12 @@ chartType=4：
 }
 ```
 命令执行-备份（upgrade_backup）
+
+参数名称			    |类型			|出现要求	|描述  
+:----				    |:---			|:------	|:---	
+cover				    |String			|R			|备份路径
+source      		    |String			|R			|需要备份的文件
+
 ```
 请求：
 {
@@ -5643,6 +5661,12 @@ chartType=4：
 }
 ```
 命令执行-覆盖更新（upgrade_update）
+
+参数名称			    |类型			|出现要求	|描述  
+:----				    |:---			|:------	|:---	
+cover				    |String			|R			|备份路径
+source      		    |String			|R			|需要备份的文件
+
 ```
 请求：
 {
@@ -5686,6 +5710,13 @@ chartType=4：
 }
 ```
 命令执行-可执行命令/启动任务（upgrade_exec/upgrade_start）
+
+参数名称			    |类型			|出现要求	|描述  
+:----				    |:---			|:------	|:---	
+execCmd				    |String			|R			|启动文件或命令
+execResult      		|String			|R			|执行结果文件
+returnPath              |String			|O			|回传文件
+
 ```
 请求：
 {
@@ -5731,6 +5762,12 @@ chartType=4：
 }
 ```
 命令执行-恢复（upgrade_recover）
+
+参数名称			    |类型			|出现要求	|描述  
+:----				    |:---			|:------	|:---	
+cover				    |String			|R			|覆盖目录
+source      		    |String			|R			|源文件或目录
+
 ```
 请求：
 {
@@ -5766,6 +5803,12 @@ chartType=4：
 }
 ```
 命令执行-单次可执行命令（single_exec）
+
+参数名称			    |类型			|出现要求	|描述  
+:----				    |:---			|:------	|:---	
+execCmd				    |String			|R			|执行命令
+returnPath      		|String			|R			|回传文件
+
 ```
 请求：
 {
@@ -5803,6 +5846,14 @@ chartType=4：
 }
 ```
 升级部署-nc升级（upgrade_agent）
+
+参数名称			    |类型			|出现要求	|描述  
+:----				    |:---			|:------	|:---	
+cover				    |String			|R			|覆盖/推送路径
+fileName          		|String			|R			|文件
+backUp                  |String			|O			|需要备份的文件
+backUpTo                |String			|O			|备份路径
+
 ```
 请求：
 {
@@ -5851,6 +5902,17 @@ chartType=4：
 }
 ```
 升级部署-dc升级/第三方升级（upgrade_server/upgrade_other）
+
+参数名称			    |类型			|出现要求	|描述  
+:----				    |:---			|:------	|:---	
+cover				    |String			|R			|覆盖路径
+fileName          		|String			|R			|文件
+pidFile                 |String			|R			|PID文件
+startupFile             |String			|R			|启动文件或命令
+backUp                  |String			|O			|需要备份的文件
+backUpTo                |String			|O			|备份路径
+
+
 ```
 请求：
 {
