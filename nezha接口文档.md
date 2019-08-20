@@ -608,7 +608,7 @@ data						|Object		|R			|&nbsp;
 
 ##### 2.1.1.7 IP校验
 
-- **接口说明：** IP校验
+- **接口说明：** IP校验，分三种情况：1.校验不通过；2.校验通过；3.ip已在其他业务系统里存在，此时返回node实体，询问用户是否关联；
 - **接口地址：** /node/ipCheck
 - **请求方式：** GET
 
@@ -631,6 +631,7 @@ GET /node/ipCheck?uuid=5&ip=192.11.14.20
 :----						|:---		|:------	|:---	
 code						|int		|R			|响应码，详见 附录A
 msg							|String		|R			|&nbsp;
+data                        |Object     |O          |同2.1.1.2，nodeInfo详情
 
 示例：
 
@@ -639,6 +640,7 @@ msg							|String		|R			|&nbsp;
 {
 	"code": 200,
     "msg": "success"
+    "data": 节点详情
 }
 失败
 {
@@ -2097,7 +2099,7 @@ page				|Integer		|O			|页码，为空时默认为1
 limit				|Integer		|O			|每页记录数，为空时默认为10
 sidx				|String			|O			|排序字段
 order	 			|String 		|O			|排序方式(asc/desc)
-id					|Integer		|R			|业务系统id
+id					|Integer		|O			|业务系统id，global时可指定这个参数
 
 示例：
 
@@ -2162,7 +2164,7 @@ data						|Object		|R			|&nbsp;
   
 参数名称			|类型			|出现要求	|描述  
 :----				|:---			|:------	|:---	
-id					|Integer		|R			|业务系统id
+id					|Integer		|O			|业务系统id，global时可指定这个参数
 uuids				|Integer[]		|R			|节点id
 
 示例：
@@ -2200,7 +2202,7 @@ msg							|string		|R			|&nbsp;
   
 参数名称			|类型			|出现要求	|描述  
 :----				|:---			|:------	|:---	
-id					|Integer		|R			|业务系统id
+id					|Integer		|O			|业务系统id，global时可指定这个参数
 uuids				|Integer[]		|R			|节点id
 
 示例：
