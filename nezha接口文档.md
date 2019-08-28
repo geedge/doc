@@ -5069,10 +5069,6 @@ msg							|string		|R			|&nbsp;
 id					|String			|R			|id
 name				|String			|R			|图表标题
 chartType			|Integer		|R			|图表类型
-x					|Integer		|R			|x轴起点
-y					|Integer		|R			|y轴起点
-width				|Integer		|R			|宽
-height				|Integer		|R			|高
 data				|String			|R			|图表参数信息，data格式见附录B
 
 示例：
@@ -5083,10 +5079,6 @@ data				|String			|R			|图表参数信息，data格式见附录B
     "name": "",
     "systemId": 1,
     "chartType": 1,
-    "x": 1,
-    "y": 1,
-    "width": 1,
-    "height": 1,
     "data": "{}"
 }
 ```
