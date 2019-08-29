@@ -1125,12 +1125,12 @@ limit				|Integer		|O			|每页记录数，为空时默认为10
 sidx				|String			|O			|排序字段
 order	 			|String 		|O			|排序方式(asc/desc)
 name				|String			|O			|机房名称
-area				|Integer		|O			|所属区域
+addr				|Integer		|O			|所属区域
 
 示例：
 
 ```
-GET /room/list?limit=10&page=2&name=room2&area=43
+GET /room/list?limit=10&page=2&name=room2&addr=43
 ```
 
 ###### 返回结果
