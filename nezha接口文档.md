@@ -4192,7 +4192,6 @@ data						|Object		|R			|&nbsp;
 :----				|:---			|:------	|:---	
 name				|String			|R			|任务名称
 type				|String			|R			|任务类型，1、文件推送，2、命令执行，3、升级部署
-state				|String			|R			|任务状态，周期任务有效，0、非周期任务，1、运行，2、暂停，3、终止
 viewLevel			|String			|R			|查看权限 1:用户组，2：系统内全部人员，3：无限制，默认2
 viewerId            |Integer[]      |O          |查看人，viewLevel=1时有值，表示用户组id；viewLevel=2时，业务系统id从后台取得
 isLoop				|String			|R			|是否周期任务，0：不是，1：是
@@ -4210,7 +4209,6 @@ commandType         |String         |O          |当type!=1时 必须有值
 {
     "name": "",
     "type": "",
-    "state": "",
     "viewLevel": "",
     "isLoop": "",
     "loopInterval": 1,
