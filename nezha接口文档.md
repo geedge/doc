@@ -3684,7 +3684,7 @@ data						|Object		|R			|&nbsp;
 &emsp;&emsp;meta			|Object		|R			|告警字段
 &emsp;&emsp;&emsp;id		|Integer	|R			|字段id
 &emsp;&emsp;&emsp;name		|String		|R			|字段名称
-&emsp;&emsp;trigger			|String		|R			|1:阈值触发,2：变化触发，当本次监测数值与上次不一致时触发，用于配置文件是否修改等,3：主动，默认：1
+&emsp;&emsp;triggerType			|String		|R			|1:阈值触发,2：变化触发，当本次监测数值与上次不一致时触发，用于配置文件是否修改等,3：主动，默认：1
 &emsp;&emsp;warnMode		|String		|R			|告警模式，1、单台，2、汇总
 &emsp;&emsp;statType		|String		|R			|1:avg 2:count 3:sum 4:min 5:max，默认：1
 &emsp;&emsp;symbol			|String		|R			|1:> 2:< 3:= 4:equals 5:include 6:exclude 默认：1
@@ -3720,7 +3720,7 @@ data						|Object		|R			|&nbsp;
                 "id": 2, 
                 "name": "使用率"
             },
-            "trigger": "1",
+            "triggerType": "1",
             "warnMode": "2",
             "statType": "1",
             "symbol": ">",
@@ -3771,7 +3771,7 @@ data						|Object		|R			|&nbsp;
 &emsp;meta					|Object		|R			|告警字段
 &emsp;&emsp;id				|Integer	|R			|字段id
 &emsp;&emsp;name			|String		|R			|字段名称
-&emsp;trigger				|String		|R			|1:阈值触发,2：变化触发，当本次监测数值与上次不一致时触发，用于配置文件是否修改等,3：主动，默认：1
+&emsp;triggerType				|String		|R			|1:阈值触发,2：变化触发，当本次监测数值与上次不一致时触发，用于配置文件是否修改等,3：主动，默认：1
 &emsp;warnMode				|String		|R			|告警模式，1、单台，2、汇总
 &emsp;statType				|String		|R			|1:avg 2:count 3:sum 4:min 5:max，默认：1
 &emsp;symbol				|String		|R			|1:> 2:< 3:= 4:equals 5:include 6:exclude 默认：1
@@ -3804,7 +3804,7 @@ data						|Object		|R			|&nbsp;
             "id": 2, 
             "name": "使用率"
         },
-        "trigger": "1",
+        "triggerType": "1",
         "warnMode": "2",
         "statType": "1",
         "symbol": ">",
@@ -3832,7 +3832,7 @@ name				|String			|R			|&nbsp;
 deteTypeId			|Integer		|R			|监测类别id
 deteSetIds			|Integer[]		|O			|监测设置id
 metaId				|Integer		|R			|告警字段id
-trigger				|String			|R			|1:阈值触发,2：变化触发，当本次监测数值与上次不一致时触发，用于配置文件是否修改等,3：主动，默认：1
+triggerType				|String			|R			|1:阈值触发,2：变化触发，当本次监测数值与上次不一致时触发，用于配置文件是否修改等,3：主动，默认：1
 warnMode			|String			|R			|告警模式，1、单台，2、汇总
 statType			|String			|R			|1:avg 2:count 3:sum 4:min 5:max，默认：1
 symbol				|String			|R			|1:> 2:< 3:= 4:equals 5:include 6:exclude 默认：1
@@ -3852,7 +3852,7 @@ remark				|String			|R			|备注
     "deteTypeId": 32,
     "deteSetIds": [1,2,3],
     "metaId": 1,
-    "trigger": "",
+    "triggerType": "",
     "warnMode": "",
     "statType": "",
     "symbol": "",
@@ -3895,7 +3895,7 @@ msg							|string		|R			|&nbsp;
 id					|Integer		|R			|主键
 name				|String			|R			|&nbsp;
 metaId				|Integer		|R			|告警字段id
-trigger				|String			|R			|1:阈值触发,2：变化触发，当本次监测数值与上次不一致时触发，用于配置文件是否修改等,3：主动，默认：1
+triggerType				|String			|R			|1:阈值触发,2：变化触发，当本次监测数值与上次不一致时触发，用于配置文件是否修改等,3：主动，默认：1
 warnMode			|String			|R			|告警模式，1、单台，2、汇总
 statType			|String			|R			|1:avg 2:count 3:sum 4:min 5:max，默认：1
 symbol				|String			|R			|1:> 2:< 3:= 4:equals 5:include 6:exclude 默认：1
@@ -3914,7 +3914,7 @@ remark				|String			|R			|备注
     "id": 133,
     "name": "",
     "metaId": 1,
-    "trigger": "",
+    "triggerType": "",
     "mode": "",
     "statType": "",
     "symbol": "",
