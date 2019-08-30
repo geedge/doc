@@ -2342,7 +2342,7 @@ msg							|string		|R			|&nbsp;
 
 ##### 2.2.1.12 用户组列表
 
-- **接口说明：** 用于新增/修改业务系统时展示用户组，同 "2.2.2.1 用户组列表查询"，请求参数"systemId"为必须参数，"limit"参数值为999（避免被分页）
+- **接口说明：** 用于新增/修改业务系统时展示用户组，同 "2.2.2.1 用户组列表查询"
 
 
 #### 2.2.2 用户组
@@ -2361,12 +2361,11 @@ page				|Integer		|O			|页码，为空时默认为1
 limit				|Integer		|O			|每页记录数，为空时默认为10
 sidx				|String			|O			|排序字段
 order	 			|String 		|O			|排序方式(asc/desc)
-systemId			|Integer		|C			|业务系统id
 
 示例：
 
 ```
-GET /sys/usergroup/list?limit=10&page=2&systemId=4
+GET /sys/usergroup/list?limit=10&page=2
 ```
 
 ###### 返回结果
