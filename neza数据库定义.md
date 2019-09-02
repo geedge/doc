@@ -113,7 +113,7 @@
 |method		|监控方式	|CHAR(1)		|NO	|1、脚本，2、snmp，3、内置，默认：1			|
 |dete_interval	|监控间隔	|INT(10)		|NO	|监控间隔，单位：s，默认：60			|
 |content	|内容		|VARCHAR(512)		|NO	|1、脚本储存路径，2、oid，可以为空，3、类全路径			|
-|build_in	|是否内置	|CHAR(1)		|NO	|1、隐藏界面不显示，2、内置，不允许修改，3、用户自定义，默认3			|
+|build_in	|是否内置	|CHAR(1)		|NO	|1、内置，不允许修改，2、用户自定义，默认2	1、隐藏界面不显示，		|
 |table_name	|表名		|VARCHAR(255)		|NO	|di_name,用户不在填写			|
 |version	|版本号		|INT(10)		|NO	|更新version加1，默认：1			|
 |i18n_code	|国际化code	|VARCHAR(255)		|NO	|name 的国际化 code，不为空时name显示翻译后的内容，为空直接显示			|
@@ -581,7 +581,7 @@
 |----|----|----|----|----|
 |id		|编号	|BIGINT(19)		|NO	|编号			|
 |name		|系统名称	|VARCHAR(255)		|NO	|系统名称			|
-|built_in	|是否内置	|INT(10)		|NO	|是否内置，内置不可删除，1：内置，0：非内置			|
+|built_in	|是否内置	|INT(10)		|NO	|是否内置，内置不可删除，1：内置，2：非内置			|
 |create_by	|创建者	|BIGINT(19)		|NO	|创建者			|
 |create_date	|创建时间	|DATETIME		|NO	|创建时间			|
 |update_by	|更新者	|BIGINT(19)		|NO	|更新者			|
