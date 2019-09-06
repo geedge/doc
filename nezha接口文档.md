@@ -1977,7 +1977,7 @@ data						|Object		|R			|&nbsp;
 name				|String			|R			|名称
 remark				|String			|O			|备注
 usergroupIds		|Integer[]		|O			|用户组id,分配现有用户组
-uuids		        |Integer[]		|O			|节点组id,分配节点
+addUuids		    |Integer[]		|O			|节点id,分配节点
 
 
 示例：
@@ -1987,7 +1987,7 @@ uuids		        |Integer[]		|O			|节点组id,分配节点
     "name": "system22",
     "remark": "en",
     "usergroupIds": [1,2,3,4],
-    "uuids": [1,3,4]
+    "addUuids": [1,3,4]
 }
 ```
 
@@ -2021,7 +2021,8 @@ id					|Integer		|R			|id
 name				|String			|R			|名称
 remark				|String			|O			|备注
 usergroupIds		|Integer[]		|O			|用户组id
-uuids		        |Integer[]		|O			|节点组id,分配节点
+addUuids	        |Integer[]		|O			|增加的节点id,分配节点
+removeUuids	        |Integer[]		|O			|移除的节点id,分配节点
 
 示例：
 
@@ -2031,7 +2032,7 @@ uuids		        |Integer[]		|O			|节点组id,分配节点
     "name": "cab9",
     "remark": "en",
     "usergroupIds": [1,2,3,4],
-    "uuids": [1,3,4]
+    "addUuids": [1,3,4]
 }
 ```
 
