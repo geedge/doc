@@ -1079,6 +1079,7 @@ msg							|string		|R			|&nbsp;
 id       			|Integer 		|O			|节点组ID，为空表示正在新增节点组
 name				|String			|R			|名称
 pid					|Integer		|R			|父节点组id
+systemId            |Integer        |O          |业务系统id，global给其他系统增加根节点时用
 
 示例：
 
