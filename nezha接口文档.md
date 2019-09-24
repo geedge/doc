@@ -5702,9 +5702,9 @@ pidFiles				|String			|R			|停用进程pid
 
 参数名称			    |类型			|出现要求	|描述  
 :----				    |:---			|:------	|:---	
-cover				    |String			|R			|备份路径
-source      		    |String			|R			|需要备份的文件
-deleteTmpStr     		|String			|			|排除文件
+backup				    |String			|R			|备份路径
+backupTo      		    |String			|R			|需要备份的文件
+exceptTmpStr     		|String			|			|排除文件
 isAbs    	        	|String			|			|相对/绝对路径
 
 ```
@@ -5716,10 +5716,10 @@ isAbs    	        	|String			|			|相对/绝对路径
     },
     "paramForExecuteInstructs":[
         {
-            "cover":"/home/aaa",
-            "deleteTmpStr":"123;456;789",
+            "backupTo":"/home/aaa",
+            "exceptTmpStr":"123;456;789",
             "isAbs":"1",
-            "source":"/home/test"
+            "backup":"/home/test"
         }
     ]
 }
